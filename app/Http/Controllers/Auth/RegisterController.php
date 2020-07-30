@@ -107,7 +107,7 @@ class RegisterController extends Controller
         }
 
         } catch (\Exception $e) {
-            dd($e);
+            return redirect()->route('register')->with('error', 'your message,here');  
         }
    
     }

@@ -18,5 +18,5 @@ Auth::routes();
 Route::get('/user-logout', 'Auth\RegisterController@userLogout')->name('user.logout');
 Route::post('/user-register', 'Auth\RegisterController@userRegister')->name('user.register');
 
-Route::get('/product-detail', 'Product\ProductController@getProductDetail')->name('product.detail');
+Route::get('/product-detail/{id}', 'Product\ProductController@getProductDetail')->name('product.detail');
 Route::post('/product-search', 'Product\ProductController@searchProduct')->name('product.search');

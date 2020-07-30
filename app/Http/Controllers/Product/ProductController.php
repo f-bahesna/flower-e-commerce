@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
+use App\Http\Model\Product\products;
 
 class ProductController extends Controller
 {
@@ -13,9 +14,10 @@ class ProductController extends Controller
 
     }
 
-    public function getProductDetail()
-    {
-        return view('Product.ProductDetail');
+    public function getProductDetail($id)
+    {   
+        $result = products::find($id);
+        return view('Product.ProductDetail',compact('result'));
     }
 
     public function searchProduct(Request $request)
@@ -27,7 +29,7 @@ class ProductController extends Controller
                 $resultData [] = 
                 ' <div class="col-lg-4 col-md-6 mb-4">
                          <div class="card h-100">
-                             <a href="#"><img class="card-img-top" src="storage/image/'. $value->gambar_product .'" style="height: 200px" alt=""></a>
+                             <a href="/product-detail/'.$value->id.'"><img class="card-img-top" src="storage/image/'. $value->gambar_product .'" style="height: 200px" alt=""></a>
                              <div class="card-body">
                              <h4 class="card-title">
                                  <a href="#"> '.$value->nama_product.' </a>

@@ -41,6 +41,9 @@
         $("#btn-logout").on("click",function(){
             $("#logout-modal").modal('show');
         });
+
+        $(".dropdown-toggle").dropdown();
+
    });
 
 </script>

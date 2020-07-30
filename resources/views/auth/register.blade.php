@@ -44,6 +44,11 @@
                         <!-- E-mail -->
                         <div class="md-form mt-0 mt-3">
                             <input placeholder="email" id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
                         <!-- Password -->
