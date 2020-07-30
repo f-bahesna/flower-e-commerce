@@ -26,8 +26,13 @@
             </div>
             <div class="row float-right">
               <div class="col-md">
+                @if(Auth::check())
                 <button type="button" class="btn btn-warning btn-rounded float-right">+Masukan Keranjang</button>
                 <button type="button" class="btn btn-success btn-rounded float-right">Beli Langsung</button>
+                @else 
+                <button type="button" class="btn btn-warning btn-rounded float-right disabled">+Masukan Keranjang</button>
+                <button type="button" class="btn btn-success btn-rounded float-right">Beli Langsung</button>
+                @endif
               </div>
             </div>
           </div>
