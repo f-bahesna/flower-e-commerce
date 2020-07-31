@@ -28,7 +28,9 @@ class HomeController extends Controller
     {
         if(Auth::check()){
             $user_id = Auth::user()->id;
-            $countCart = DB::table('carts')->where('id_user',$user_id)->count();
+            $Cart = DB::table('carts')->where('id_user',$user_id)->sum('total');
+            $countCart = preg_replace("/\.?0+$/", "", $Cart);
+
             $products = product::paginate(10)->toArray();
             return view('welcome',compact('products','countCart'));
         }else{
