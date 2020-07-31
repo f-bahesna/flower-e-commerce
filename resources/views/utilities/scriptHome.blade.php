@@ -44,6 +44,7 @@
 
         $(".dropdown-toggle").dropdown();
 
+//ADD TO CART
         $(".btn-masukan-keranjang").on('click',function(){
             btn = $(this);
             id = $("#product").val();
@@ -72,6 +73,37 @@
                         '<div><h5 class="text-danger"> '+ res.responseJSON.result +'</h5></div>');
                 }
             });
+        })
+
+//AUTO update when cart is checked!!
+        $(".shopping-cart").on("click",function(){
+            $("#modalAbandonedCart").modal("show");
+            id = $("#product").val();
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                url: "{{ route('show.cart') }}",
+                data: {id : id},
+                beforeSend: function() {    
+                 $(".target-modal-body").html(`<div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    </div>`);
+                },
+                success: function(res){
+                    console.log(res.data);
+                 $(".target-modal-body").html(res.data);
+                },
+                error: function(res) {
+                    $("#row-product").html(
+                        '<div><h5 class="text-danger"> '+ res.responseJSON.result +'</h5></div>');
+                }
+            });
+
         })
    });
 

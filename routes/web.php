@@ -15,10 +15,26 @@ Route::get('/','HomeController@index')->name('home-page');
 
 Auth::routes();
 
-Route::get('/user-logout', 'Auth\RegisterController@userLogout')->name('user.logout');
-Route::post('/user-register', 'Auth\RegisterController@userRegister')->name('user.register');
+Route::prefix('about')->group(function () {
+        Route::get('/', 'About\AboutController@index')->name('about');
+});
 
-Route::get('/product-detail/{id}', 'Product\ProductController@getProductDetail')->name('product.detail');
-Route::post('/product-search', 'Product\ProductController@searchProduct')->name('product.search');
+Route::prefix('user')->group(function () {
+        Route::get('/user-logout', 'Auth\RegisterController@userLogout')->name('user.logout');
+        Route::post('/user-register', 'Auth\RegisterController@userRegister')->name('user.register');
+});
 
-Route::post('/add-cart','Product\CartController@addProduct')->name('product.add.cart');
+Route::prefix('product')->group(function () {
+    Route::get('/', 'Product\ProductController@getAllProduct')->name('product.all');
+    Route::get('/product-detail/{id}', 'Product\ProductController@getProductDetail')->name('product.detail');
+    Route::post('/product-search', 'Product\ProductController@searchProduct')->name('product.search');
+});
+
+Route::prefix('cart')->group(function () {
+    Route::post('/add-cart','Product\CartController@addProduct')->name('product.add.cart');
+    Route::post('/show','Product\CartController@showProduct')->name('show.cart');
+});
+
+Route::prefix('jenis')->group(function () {
+    Route::get('/','Jenis\JenisController@index')->name('jenis');
+});

@@ -3,6 +3,18 @@
 @section('title', 'Product Detail')
   <!-- Page Content -->
 @section('content')
+<div class="row">
+  <div class="col-md">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('home-page') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('product.all') }}">Product</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('jenis') }}">Jenis</a></li>
+        <li class="breadcrumb-item" active>{{ $result["nama_product"] }}</li>
+      </ol>
+    </nav>
+  </div>
+</div>
 <div class="card">
     <div class="card-body">
       <div class="row">
@@ -12,7 +24,6 @@
               <h3>{{ $result["nama_product"] }}</h3>
             </div>
           </div>
-          {{-- <img src="{{ url('storage/image/'.$result["gambar_product"]) }}" class="mt-3" height="300px" weight="300px" alt=""> --}}
           <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active img-product-animation" data-interval="10000">

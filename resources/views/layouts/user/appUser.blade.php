@@ -45,10 +45,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="{{ route('about') }}">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Product</a>
+            <a class="nav-link" href="{{ route('product.all') }}">Product</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Contact</a>
@@ -56,11 +56,11 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Konfirmasi Pembayaran</a>
           </li>
-
+          
           @if(Auth::check())
           <li class="nav-item">
              <!-- Button trigger modal-->
-            <button type="button" class="btn btn-warning btn-sm shopping-cart" data-toggle="modal" data-target="#modalAbandonedCart"> <i class="fas fa-2x fa-shopping-cart"></i> 
+            <button type="button" class="btn btn-warning btn-sm shopping-cart" data-toggle="modal"> <i class="fas fa-2x fa-shopping-cart"></i> 
               @if($countCart)
                 <span style="font-size: 10px;" class="badge badge-danger ml-2 countCart">{{ $countCart }}</span>
               @else
@@ -85,32 +85,22 @@
                   </div>
 
                   <!--Body-->
-                  <div class="modal-body">
-
-                    {{-- <div class="row"> --}}
-                      <div class="card">
-                       <div class="row">
-                         <div class="col-md-3">
-                           <img src="{{ url('storage/image/Bunga-Begonia.jpeg') }}" height="50" width="50" alt="">
-                         </div>
-                         <div class="col-md-5">Bunga Begonia X1</div>
-                         <div class="col-md-4">Rp.250.000</div>
-                       </div>
-                      </div>
-                      <div class="card mt-2">
-                       <div class="row">
-                         <div class="col-md-3">
-                           <img src="{{ url('storage/image/Bunga-Begonia.jpeg') }}" height="50" width="50" alt="">
-                         </div>
-                         <div class="col-md-5">Bunga Begonia X1</div>
-                         <div class="col-md-4">Rp.250.000</div>
-                       </div>
-                      </div>
-                    <div class="dropdown-divider"></div>
-                    <p>*Klik ke keranjang untuk melihat yang lainnya</p>
-                    {{-- </div> --}}
-                  </div>
-
+                  @if($CartAdded)
+                    <div class="modal-body target-modal-body">
+                        @foreach($CartAdded as $key => $product)
+                            <div class="row">
+                              <div class="col-md-3">
+                                <img class="img-cart" src="{{ url('storage/image/'.$product->gambar_product) }}" height="50" width="50" alt="">
+                              </div>
+                              <div class="col-md-4 nama-product-cart">{{ $product->nama_product }} <h6 class="font-weight-bold jumlah-cart">X{{ $product->total }}</h6></div>
+                              <div class="col-md-5 total-cart">Rp. {{ number_format($CartProductPriceTotal[$key],0,',','.') }}</div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                        @endforeach
+                      <div class="dropdown-divider"></div>
+                      <p>*Klik ke keranjang untuk melihat yang lainnya</p>
+                    </div>
+                  @endif
                   <!--Footer-->
                   <div class="modal-footer justify-content-center">
                     <a type="button" class="btn btn-info">Ke Keranjang</a>
@@ -152,8 +142,7 @@
       </div>
     </div>
   </nav>
-
-<div class="container" style="margin-top: 20px;">
+  <div class="container" style="margin-top: 20px;">
     @yield('content')
 </div>
   <!-- /.container -->

@@ -56,7 +56,7 @@
                 <a href="{{ route('product.detail',["id" => $product["id"]]) }}"><img class="card-img-top" src="{{ url('storage/image/'.$product["gambar_product"]) }}" style="height: 200px" alt=""></a>
                 <div class="card-body">
                   <h4 class="card-title">
-                    <a href="#">{{ $product["nama_product"] }}</a>
+                    <a href="{{ route('product.detail',["id" => $product["id"]]) }}">{{ $product["nama_product"] }}</a>
                   </h4>
                   <h6>{{ "Rp " . number_format($product["harga_product"],2,',','.') }}</h6>
                 </div>

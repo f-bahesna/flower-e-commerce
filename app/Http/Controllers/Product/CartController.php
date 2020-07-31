@@ -14,6 +14,45 @@ class CartController extends Controller
         date_default_timezone_set('Asia/Jakarta');
     }
 
+    public function showProduct(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $product_id = $request->id;
+        //get cart
+        $data =  DB::table('carts as c')
+                    ->Join('users as u','c.id_user','=','u.id')
+                    ->Join('products as p' , 'c.id_product' , '=','p.id')
+                    ->where('c.id_user',$user_id)
+                    ->select(
+                        'p.nama_product as nama_product',
+                        'p.gambar_product as gambar_product',
+                        'p.harga_product as harga_product',
+                        'c.total as total'
+                    )->get();
+        //update total
+                    $updateCart = [];
+                        foreach($data as $value){
+                            $updateCart[] = $value->harga_product * $value->total;
+                        }
+                $res = [];
+                foreach($data as $key => $value){
+                    $res[] ='    
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img class="img-cart" src="'. asset('storage/image/'.$value->gambar_product).'" height="50" width="50" alt="">
+                            </div>
+                                <div class="col-md-4 nama-product-cart">'.$value->nama_product.'<h6 class="font-weight-bold jumlah-cart">X '. $value->total .' </h6></div>
+                                <div class="col-md-5 total-cart">Rp '. number_format($updateCart[$key],2,',','.') .'  </div>
+                            </div>
+                        <div class="dropdown-divider"></div>
+                    ';
+                }
+
+            return response()->json([
+                "status" => 200 , "data" => $res
+            ]);
+    }
+
     public function addProduct(Request $request)
     {
         $id_user = Auth::user()->id;
@@ -22,8 +61,7 @@ class CartController extends Controller
         // date_default_timezone_set('Asia/Jakarta');
         $date = strftime( "%A, %d %B %Y %H:%M", time());
 
-        $total = DB::table('carts')->where('id_product',$id_product)->first();
-
+        $total = DB::table('carts')->where('id_product',$id_product)->where('id_user',$id_user)->first();
         if($total){
             try {
                 DB::beginTransaction();
@@ -34,7 +72,7 @@ class CartController extends Controller
                             "total" => $total->total + 1
                         ]);
 
-                //create log
+                // //create log
                     DB::table('activitys')
                         ->insert([
                             "id_product" => $id_product,
@@ -56,7 +94,6 @@ class CartController extends Controller
             }
             
         }else{
-
             try {
                 DB::beginTransaction();
                 // add product to cart
@@ -66,7 +103,7 @@ class CartController extends Controller
                             "id_user" => $id_user,
                             "total" => 1
                         ]);
-                //create log
+                // //create log
                     DB::table('activitys')
                         ->insert([
                             "id_product" => $id_product,
@@ -76,7 +113,7 @@ class CartController extends Controller
                         ]);
     
                 DB::commit();
-    
+
                 return response()->json([
                     "status" => 201 , "message" => "Berhasil Ditambah ke Keranjang" 
                 ]);
@@ -87,9 +124,32 @@ class CartController extends Controller
                     "status" => 401 , "message" => "Maaf belum dapat diproses, mohon kontak admin.Terima Kasih. ".$th.""
                 ],500);
             }
-        }
+        }  
+    }
 
+    protected function updateKeranjang($params)
+    {
+        $data =  DB::table('carts as c')
+            ->Join('users as u','c.id_user','=','u.id')
+            ->Join('products as p' , 'c.id_product' , '=','p.id')
+            ->where('c.id_user',$params['id_user'])
+            ->where('c.id_product',$params['id_product'])
+            ->select(
+                'p.nama_product as nama_product',
+                'p.gambar_product as gambar_product',
+                'p.harga_product as harga_product',
+                'c.total as total'
+            )->get();
+            $updateCart = [];
+            foreach($data as $value){
+                $updateCart[] = $value->harga_product * $value->total;
+            }
 
-        
+            $result = [
+                "data" => $data,
+                "total" => $updateCart
+            ];
+            return $result;
+    
     }
 }
