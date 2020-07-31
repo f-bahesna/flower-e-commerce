@@ -20,3 +20,5 @@ Route::post('/user-register', 'Auth\RegisterController@userRegister')->name('use
 
 Route::get('/product-detail/{id}', 'Product\ProductController@getProductDetail')->name('product.detail');
 Route::post('/product-search', 'Product\ProductController@searchProduct')->name('product.search');
+
+Route::post('/add-cart','Product\CartController@addProduct')->name('product.add.cart');

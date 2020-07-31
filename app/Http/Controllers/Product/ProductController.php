@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
+use Auth;
 use App\Http\Model\Product\products;
 
 class ProductController extends Controller
@@ -16,9 +17,25 @@ class ProductController extends Controller
 
     public function getProductDetail($id)
     {   
+        $user_id = Auth::user()->id;
+        $countCart = DB::table('carts')->where('id_user',$user_id)->count();
+
+        //Cart Details
+        $qty = DB::table('carts')->where('id_user',$user_id)->get();
+        $product = DB::table('carts as c')
+            ->Join('users as u','c.id_user','=','u.id')
+            ->Join('products as p' , 'c.id_product' , '=','p.id')
+        ->select(
+            'p.nama_product as nama_product',
+            'p.gambar_product as gambar_product',
+            'p.harga_product as harga_product'
+        )->get();
+
+
+
         $additional_image = DB::table('additional_product_image')->where('id_product',$id)->get();
         $result = products::find($id);
-        return view('Product.ProductDetail',compact('result','additional_image'));
+        return view('Product.ProductDetail',compact('result','additional_image','countCart'));
     }
 
     public function searchProduct(Request $request)
@@ -55,5 +72,10 @@ class ProductController extends Controller
                 "status" => 401 , "result" => "Maaf Stock Kosong"
             ],401);
         }
+    }
+
+    public function showCart()
+    {
+      
     }
 }

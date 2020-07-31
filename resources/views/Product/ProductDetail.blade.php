@@ -15,17 +15,18 @@
           {{-- <img src="{{ url('storage/image/'.$result["gambar_product"]) }}" class="mt-3" height="300px" weight="300px" alt=""> --}}
           <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
-              <div class="carousel-item active" data-interval="10000">
+              <div class="carousel-item active img-product-animation" data-interval="10000">
                 <img src="{{ url('storage/image/'.$result["gambar_product"]) }}" class="d-block w-100" height="400px" alt="...">
               </div>
               @if($additional_image != null)
                 @foreach($additional_image as $key => $value)
-                  <div class="carousel-item" data-interval="2000">
+                  <div class="carousel-item img-product-animation" data-interval="2000">
                     <img src="{{ url('storage/image/'. $value->additional_product_image ) }}" class="d-block w-100" height="400px" alt="...">
                   </div>
                 @endforeach
               @endif
             </div>
+            
             <a class="carousel-control-prev carousel-part" href="#carouselExampleInterval" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="sr-only">Previous</span>
@@ -34,6 +35,7 @@
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="sr-only">Next</span>
             </a>
+            
           </div>
         </div>
         <div class="col-md-6">

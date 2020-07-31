@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Model\Product\products as product;
+use DB;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -24,7 +26,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = product::paginate(10)->toArray();
-        return view('welcome',compact('products'));
+        if(Auth::check()){
+            $user_id = Auth::user()->id;
+            $countCart = DB::table('carts')->where('id_user',$user_id)->count();
+            $products = product::paginate(10)->toArray();
+            return view('welcome',compact('products','countCart'));
+        }else{
+            $countCart = 0;
+            $products = product::paginate(10)->toArray();
+            return view('welcome',compact('products','countCart'));
+        }
     }
 }

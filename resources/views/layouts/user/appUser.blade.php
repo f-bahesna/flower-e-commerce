@@ -60,7 +60,12 @@
           @if(Auth::check())
           <li class="nav-item">
              <!-- Button trigger modal-->
-            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalAbandonedCart"> Keranjang <span class="badge badge-danger ml-2">4</span>
+            <button type="button" class="btn btn-warning btn-sm shopping-cart" data-toggle="modal" data-target="#modalAbandonedCart"> <i class="fas fa-2x fa-shopping-cart"></i> 
+              @if($countCart)
+                <span style="font-size: 10px;" class="badge badge-danger ml-2 countCart">{{ $countCart }}</span>
+              @else
+                <span class="badge badge-danger ml-2 countCart"></span>
+              @endif
             </button>
 
             <!-- Modal: modalAbandonedCart-->
@@ -71,7 +76,7 @@
                 <div class="modal-content">
                   <!--Header-->
                   <div class="modal-header">
-                    <p class="heading">Product in the cart
+                    <p class="heading">Product Di Keranjang
                     </p>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -82,22 +87,33 @@
                   <!--Body-->
                   <div class="modal-body">
 
-                    <div class="row">
-                      <div class="col-3">
-                        <p></p>
-                        <p class="text-center"><i class="fas fa-shopping-cart fa-4x"></i></p>
+                    {{-- <div class="row"> --}}
+                      <div class="card">
+                       <div class="row">
+                         <div class="col-md-3">
+                           <img src="{{ url('storage/image/Bunga-Begonia.jpeg') }}" height="50" width="50" alt="">
+                         </div>
+                         <div class="col-md-5">Bunga Begonia X1</div>
+                         <div class="col-md-4">Rp.250.000</div>
+                       </div>
                       </div>
-
-                      <div class="col-9">
-                        <p>Do you need more time to make a purchase decision?</p>
-                        <p>No pressure, your product will be waiting for you in the cart.</p>
+                      <div class="card mt-2">
+                       <div class="row">
+                         <div class="col-md-3">
+                           <img src="{{ url('storage/image/Bunga-Begonia.jpeg') }}" height="50" width="50" alt="">
+                         </div>
+                         <div class="col-md-5">Bunga Begonia X1</div>
+                         <div class="col-md-4">Rp.250.000</div>
+                       </div>
                       </div>
-                    </div>
+                    <div class="dropdown-divider"></div>
+                    <p>*Klik ke keranjang untuk melihat yang lainnya</p>
+                    {{-- </div> --}}
                   </div>
 
                   <!--Footer-->
                   <div class="modal-footer justify-content-center">
-                    <a type="button" class="btn btn-info">Go to cart</a>
+                    <a type="button" class="btn btn-info">Ke Keranjang</a>
                     <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Cancel</a>
                   </div>
                 </div>
