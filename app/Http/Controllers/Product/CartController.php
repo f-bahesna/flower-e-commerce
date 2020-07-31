@@ -37,6 +37,8 @@ class CartController extends Controller
                 //create log
                     DB::table('activitys')
                         ->insert([
+                            "id_product" => $id_product,
+                            "id_user" => $id_user,
                             "pesan_log" => "Menambahkan Ke Keranjang",
                             "created_at" => $date
                         ]);
