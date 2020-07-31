@@ -10,3 +10,10 @@ body {
 .modal {
   overflow-y:auto;
 }
+
+#carouselExampleInterval .carousel-part{
+height: 20%;
+top: 40%;
+width: 50px;
+background: black;
+}

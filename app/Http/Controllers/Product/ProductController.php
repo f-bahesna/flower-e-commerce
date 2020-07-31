@@ -16,8 +16,9 @@ class ProductController extends Controller
 
     public function getProductDetail($id)
     {   
+        $additional_image = DB::table('additional_product_image')->where('id_product',$id)->get();
         $result = products::find($id);
-        return view('Product.ProductDetail',compact('result'));
+        return view('Product.ProductDetail',compact('result','additional_image'));
     }
 
     public function searchProduct(Request $request)

@@ -96,17 +96,20 @@ class RegisterController extends Controller
         if($request["password"] != $request["password_confirmation"]){
             return Redirect::back()->withErrors(['msg', 'Password Tidak Sama']);
         }else{
-            User::create([
+            $id = User::insertGetId([
                 'name' => $request['name'],
                 'email' => $request['email'],
                 'password' => Hash::make($request['password']),
                 'nomor_telepon' => $request['nomor_telepon'],
             ]);
+
+            Auth::loginUsingId($id);
     
             return redirect()->route('home-page');
         }
 
         } catch (\Exception $e) {
+            dd($e);
             return redirect()->route('register')->with('error', 'your message,here');  
         }
    
