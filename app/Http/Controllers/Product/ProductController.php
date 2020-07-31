@@ -18,8 +18,10 @@ class ProductController extends Controller
     public function getProductDetail($id)
     {   
         $user_id = Auth::user()->id;
-        $countCart = DB::table('carts')->where('id_user',$user_id)->count();
+        $Cart = DB::table('carts')->where('id_user',$user_id)->sum('total');
+        $countCart = preg_replace("/\.?0+$/", "", $Cart);
 
+        
         //Cart Details
         $qty = DB::table('carts')->where('id_user',$user_id)->get();
         $product = DB::table('carts as c')
