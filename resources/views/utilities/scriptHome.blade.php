@@ -1,5 +1,20 @@
 <script>
    $(function(){
+    $(".btn-collapse-right").hide();
+
+    $('.btn-collapse-left').on('click', function(){
+        $(".icon-left").fadeOut();
+        $('#navbarResponsive').collapse('show');
+        $(".btn-collapse-right").show();
+    });
+
+    $(".btn-collapse-right").on("click",function(){
+        $('#navbarResponsive').collapse('hide');
+        $(".icon-left").fadeIn();
+        $(this).hide();
+    });
+
+
         $("#tableSearch").on("keyup",function(){
             $("#carouselExampleIndicators").fadeOut();
             var value = $(this).val().toLowerCase();

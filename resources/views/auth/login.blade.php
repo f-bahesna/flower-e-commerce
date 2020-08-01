@@ -8,7 +8,7 @@
         <div class="col-md-5">
 
             <!-- Material form login -->
-            <div class="card" style="width: 25rem;">
+            <div class="card card-login d-flex">
 
                 <h5 class="card-header bg-info white-text text-center py-4">
                 <strong>{{ __('Login') }}</strong>

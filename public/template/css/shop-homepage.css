@@ -3,12 +3,35 @@
  * Copyright 2013-2020 Start Bootstrap
  * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-homepage/blob/master/LICENSE)
  */
-body {
-  padding-top: 56px;
-}
 
 .modal {
   overflow-y:auto;
+}
+.navbar-add{
+  background-color: #8BBF43;
+  margin-bottom: -100;
+}
+.navbar-right{
+  margin-left: 250px;
+}
+
+.nav-link{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+#navbarResponsive ul li a{
+  color: black;
+}
+
+#navbarResponsive .navbar-text:hover{
+  background-color: #8BBF43;
+  border-radius: 15px;
+}
+
+.navbar-custom{
+  background-color: #E8F2D9;
 }
 
 #carouselExampleInterval .carousel-part{
@@ -16,4 +39,40 @@ height: 20%;
 top: 40%;
 width: 50px;
 background: black;
+}
+
+.target-modal-content{
+  height: 80%;
+}
+
+.target-modal-body{
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
+}
+
+/* REGISTER */
+.card-register .card-login{
+  width: 25rem;
+}
+
+
+
+/* Mobile */
+/* #### Mobile Phones Portrait or Landscape #### */
+@media screen and (max-device-width: 640px){
+  .navbar-right{
+    margin-left: -0px;
+  }
+
+  a.navbar-brand.float-right.Telp{
+    margin-left: 60px;
+  }
+
+  .img-logo-top{
+    margin-left: 20px;
+  }
+
+  .card-register .card-login{
+    width: 20rem;
+  }
 }

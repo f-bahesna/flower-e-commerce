@@ -25,42 +25,51 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
 <!-- Material Design Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+{{-- google font --}}
+<link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
 
 </head>
 
 <body>
-
+  <nav class="navbar navbar-light navbar-add">
+    <a class="navbar-brand float-left ml-5" href="{{ route('home-page') }}"><img class="img-logo-top" src="{{ url('storage/image/guswinsanse.png') }}" alt=""></a>
+    <a class="navbar-brand float-right Telp" href="#">No Telf :0842333444555</a>
+  </nav>
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
     <div class="container">
-      <a class="navbar-brand" href="#">@yield('title')</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+
+      <button class="navbar-toggler btn-collapse-left" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon icon-left"><i class="fas fa-align-justify"></i></span>
       </button>
+      <button class="navbar-toggler float-right btn-collapse-right" type="button"  aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"><i class="fas fa-times"></i></span>
+      </button>
+
       <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="{{ route('home-page') }}">Home
+            <a class="nav-link navbar-text" href="{{ route('home-page') }}">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('about') }}">About</a>
+          <li class="nav-item ">
+            <a class="nav-link navbar-text" href="{{ route('about') }}">About</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('product.all') }}">Product</a>
+          <li class="nav-item ">
+            <a class="nav-link navbar-text" href="{{ route('product.all') }}">Product</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+          <li class="nav-item ">
+            <a class="nav-link navbar-text" href="#">Contact</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Konfirmasi Pembayaran</a>
+          <li class="nav-item ">
+            <a class="nav-link navbar-text" href="#">Konfirmasi Pembayaran</a>
           </li>
           
           @if(Auth::check())
-          <li class="nav-item">
+          <li class="nav-item navbar-right">
              <!-- Button trigger modal-->
-            <button type="button" class="btn btn-warning btn-sm shopping-cart" data-toggle="modal"> <i class="fas fa-2x fa-shopping-cart"></i> 
+            <button type="button" class="btn btn-info btn-sm shopping-cart" data-toggle="modal"> <i class="fas fa-2x fa-shopping-cart"></i> 
               @if($countCart)
                 <span style="font-size: 10px;" class="badge badge-danger ml-2 countCart">{{ $countCart }}</span>
               @else
@@ -73,7 +82,7 @@
               aria-hidden="true" data-backdrop="false">
               <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-info" role="document">
                 <!--Content-->
-                <div class="modal-content">
+                <div class="modal-content target-modal-content">
                   <!--Header-->
                   <div class="modal-header">
                     <p class="heading">Product Di Keranjang
@@ -104,7 +113,7 @@
                   <!--Footer-->
                   <div class="modal-footer justify-content-center">
                     <a type="button" class="btn btn-info">Ke Keranjang</a>
-                    <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Cancel</a>
+                    {{-- <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Cancel</a> --}}
                   </div>
                 </div>
                 <!--/.Content-->
@@ -112,7 +121,7 @@
             </div>
             <!-- Modal: modalAbandonedCart-->
           </li>
-          <li class="nav-item">
+          <li class="nav-item ">
             <div class="dropdown">
               <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{ Auth::user()->name }}
@@ -127,7 +136,7 @@
             </div>
           </li>
           @else
-          <li class="nav-item">
+          <li class="nav-item navbar-right">
               <a href="{{ route('login') }}">
                 <button type="button" class="btn btn-info btn-sm btn-rounded">Login</button>          
             </a>
@@ -142,6 +151,7 @@
       </div>
     </div>
   </nav>
+
   <div class="container" style="margin-top: 20px;">
     @yield('content')
 </div>
