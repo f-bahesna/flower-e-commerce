@@ -39,7 +39,8 @@ class HomeController extends Controller
                             'p.gambar_product as gambar_product',
                             'p.nama_product as nama_product',
                             'p.harga_product as harga_product',
-                            'c.total as total'
+                            'c.total as total',
+                            'c.id_user as user_id'
                         )
             ->where('id_user',$user_id)->paginate(4);
             //Count langsung total harga di keranjang
@@ -52,11 +53,12 @@ class HomeController extends Controller
             }
             
             $products = product::paginate(10)->toArray();
-            return view('welcome',compact('products','countCart','CartAdded','CartProductPriceTotal'));
+            return view('welcome',compact('products','countCart','CartAdded','CartProductPriceTotal','user_id'));
         }else{
             $countCart = 0;
+            $user_id = 0;
             $products = product::paginate(10)->toArray();
-            return view('welcome',compact('products','countCart','CartAdded','CartProductPriceTotal'));
+            return view('welcome',compact('products','user_id','countCart','CartAdded','CartProductPriceTotal'));
         }
     }
 }

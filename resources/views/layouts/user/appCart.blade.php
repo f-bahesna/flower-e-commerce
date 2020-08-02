@@ -30,6 +30,7 @@
 
 
 
+
 </head>
 
 <body>
@@ -51,80 +52,22 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link navbar-text" href="{{ route('home-page') }}">Home
+            <a class="nav-link navbar-text" href="{{ route('home-page') }}"><i class="fas fa-2x fa-arrow-left"></i>
               <span class="sr-only">(current)</span>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link navbar-text" href="{{ route('about') }}">About</a>
+          <li class="nav-item active mt-1">
+            <h2>@yield('title')</h2>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link navbar-text" href="{{ route('product.all') }}">Product</a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link navbar-text" href="#">Contact</a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link navbar-text" href="#">Konfirmasi Pembayaran</a>
-          </li>
+     
           
           @if(Auth::check())
           <input type="hidden" id="user_id" value="{{ $user_id }}">
           <li class="nav-item navbar-right">
-             <!-- Button trigger modal-->
-            <button type="button" class="btn btn-info btn-sm shopping-cart" data-toggle="modal"> <i class="fas fa-2x fa-shopping-cart"></i> 
-              @if($countCart)
-                <span style="font-size: 10px;" class="badge badge-danger ml-2 countCart">{{ $countCart }}</span>
-              @else
-                <span class="badge badge-danger ml-2 countCart"></span>
-              @endif
-            </button>
-
             <!-- Modal: modalAbandonedCart-->
-            <div class="modal fade right" id="modalAbandonedCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-              aria-hidden="true" data-backdrop="false">
-              <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-info" role="document">
-                <!--Content-->
-                <div class="modal-content target-modal-content">
-                  <!--Header-->
-                  <div class="modal-header">
-                    <p class="heading">Product Di Keranjang
-                    </p>
-
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true" class="white-text">&times;</span>
-                    </button>
-                  </div>
-
-                  <!--Body-->
-                  @if($CartAdded)
-                    <div class="modal-body target-modal-body">
-                        @foreach($CartAdded as $key => $product)
-                            <div class="row">
-                              <div class="col-md-3">
-                                <img class="img-cart" src="{{ url('storage/image/'.$product->gambar_product) }}" height="50" width="50" alt="">
-                              </div>
-                              <div class="col-md-4 nama-product-cart">{{ $product->nama_product }} <h6 class="font-weight-bold jumlah-cart">X{{ $product->total }}</h6></div>
-                              <div class="col-md-5 total-cart">Rp. {{ number_format($CartProductPriceTotal[$key],0,',','.') }}</div>
-                            </div>
-                            <div class="dropdown-divider"></div>
-                        @endforeach
-                      <div class="dropdown-divider"></div>
-                      <p>*Klik ke keranjang untuk melihat yang lainnya</p>
-                    </div>
-                  @endif
-                  <!--Footer-->
-                  <div class="modal-footer justify-content-center">
-                    <a type="button" href="{{ route('show.cart.details',["id" => $user_id] ) }}" class="btn btn-info btn-ke-keranjang">Ke Keranjang</a>
-                    {{-- <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Cancel</a> --}}
-                  </div>
-                </div>
-                <!--/.Content-->
-              </div>
-            </div>
             <!-- Modal: modalAbandonedCart-->
           </li>
-          <li class="nav-item ">
+          <li class="nav-item navbar-right user-name-cart">
             <div class="dropdown">
               <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{ Auth::user()->name }}
@@ -155,7 +98,44 @@
     </div>
   </nav>
 
-  <div class="container" id="main-container" style="margin-top: 15px;">
+  <div class="container" id="main-container">
+    {{-- STEPPER --}}
+    <div class="container">
+      <!-- Horizontal Steppers -->
+      <div class="row">
+        <div class="col-md-12">
+
+          <!-- Stepers Wrapper -->
+          <ul class="stepper stepper-horizontal">
+            <!-- First Step -->
+            <li class="completed bg-light">
+              <a href="#!">
+                <span><i class="fas fa-2x fa-cart-arrow-down"></i></span>
+                <span class="label">Cek Keranjangmu</span>
+              </a>
+            </li>
+            <!-- Second Step -->
+            <li class="active">
+              <a href="#!">
+                <span><i class="far fa-2x fa-money-bill-alt"></i></span>
+                <span class="label">Pembayaran</span>
+              </a>
+            </li>
+            <!-- Third Step -->
+            <li class="warning">
+              <a href="#!">
+                <span><i class="far fa-2x fa-calendar-check"></i></span>
+                <span class="label">Konfirmasi</span>
+              </a>
+            </li>
+          </ul>
+          <!-- /.Stepers Wrapper -->
+
+        </div>
+      </div>
+    <!-- /.Horizontal Steppers -->
+  </div>
+
     @yield('content')
 </div>
   <!-- /.container -->
@@ -171,6 +151,7 @@
   <!-- Bootstrap core JavaScript -->
   <script src="{{ asset('template/vendor/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('template/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
   {{-- mdb --}}
   <!-- JQuery -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

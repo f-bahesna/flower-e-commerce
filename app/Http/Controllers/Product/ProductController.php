@@ -58,51 +58,18 @@ class ProductController extends Controller
                 $CartProductPriceTotal[] = $value->harga_product * $value->total;
             }
     
-    
             $additional_image = DB::table('additional_product_image')->where('id_product',$id)->get();
             $result = products::find($id);
-            return view('Product.ProductDetail',compact('result','additional_image','countCart','CartAdded','CartProductPriceTotal'));
+            return view('Product.ProductDetail',compact('result','user_id','additional_image','countCart','CartAdded','CartProductPriceTotal'));
         }else{
-            // $user_id = Auth::user()->id;
-            // $Cart = DB::table('carts')->where('id_user',$user_id)->sum('total');
-            // $countCart = preg_replace("/\.?0+$/", "", $Cart);
-    
-            // //Cart Details
-            // $qty = DB::table('carts')->where('id_user',$user_id)->get();
-            // $product = DB::table('carts as c')
-            //     ->Join('users as u','c.id_user','=','u.id')
-            //     ->Join('products as p' , 'c.id_product' , '=','p.id')
-            // ->select(
-            //     'p.nama_product as nama_product',
-            //     'p.gambar_product as gambar_product',
-            //     'p.harga_product as harga_product'
-            // )->get();
-    
-            // $CartAdded = DB::table('carts as c')
-            //             ->Join('users as u','c.id_user','=','u.id')
-            //             ->Join('products as p','c.id_product','=','p.id')
-            //             ->select(
-            //                 'p.gambar_product as gambar_product',
-            //                 'p.nama_product as nama_product',
-            //                 'p.harga_product as harga_product',
-            //                 'c.total as total'
-            //             )
-            //             ->where('id_user',$user_id)->paginate(4);
-            // //Count langsung total harga di keranjang
-            // $CartProductPriceTotal = [];
-            // $Get = DB::table('carts as c')->where('id_user',$user_id)
-            //         ->Join('products as p','c.id_product','=','p.id')
-            //         ->select('p.harga_product as harga_product','c.total as total')->get();
-            // foreach($Get as $value){
-            //     $CartProductPriceTotal[] = $value->harga_product * $value->total;
-            // }
             $CartAdded = 0;
             $countCart = 0;
             $CartProductPriceTotal = 0;
+            $user_id = 0;
     
             $additional_image = DB::table('additional_product_image')->where('id_product',$id)->get();
             $result = products::find($id);
-            return view('Product.ProductDetail',compact('result','additional_image','countCart','CartAdded','CartProductPriceTotal'));
+            return view('Product.ProductDetail',compact('result','user_id','additional_image','countCart','CartAdded','CartProductPriceTotal'));
         }
     }
 

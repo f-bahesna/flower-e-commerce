@@ -14,7 +14,6 @@
         $(this).hide();
     });
 
-
         $("#tableSearch").on("keyup",function(){
             $("#carouselExampleIndicators").fadeOut();
             var value = $(this).val().toLowerCase();
@@ -118,8 +117,81 @@
                         '<div><h5 class="text-danger"> '+ res.responseJSON.result +'</h5></div>');
                 }
             });
+        });
 
+        $('.btn-ke-keranjang').on("click",function(){
+            $(this).html(`<div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+            </div>`);
         })
+        //qty on change
+        $('.qty-cart').on('change',function(e){
+            thiz = $(this);
+            $(this).parent().parent().next().html(`<div class="d-flex justify-content-center">
+                                                        <div class="spinner-border" role="status">
+                                                            <span class="sr-only">Loading...</span>
+                                                        </div>
+                                                    </div>`);
+            type = "manual";
+            value = $(this).val();
+            id_product = $(this).parents().parents().parents().prev().val();
+            calculateTotal(id_product , type , value ,thiz);
+        });
+
+        //minus product
+        // $(".minus").click(function(){
+        //     $(this).parents().parents().next().html(`<div class="d-flex justify-content-center">
+        //                                                 <div class="spinner-border" role="status">
+        //                                                     <span class="sr-only">Loading...</span>
+        //                                                 </div>
+        //                                             </div>`);
+        //     type = "minus";
+        //     value = 0;
+        //     id_product = $(this).parents().parents().parents().prev().val();
+        //     calculateTotal(id_product);
+        // })
+        //plus product
+        // $(".plus").click(function(){
+        //     $(this).parents().parents().next().html(`<div class="d-flex justify-content-center">
+        //                                                 <div class="spinner-border" role="status">
+        //                                                     <span class="sr-only">Loading...</span>
+        //                                                 </div>
+        //                                             </div>`);
+        //     type = "plus";
+        //     value = 0;
+        //     id_product = $(this).parents().parents().parents().prev().val();
+        //     calculateTotal(id_product);
+        // })
+
+        //CHANGE TOTAL FUNCTION
+        function calculateTotal(id_product, type, value, thiz)
+        {
+            user_id = $("#user_id").val();
+            b = $(".qty-cart").val();
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                url: "{{ route('calculate.cart') }}",
+                data: {user_id : user_id , id_product: id_product , type: type, value: value},
+                beforeSend: function() {
+                    
+                },
+                success: function(res){
+                    $(thiz).parent().parent().next().html(res.resultCalculate);
+                    console.log(res);
+                },
+                error: function(res) {
+                    $("#row-product").html(
+                        '<div><h5 class="text-danger"> '+ res.responseJSON.result +'</h5></div>');
+                }
+            });
+        }
+
    });
 
 </script>

@@ -127,29 +127,92 @@ class CartController extends Controller
         }  
     }
 
-    protected function updateKeranjang($params)
+    public function showProductDetail($id)
     {
-        $data =  DB::table('carts as c')
-            ->Join('users as u','c.id_user','=','u.id')
-            ->Join('products as p' , 'c.id_product' , '=','p.id')
-            ->where('c.id_user',$params['id_user'])
-            ->where('c.id_product',$params['id_product'])
+        if($id != null){
+            $user_id = Auth::user()->id;
+            $carts =  DB::table('carts as c')
+                ->Join('users as u','c.id_user','=','u.id')
+                ->Join('products as p' , 'c.id_product' , '=','p.id')
+                ->where('c.id_user',$user_id)
             ->select(
                 'p.nama_product as nama_product',
+                'p.jenis_product as jenis_product',
                 'p.gambar_product as gambar_product',
                 'p.harga_product as harga_product',
-                'c.total as total'
+                'c.total as total',
+                'c.id_product as id_product'
             )->get();
-            $updateCart = [];
-            foreach($data as $value){
-                $updateCart[] = $value->harga_product * $value->total;
+
+            $total= [];
+            foreach($carts as $value){
+                $total[] = $value->harga_product * $value->total;
             }
 
-            $result = [
-                "data" => $data,
-                "total" => $updateCart
-            ];
-            return $result;
-    
+            if($carts){
+                return view('cart.cart-details',compact('carts','user_id','total'));               
+            }else{
+                return response()->json([
+                    "status" => 500 , "message" => "Cannot Find User"
+                ]);
+            }
+        }else{
+            return response()->json([
+                "status" => 500 , "message" => "Cannot Find User"
+            ]);
+        }
+    }
+
+    public function calculateTotal(Request $request)
+    {
+        $data = DB::table('carts as c')
+                ->Join('products as p','c.id_product','=','p.id')
+                ->Join('users as u','c.id_user','=','u.id')
+            ->select(
+                'p.harga_product as harga_product',
+                'c.total as total_product',
+                'c.id_product as id_product'
+            )
+            ->where('c.id_user',$request->user_id)
+            ->where('c.id_product',$request->id_product)
+            ->get();
+            // dd($request->type);
+        switch($request->type){
+            case "manual" :
+                try {
+                    DB::beginTransaction();
+                    DB::table('carts')->where('id_user', $request->user_id)->where('id_product',$request->id_product)->update([
+                        "total" => $request->value
+                    ]);
+                    DB::commit();
+
+            $output = DB::table('carts as c')->where('c.id_user', $request->user_id)->where('c.id_product',$request->id_product)
+                        ->Join('products as p','c.id_product','=','p.id')
+                        ->select('c.total as total_product','p.harga_product')->first();
+
+            $resultCalculate = $output->harga_product * $output->total_product;
+
+            return response()->json([
+                "status" => 200 , "resultCalculate" => "<h5>RP".number_format($resultCalculate,0,',','.')."</h5>"
+            ]);
+                } catch (\Throwable $th) {
+                    DB::rollback();
+                }
+ 
+            break;
+
+            case "minus" :
+                dd("click minus , total di kurangi");
+            break;
+
+            case "plus" : 
+                dd("click plus , total di tambah");
+            break;
+
+            default:
+                return response()->json([
+                    "status" => 500 , "message" => "Tipe tidak terdefinisi"
+                ]);
+        }
     }
 }

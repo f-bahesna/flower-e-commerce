@@ -57,6 +57,8 @@ background: black;
 
 
 
+
+
 /* Mobile */
 /* #### Mobile Phones Portrait or Landscape #### */
 @media screen and (max-device-width: 640px){
@@ -75,4 +77,56 @@ background: black;
   .card-register .card-login{
     width: 20rem;
   }
+  /* Cart Details */
+
+  .img-cart-details{
+    height: 90px;
+    width: 90px;
+    margin-top: 20px;
+    margin-bottom: -30px;
+  }
+
+  .title-cart-details{
+    margin-bottom: -40px;
+  }
+
+  .title-cart-details h5{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  }
+
+  .jenis-cart-details{
+    margin-bottom: -20px;
+  }
+
+  .qty-cart-details{
+    margin-left: 15px;
+    margin-bottom: -20px;
+  }
+
+  .total-cart-details h5{
+    font-weight: bold;
+  }
+
+}
+
+/* cart details */
+.trash-cart-details:hover{
+  color: red;
+}
+
+.qty-cart{
+  font-size: 0.9em;
+  padding: 0.14em;
+  width: 4em;
+}
+
+.row-cart{
+  min-height: 500px;
+}
+
+.user-name-cart{
+  margin-left: 350px;
 }
