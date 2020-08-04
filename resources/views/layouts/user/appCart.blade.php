@@ -135,7 +135,6 @@
       </div>
     <!-- /.Horizontal Steppers -->
   </div>
-
     @yield('content')
 </div>
   <!-- /.container -->
@@ -161,6 +160,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @include('utilities.scriptHome')
 

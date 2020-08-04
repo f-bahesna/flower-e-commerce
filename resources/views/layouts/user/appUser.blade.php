@@ -30,9 +30,11 @@
 
 
 
+
 </head>
 
 <body>
+  {{-- @php(dd($CartAdded[0])) --}}
   <nav class="navbar navbar-light navbar-add">
     <a class="navbar-brand float-left ml-5" href="{{ route('home-page') }}"><img class="img-logo-top" src="{{ url('storage/image/guswinsanse.png') }}" alt=""></a>
     <a class="navbar-brand float-right Telp" href="#">No Telf :0842333444555</a>
@@ -70,15 +72,20 @@
           
           @if(Auth::check())
           <input type="hidden" id="user_id" value="{{ $user_id }}">
+          <input type="hidden" id="count_cart" value="{{ $countCart }}">
           <li class="nav-item navbar-right">
              <!-- Button trigger modal-->
-            <button type="button" class="btn btn-info btn-sm shopping-cart" data-toggle="modal"> <i class="fas fa-2x fa-shopping-cart"></i> 
-              @if($countCart)
-                <span style="font-size: 10px;" class="badge badge-danger ml-2 countCart">{{ $countCart }}</span>
+            @if($countCart)
+              <button type="button" class="btn btn-info btn-sm shopping-cart"> 
+                  <i class="fas fa-2x fa-shopping-cart"></i> 
+                  <span style="font-size: 10px;" class="badge badge-danger ml-2 countCart">{{ $countCart }}</span>
+              </button>
               @else
+              <button type="button" class="btn btn-info btn-sm shopping-cart">
+                <i class="fas fa-2x fa-shopping-cart"></i>
                 <span class="badge badge-danger ml-2 countCart"></span>
+              </button>
               @endif
-            </button>
 
             <!-- Modal: modalAbandonedCart-->
             <div class="modal fade right" id="modalAbandonedCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -87,17 +94,24 @@
                 <!--Content-->
                 <div class="modal-content target-modal-content">
                   <!--Header-->
-                  <div class="modal-header">
-                    <p class="heading">Product Di Keranjang
-                    </p>
-
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true" class="white-text">&times;</span>
-                    </button>
+                  <div class="modal-header header-cart">
+                  
+                    @if($CartAdded[0])
+                      <p class="heading">Product Di Keranjang </p>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                      </button>
+                    @else
+                      <h4 class="text-danger" id="alert-kosong-cart">Keranjang Mu Kosong, Pilih Product Dulu Ya!</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                      </button>
+                    @endif
+               
                   </div>
 
                   <!--Body-->
-                  @if($CartAdded)
+                  @if($CartAdded[0] !== null)
                     <div class="modal-body target-modal-body">
                         @foreach($CartAdded as $key => $product)
                             <div class="row">
@@ -109,14 +123,15 @@
                             </div>
                             <div class="dropdown-divider"></div>
                         @endforeach
-                      <div class="dropdown-divider"></div>
-                      <p>*Klik ke keranjang untuk melihat yang lainnya</p>
+                      <div class="dropdown-divider" id="divider"></div>
                     </div>
-                  @endif
-                  <!--Footer-->
+                       <!--Footer-->
                   <div class="modal-footer justify-content-center">
                     <a type="button" href="{{ route('show.cart.details',["id" => $user_id] ) }}" class="btn btn-info btn-ke-keranjang">Ke Keranjang</a>
-                    {{-- <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Cancel</a> --}}
+                  </div>
+                  @endif
+                  <div id="target-modal-body">
+
                   </div>
                 </div>
                 <!--/.Content-->
@@ -180,6 +195,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @include('utilities.scriptHome')
 

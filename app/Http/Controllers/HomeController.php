@@ -57,6 +57,7 @@ class HomeController extends Controller
         }else{
             $countCart = 0;
             $user_id = 0;
+            $CartAdded = 0;
             $products = product::paginate(10)->toArray();
             return view('welcome',compact('products','user_id','countCart','CartAdded','CartProductPriceTotal'));
         }

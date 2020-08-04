@@ -65,14 +65,14 @@ class CartController extends Controller
         if($total){
             try {
                 DB::beginTransaction();
-                //update total product
+                //UPDATE total product
                     DB::table('carts')
                         ->where("id_user",$id_user)->where("id_product",$id_product)
                         ->update([
                             "total" => $total->total + 1
                         ]);
 
-                // //create log
+                //CREATE log
                     DB::table('activitys')
                         ->insert([
                             "id_product" => $id_product,
@@ -103,7 +103,7 @@ class CartController extends Controller
                             "id_user" => $id_user,
                             "total" => 1
                         ]);
-                // //create log
+                //create log
                     DB::table('activitys')
                         ->insert([
                             "id_product" => $id_product,
@@ -115,7 +115,7 @@ class CartController extends Controller
                 DB::commit();
 
                 return response()->json([
-                    "status" => 201 , "message" => "Berhasil Ditambah ke Keranjang" 
+                    "status" => 201 , "message" => "Berhasil Ditambah ke Keranjang" ,
                 ]);
     
             } catch (\Exception $th) {
@@ -126,15 +126,16 @@ class CartController extends Controller
             }
         }  
     }
-
-    public function showProductDetail($id)
+//see cart
+    public function showProductDetail(Request $request)
     {
-        if($id != null){
-            $user_id = Auth::user()->id;
+        if($request->id_user != null){
+            $user_id = $request->id_user;
+
             $carts =  DB::table('carts as c')
                 ->Join('users as u','c.id_user','=','u.id')
                 ->Join('products as p' , 'c.id_product' , '=','p.id')
-                ->where('c.id_user',$user_id)
+                ->where('c.id_user', $request->id_user)
             ->select(
                 'p.nama_product as nama_product',
                 'p.jenis_product as jenis_product',
@@ -148,18 +149,16 @@ class CartController extends Controller
             foreach($carts as $value){
                 $total[] = $value->harga_product * $value->total;
             }
-
-            if($carts){
-                return view('cart.cart-details',compact('carts','user_id','total'));               
+            //sub total
+            $subTotal = array_sum($total);
+            if($carts[0]){
+               $view = view('cart.cart-details',compact('carts','user_id','total','subTotal'))->render();       
+               return response()->json($view);        
             }else{
                 return response()->json([
-                    "status" => 500 , "message" => "Cannot Find User"
-                ]);
+                    "status" => 500
+                ],500);
             }
-        }else{
-            return response()->json([
-                "status" => 500 , "message" => "Cannot Find User"
-            ]);
         }
     }
 
@@ -176,7 +175,8 @@ class CartController extends Controller
             ->where('c.id_user',$request->user_id)
             ->where('c.id_product',$request->id_product)
             ->get();
-            // dd($request->type);
+
+ 
         switch($request->type){
             case "manual" :
                 try {
@@ -193,12 +193,12 @@ class CartController extends Controller
             $resultCalculate = $output->harga_product * $output->total_product;
 
             return response()->json([
-                "status" => 200 , "resultCalculate" => "<h5>RP".number_format($resultCalculate,0,',','.')."</h5>"
+                "status" => 200 , "resultCalculate" => "<h5>RP.".number_format($resultCalculate,0,',','.')."</h5>"
             ]);
                 } catch (\Throwable $th) {
                     DB::rollback();
                 }
- 
+
             break;
 
             case "minus" :
@@ -214,5 +214,17 @@ class CartController extends Controller
                     "status" => 500 , "message" => "Tipe tidak terdefinisi"
                 ]);
         }
+    }
+
+    public function deleteCart(Request $request)
+    {
+        $user_id = $request->user_id;
+        $product_id = $request->id_product;
+
+        DB::table('carts')->where('id_user',$user_id)->where('id_product',$product_id)->delete();
+
+        return response()->json([
+            "status" => 200
+        ]);
     }
 }

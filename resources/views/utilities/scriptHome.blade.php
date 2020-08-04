@@ -52,17 +52,32 @@
                     </div>`)
         });
 
-        $("#btn-logout").on("click",function(){
-            $("#logout-modal").modal('show');
+        $("#btn-logout").on("click",function(e){
+            e.preventDefault();
+            swal({
+                title: "Yakin Logout ?",
+                text: "Ketika logout, anda bisa login kembali!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+                .then((willLogout) => {
+                if (willLogout) {
+                    window.location.href = "{{ route('user.logout') }}";
+                } else {
+                    // swal("Your imaginary file is safe!");
+                }
+            }); 
         });
 
         $(".dropdown-toggle").dropdown();
 
-//ADD TO CART
+        //ADD TO CART
         $(".btn-masukan-keranjang").on('click',function(){
             btn = $(this);
             id = $("#product").val();
             cart = Number($(".countCart").text());
+            id_user = $("#user").val();
             // console.log(cart + 1);
             $.ajax({
                 headers: {
@@ -78,8 +93,8 @@
                    }
                 },
                 success: function(res){
-                    alert(res.message);
                     $(".countCart").text(cart + 1);
+                    swal(res.message,"" , "success");
                     btn.text('+Masukan Keranjang');
                 },
                 error: function(res) {
@@ -89,43 +104,38 @@
             });
         })
 
-//AUTO update when cart is checked!!
+       //User click CART behind username loggedin
         $(".shopping-cart").on("click",function(){
-            $("#modalAbandonedCart").modal("show");
-            id = $("#product").val();
+            btn = $(this);
+            id_user = $("#user_id").val();
 
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "{{ route('show.cart') }}",
-                data: {id : id},
+                url: "{{ route('show.cart.details') }}",
+                data: { id_user : id_user },
                 beforeSend: function() {    
-                 $(".target-modal-body").html(`<div class="d-flex justify-content-center">
-                    <div class="spinner-border" role="status">
+                   btn.html(`<div class="spinner-border" role="status">
                         <span class="sr-only">Loading...</span>
-                    </div>
-                    </div>`);
+                    </div>`)
                 },
                 success: function(res){
-                    console.log(res.data);
-                 $(".target-modal-body").html(res.data);
+                $(".navbar-add").remove();
+                $(".navbar-custom").remove();
+                   $("#main-container").replaceWith(res);
+                    btn.html(` <i class="fas fa-2x fa-shopping-cart"></i>
+                            <span class="badge badge-danger ml-2 countCart"></span>`)
                 },
                 error: function(res) {
-                    $("#row-product").html(
-                        '<div><h5 class="text-danger"> '+ res.responseJSON.result +'</h5></div>');
+                    btn.html(` <i class="fas fa-2x fa-shopping-cart"></i>
+                            <span class="badge badge-danger ml-2 countCart"></span>`)
+                    swal("Keranjang Mu Kosong!", "Pilih product dan +MASUKAN KERANJANG", "warning");
                 }
             });
         });
 
-        $('.btn-ke-keranjang').on("click",function(){
-            $(this).html(`<div class="d-flex justify-content-center">
-                    <div class="spinner-border" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-            </div>`);
-        })
         //qty on change
         $('.qty-cart').on('change',function(e){
             thiz = $(this);
@@ -139,31 +149,6 @@
             id_product = $(this).parents().parents().parents().prev().val();
             calculateTotal(id_product , type , value ,thiz);
         });
-
-        //minus product
-        // $(".minus").click(function(){
-        //     $(this).parents().parents().next().html(`<div class="d-flex justify-content-center">
-        //                                                 <div class="spinner-border" role="status">
-        //                                                     <span class="sr-only">Loading...</span>
-        //                                                 </div>
-        //                                             </div>`);
-        //     type = "minus";
-        //     value = 0;
-        //     id_product = $(this).parents().parents().parents().prev().val();
-        //     calculateTotal(id_product);
-        // })
-        //plus product
-        // $(".plus").click(function(){
-        //     $(this).parents().parents().next().html(`<div class="d-flex justify-content-center">
-        //                                                 <div class="spinner-border" role="status">
-        //                                                     <span class="sr-only">Loading...</span>
-        //                                                 </div>
-        //                                             </div>`);
-        //     type = "plus";
-        //     value = 0;
-        //     id_product = $(this).parents().parents().parents().prev().val();
-        //     calculateTotal(id_product);
-        // })
 
         //CHANGE TOTAL FUNCTION
         function calculateTotal(id_product, type, value, thiz)
@@ -179,7 +164,7 @@
                 url: "{{ route('calculate.cart') }}",
                 data: {user_id : user_id , id_product: id_product , type: type, value: value},
                 beforeSend: function() {
-                    
+                    //
                 },
                 success: function(res){
                     $(thiz).parent().parent().next().html(res.resultCalculate);
@@ -191,6 +176,49 @@
                 }
             });
         }
+        //DELETE SELECTED PRODUCT
+        $(".trash-cart-details").on("click",function(e){
+            e.preventDefault();
+            id_product = $(this).parent().parent().prev().val();
+            user_id = $("#user_id").val();
+
+            elem = $(this);
+
+            swal({
+                title: "Hapus Product ?",
+                text: "Ketika terhapus, product akan terhapus dari keranjang anda!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+                .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: "POST",
+                        url: "{{ route('delete.cart') }}",
+                        data: {user_id : user_id , id_product: id_product},
+                        beforeSend: function() {
+                        
+                        },
+                        success: function(res){
+                            $(elem).parent().parent().fadeOut();
+                        },
+                        error: function(res) {
+                            $("#row-product").html(
+                                '<div><h5 class="text-danger"> '+ res.responseJSON.result +'</h5></div>');
+                        }
+                    });
+                    swal("Product Terhapus!", {
+                    icon: "success",
+                    });
+                } else {
+                    // swal("Your imaginary file is safe!");
+                }
+            }); 
+        })
 
    });
 

@@ -33,7 +33,8 @@ Route::prefix('product')->group(function () {
 Route::prefix('cart')->group(function () {
     Route::post('/add-cart','Product\CartController@addProduct')->name('product.add.cart');
     Route::post('/show','Product\CartController@showProduct')->name('show.cart');
-    Route::get('/show-detail/{id}','Product\CartController@showProductDetail')->name('show.cart.details');
+    Route::post('/delete-cart','Product\CartController@deleteCart')->name('delete.cart');
+    Route::post('/show-detail','Product\CartController@showProductDetail')->name('show.cart.details');
     Route::post('/calculateTotal','Product\CartController@calculateTotal')->name('calculate.cart');
 });
 

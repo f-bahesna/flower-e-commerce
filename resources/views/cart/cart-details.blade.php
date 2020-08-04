@@ -28,7 +28,9 @@
                 </div>
             </div>
                 <div class="col-md-2 mt-4 navbar-text total-cart-details"><h5>RP.{{ number_format($total[$key],0,',','.') }}</h5></div>
-                <div class="col-md-1 mt-4 navbar-text"><i class="far float-right mt-2 trash-cart-details fa-1x fa-trash-alt"></i></div>
+                <div class="col-md-1 mt-4 navbar-text">
+                    <i class="far float-right mt-2 trash-cart-details fa-1x fa-trash-alt"></i>
+                </div>
         </div>
         @endforeach
     </div>
@@ -40,7 +42,7 @@
                 <div class="card-body">
                     <h5>Voucher : <h4>-</h4></h5>
                     <h5>Discount: <h4>20%</h4></h5>
-                    <h5>Subtotal: <h4 class="text-success">Rp.2.000.000</h4><span><i class="fas fa-shipping-fast"></i> Free Ongkir</span></h5>
+                    <h5>Subtotal: <h4 class="text-success">RP {{ number_format($subTotal,0,',','.') }}</h4><span><i class="fas fa-shipping-fast"></i> Free Ongkir</span></h5>
                     <div class="dropdown-divider"></div>
                 </div>
                 <div class="card-footer bg-warning">
