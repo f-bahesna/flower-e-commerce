@@ -1,5 +1,23 @@
 <script>
    $(function(){
+
+// LOADER
+    function loader(){
+            $("body").fadeTo('slow',0.6);
+            $("body").append(`<div class="d-flex justify-content-center">
+                    <div class="spinner-grow" role="status" style="width: 3rem; height: 3rem; margin-bottom:50px; position:relative;
+                        margin: 0; position: absolute;  top: 50%;  left: 50%;">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>`);
+    }
+
+    function loaderRemove(){
+            $("body").fadeTo('slow',1.0);
+            $('.loader').remove();
+    }
+// END LOADER
+
     $(".btn-collapse-right").hide();
 
     $('.btn-collapse-left').on('click', function(){
@@ -168,6 +186,7 @@
                 },
                 success: function(res){
                     $(thiz).parent().parent().next().html(res.resultCalculate);
+                    $(thiz).parent().parent().parent().parent().next().find('.subTotal').html(res.subTotal);
                     console.log(res);
                 },
                 error: function(res) {
@@ -176,6 +195,7 @@
                 }
             });
         }
+
         //DELETE SELECTED PRODUCT
         $(".trash-cart-details").on("click",function(e){
             e.preventDefault();
@@ -218,7 +238,43 @@
                     // swal("Your imaginary file is safe!");
                 }
             }); 
-        })
+        });
+
+//BUTTON PEMBAYARAN
+        $(".btn-pembayaran").on({
+            mouseenter: function () {
+                $(this).css("background-color", "chartreuse");
+            },
+            mouseleave: function () {
+                $(this).css("background-color", "yellow");
+            }
+        });
+
+        $(".btn-pembayaran").on('click',function(){
+            btn = $(this);
+            
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                url: "{{ route('cart.payment') }}",
+                // data: {user_id : user_id , id_product: id_product , type: type, value: value},
+                beforeSend: function() {
+                    loader();
+                    $(".btn-pembayaran-child").html(`LOADING ... `);
+                },
+                success: function(res){
+                    $("#main-container").replaceWith(res);
+                    $(".btn-pembayaran-child").html(`PEMBAYARAN`);
+                    console.log(res);
+                },
+                error: function(res) {
+                    $("#row-product").html(
+                        '<div><h5 class="text-danger"> '+ res.responseJSON.result +'</h5></div>');
+                }
+            });
+        });
 
    });
 
