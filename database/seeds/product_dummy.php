@@ -40,7 +40,7 @@ class product_dummy extends Seeder
                                 'Kaktus-Parodia.jpeg',
                                 'Tanaman-Air-Lotus.jpeg'
                             ];
-                $arrayJenis = ['Bunga','Bunga','Bunga','Bunga','Cemara','Cemara','Cemara','Kaktus','Kaktus','Kaktus','Kaktus','Tanaman'];
+                $arrayJenis = ['bunga','bunga','bunga','bunga','cemara','cemara','cemara','kaktus','kaktus','kaktus','kaktus','tanaman'];
                 $arrayUmur = [1,2,3,5,8,7,6,5,6,7,6,10];
                 $arrayHarga = [100000,250000,3000000,580000,80000,75000,65000,50000,67000,780000,60000,150000];
                 $arrayStatus = ['published','published','published','published','published','published','published','published','published','published','drafted','drafted'];

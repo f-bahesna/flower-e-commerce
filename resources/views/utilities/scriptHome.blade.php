@@ -4,19 +4,53 @@
 // LOADER
     function loader(){
             $("body").fadeTo('slow',0.6);
-            $("body").append(`<div class="d-flex justify-content-center">
-                    <div class="spinner-grow" role="status" style="width: 3rem; height: 3rem; margin-bottom:50px; position:relative;
+            $("body").append(`<div class="d-flex justify-content-center loader">
+                    <div class="spinner-grow" role="status" style="background-color: #8BBF43; width: 3rem; height: 3rem; margin-bottom:50px; position:relative;
                         margin: 0; position: absolute;  top: 50%;  left: 50%;">
                         <span class="sr-only">Loading...</span>
                     </div>
                 </div>`);
     }
 
-    function loaderRemove(){
+    function removeLoader(){
             $("body").fadeTo('slow',1.0);
             $('.loader').remove();
     }
 // END LOADER
+
+
+//CATEGORIES
+    $('.categories-list-a').on("click",function(){
+     
+        btn = $(this);
+        val = btn.prev().val();
+        //Toggle Class bg change
+        $('.categories-list-a').css('background-color','white');
+        $(this).css('background-color', '#8BBF43');
+
+        $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                url: "{{ route('product.search.by.categorie') }}",
+                data: {value : val},
+                beforeSend: function() {    
+                   loader();
+                },
+                success: function(res){
+                    console.log(res);
+                    $('#tableSearch').append("<h4>Kategori: "+res.categorie+"</h4>");
+                    $("#row-product").html(res.view);
+                    removeLoader();
+                },
+                error: function(res) {
+                    $("#row-product").html(
+                        '<div><h5 class="text-danger"> '+ res.responseJSON.result +'</h5></div>');
+                }
+            });
+    });
+// END CATEGORIES
 
     $(".btn-collapse-right").hide();
 

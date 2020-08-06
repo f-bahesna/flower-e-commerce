@@ -1,8 +1,17 @@
-/*!
- * Start Bootstrap - Shop Homepage (https://startbootstrap.com/templates/shop-homepage)
- * Copyright 2013-2020 Start Bootstrap
- * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-homepage/blob/master/LICENSE)
- */
+
+ .categories-title{
+  font-family: 'Montserrat', sans-serif;
+}
+.categories-list{
+  font-family: 'Montserrat', sans-serif;
+}
+
+.categories-list .list-group-item:hover{
+  background-color: #8BBF43;
+  font-size: 20px;
+}
+
+
 
 .modal {
   overflow-y:auto;
@@ -21,6 +30,8 @@
   text-transform: uppercase;
   font-weight: bold;
 }
+
+
 #navbarResponsive ul li a{
   color: black;
 }

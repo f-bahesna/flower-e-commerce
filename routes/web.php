@@ -28,6 +28,7 @@ Route::prefix('product')->group(function () {
     Route::get('/', 'Product\ProductController@getAllProduct')->name('product.all');
     Route::get('/product-detail/{id}', 'Product\ProductController@getProductDetail')->name('product.detail');
     Route::post('/product-search', 'Product\ProductController@searchProduct')->name('product.search');
+    Route::post('/product-search-by-categories', 'Product\ProductController@searchProductByCategories')->name('product.search.by.categorie');
 });
 
 Route::prefix('cart')->group(function () {

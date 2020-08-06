@@ -8,11 +8,12 @@
 
         <div class="col-lg-3">
   
-          {{-- <h1 class="my-4">Shop Name</h1> --}}
-          <div class="list-group my-4">
-            <a href="#" class="list-group-item">Category 1</a>
-            <a href="#" class="list-group-item">Category 2</a>
-            <a href="#" class="list-group-item">Category 3</a>
+          <h4 class="my-4 text-center categories-title">Kategori</h4>
+          <div class="list-group my-4 categories-list">
+            @foreach($jenis as $key => $value)
+              <input type="hidden" class="jenis_product" value="{{ $value->jenis_product }}">
+              <a href="#" class="list-group-item categories-list-a">{{ ucfirst($value->jenis_product) }}</a>
+            @endforeach
           </div>
   
         </div>
@@ -51,7 +52,7 @@
   
           <div class="row mt-3" id="row-product">
             @foreach($products["data"] as $product)
-            <div class="col-lg-4 col-md-6 mb-4">
+            <div class="col-lg-4 col-md-6 mb-4 .jenis">
               <div class="card h-100">
                 <a href="{{ route('product.detail',["id" => $product["id"]]) }}"><img class="card-img-top" src="{{ url('storage/image/'.$product["gambar_product"]) }}" style="height: 200px" alt=""></a>
                 <div class="card-body">

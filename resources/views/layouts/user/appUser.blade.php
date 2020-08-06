@@ -96,40 +96,28 @@
                   <!--Header-->
                   <div class="modal-header header-cart">
                   
-                    @if($CartAdded[0])
+                
                       <p class="heading">Product Di Keranjang </p>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" class="white-text">&times;</span>
                       </button>
-                    @else
+                 
                       <h4 class="text-danger" id="alert-kosong-cart">Keranjang Mu Kosong, Pilih Product Dulu Ya!</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" class="white-text">&times;</span>
                       </button>
-                    @endif
+              
                
                   </div>
 
                   <!--Body-->
-                  @if($CartAdded[0] !== null)
+             
                     <div class="modal-body target-modal-body">
-                        @foreach($CartAdded as $key => $product)
-                            <div class="row">
-                              <div class="col-md-3">
-                                <img class="img-cart" src="{{ url('storage/image/'.$product->gambar_product) }}" height="50" width="50" alt="">
-                              </div>
-                              <div class="col-md-4 nama-product-cart">{{ $product->nama_product }} <h6 class="font-weight-bold jumlah-cart">X{{ $product->total }}</h6></div>
-                              <div class="col-md-5 total-cart">Rp. {{ number_format($CartProductPriceTotal[$key],0,',','.') }}</div>
-                            </div>
-                            <div class="dropdown-divider"></div>
-                        @endforeach
+                  
                       <div class="dropdown-divider" id="divider"></div>
                     </div>
-                       <!--Footer-->
-                  <div class="modal-footer justify-content-center">
-                    <a type="button" href="{{ route('show.cart.details',["id" => $user_id] ) }}" class="btn btn-info btn-ke-keranjang">Ke Keranjang</a>
-                  </div>
-                  @endif
+           
+              
                   <div id="target-modal-body">
 
                   </div>
