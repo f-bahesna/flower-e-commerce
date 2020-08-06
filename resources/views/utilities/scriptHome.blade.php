@@ -224,6 +224,7 @@
                         
                         },
                         success: function(res){
+                            $('.subTotal').html(res.subTotal);
                             $(elem).parent().parent().fadeOut();
                         },
                         error: function(res) {
