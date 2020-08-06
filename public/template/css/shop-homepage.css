@@ -11,6 +11,30 @@
   font-size: 20px;
 }
 
+/* HOME carousel */
+img.d-block.img-fluid {
+  height: 400px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.custom-carousel-prev{
+  height: 10%;
+  top: 50%;
+  width: 80px;
+  background: black;
+  border-radius: 10px;
+  margin-top: 190px;
+}
+
+.custom-carousel-next{
+  height: 10%;
+  top: 50%;
+  width: 80px;
+  background: black;
+  border-radius: 10px;
+  margin-top: 190px;
+}
 
 
 .modal {

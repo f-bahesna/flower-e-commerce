@@ -139,13 +139,50 @@
 </div>
   <!-- /.container -->
 
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+ <!-- Footer -->
+ <footer class="page-footer font-small bg-dark pt-4">
+
+  <!-- Footer Links -->
+  <div class="container-fluid text-center">
+    <div class="row">
+      <div class="col-md-6 mt-md-0 mt-3">
+        <h5 class="text-uppercase">Guswin Sanse</h5>
+        <p>Toko yang menjual berbagai Tanaman Hias</p>
+      </div>
+      <hr class="clearfix w-100 d-md-none pb-3">
+      <!-- Grid column -->
+      <div class="col-md-6 mb-md-0 mb-3">
+        <ul class="list-unstyled">
+          {{-- Facebook --}}
+          <a href="https://web.facebook.com/etwin.brcama" class="fb-ic">
+            <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          <!-- Twitter -->
+          <a class="tw-ic">
+            <i class="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          <!--Instagram-->
+          <a class="ins-ic">
+            <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+        </div>
+      </div>
+      </div>
+      <!-- Grid column -->
+
     </div>
-    <!-- /.container -->
-  </footer>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© {{ date('Y') }} Copyright:
+    <a href="{{ route('home-page') }}">Guswinsanse.com</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
 
   <!-- Bootstrap core JavaScript -->
   <script src="{{ asset('template/vendor/jquery/jquery.min.js') }}"></script>

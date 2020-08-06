@@ -18,7 +18,6 @@
   
         </div>
         <!-- /.col-lg-3 -->
-  
         <div class="col-lg-9">
             <input class="form-control mt-4" id="tableSearch" type="text"
                 placeholder="Cari Kebutuhanmu Disini ...">
@@ -31,20 +30,20 @@
             </ol>
             <div class="carousel-inner" role="listbox">
               <div class="carousel-item active">
-                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+                <img class="d-block img-fluid" src="{{ url('storage/carousel/guswin1.jpg') }}" alt="First slide">
               </div>
               <div class="carousel-item">
-                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+                <img class="d-block img-fluid" src="{{ url('storage/carousel/guswin2.jpg') }}" alt="Second slide">
               </div>
               <div class="carousel-item">
-                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
+                <img class="d-block img-fluid" src="{{ url('storage/carousel/guswin3.jpg') }}" alt="Third slide">
               </div>
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <a class="carousel-control-prev custom-carousel-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="sr-only">Previous</span>
             </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <a class="carousel-control-next custom-carousel-next" href="#carouselExampleIndicators" role="button" data-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="sr-only">Next</span>
             </a>
