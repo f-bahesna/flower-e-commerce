@@ -36,6 +36,7 @@ Route::prefix('cart')->group(function () {
     Route::post('/delete-cart','Product\CartController@deleteCart')->name('delete.cart');
     Route::post('/show-detail','Product\CartController@showProductDetail')->name('show.cart.details');
     Route::post('/calculateTotal','Product\CartController@calculateTotal')->name('calculate.cart');
+    Route::post('/cart-payment-section','Product\CartController@cartPayment')->name('cart.payment');
 });
 
 Route::prefix('jenis')->group(function () {

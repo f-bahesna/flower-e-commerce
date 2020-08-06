@@ -34,7 +34,7 @@
         </div>
         @endforeach
     </div>
-        <div class="col-lg-4">
+        <div class="col-lg-4 pembayaran-section">
             <div class="card">
                 <div class="card-header">
                     <h4>Rincian</h4>
@@ -42,11 +42,11 @@
                 <div class="card-body">
                     <h5>Voucher : <h4>-</h4></h5>
                     <h5>Discount: <h4>20%</h4></h5>
-                    <h5>Subtotal: <h4 class="text-success">RP {{ number_format($subTotal,0,',','.') }}</h4><span><i class="fas fa-shipping-fast"></i> Free Ongkir</span></h5>
+                    <h5>Subtotal: <h3 class="text-success subTotal">RP {{ number_format($subTotal,0,',','.') }}</h3><span><i class="fas fa-shipping-fast"></i> Free Ongkir</span></h5>
                     <div class="dropdown-divider"></div>
                 </div>
-                <div class="card-footer bg-warning">
-                    <h2 class="text-center font-weight-bold">PEMBAYARAN</h2>
+                <div class="p-1 mt-2 bg-warning btn-pembayaran">
+                    <h2 class="text-center btn-pembayaran-child font-weight-bold p-3">PEMBAYARAN</h2>
                 </div>
             </div>
         </div>
