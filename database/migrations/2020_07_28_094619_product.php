@@ -20,6 +20,7 @@ class Product extends Migration
             $table->string('jenis_product');
             $table->integer('umur_product');
             $table->string('harga_product');
+            $table->string('berat_product');
             $table->longText('keterangan_product');
             $table->enum('status_product',['published','drafted']);
             $table->timestamp('created_at')->nullable();

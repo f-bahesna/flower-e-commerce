@@ -8,6 +8,9 @@ use App\Http\Model\Product\products as product;
 use DB;
 use Auth;
 use App\Http\Model\Product\products;
+use App\Http\Controllers\Payment\PaymentController as payment;
+
+
 
 class ProductController extends Controller
 {
@@ -73,6 +76,14 @@ class ProductController extends Controller
 
     public function getProductDetail($id)
     { 
+        //get raja ongkir
+        $province = payment::getProvince();
+        $city = payment::getCity();
+        $shipment = [
+            "province" => $province,
+            "city" => $city
+        ];
+        // dd($shipment);
         if(Auth::check()){
             $user_id = Auth::user()->id;
             $Cart = DB::table('carts')->where('id_user',$user_id)->sum('total');
@@ -111,7 +122,7 @@ class ProductController extends Controller
     
             $additional_image = DB::table('additional_product_image')->where('id_product',$id)->get();
             $result = products::find($id);
-            return view('Product.ProductDetail',compact('result','user_id','additional_image','countCart','CartAdded','CartProductPriceTotal'));
+            return view('Product.ProductDetail',compact('result','user_id','additional_image','countCart','CartAdded','CartProductPriceTotal','shipment'));
         }else{
             $CartAdded = 0;
             $countCart = 0;
@@ -120,7 +131,7 @@ class ProductController extends Controller
     
             $additional_image = DB::table('additional_product_image')->where('id_product',$id)->get();
             $result = products::find($id);
-            return view('Product.ProductDetail',compact('result','user_id','additional_image','countCart','CartAdded','CartProductPriceTotal'));
+            return view('Product.ProductDetail',compact('result','user_id','additional_image','countCart','CartAdded','CartProductPriceTotal','shipment'));
         }
     }
 

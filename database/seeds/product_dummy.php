@@ -41,6 +41,7 @@ class product_dummy extends Seeder
                                 'Tanaman-Air-Lotus.jpeg'
                             ];
                 $arrayJenis = ['bunga','bunga','bunga','bunga','cemara','cemara','cemara','kaktus','kaktus','kaktus','kaktus','tanaman'];
+                $arrayBerat = [1000,600,300,700,800,600,3000,5000,1500,1700,200,400];
                 $arrayUmur = [1,2,3,5,8,7,6,5,6,7,6,10];
                 $arrayHarga = [100000,250000,3000000,580000,80000,75000,65000,50000,67000,780000,60000,150000];
                 $arrayStatus = ['published','published','published','published','published','published','published','published','published','published','drafted','drafted'];
@@ -53,6 +54,7 @@ class product_dummy extends Seeder
                         'harga_product' =>  $arrayHarga[$i],
                         'umur_product' =>  $arrayUmur[$i],
                         'status_product' => $arrayStatus[$i],
+                        'berat_product' =>  $arrayBerat[$i],
                         'keterangan_product' => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
                                                     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
                                                     and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",

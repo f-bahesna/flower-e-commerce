@@ -163,6 +163,7 @@
             <label class="custom-control-label" for="paypal">PayPal</label>
           </div>
         </div>
+       
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="cc-name">Name on card</label>

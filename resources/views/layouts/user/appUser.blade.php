@@ -67,7 +67,7 @@
             <a class="nav-link navbar-text" href="#">Contact</a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link navbar-text" href="#">Konfirmasi Pembayaran</a>
+            <a class="nav-link navbar-text" href="{{ route('payment.index') }}">Konfirmasi Pembayaran</a>
           </li>
           
           @if(Auth::check())
@@ -213,6 +213,7 @@
   <!-- Bootstrap core JavaScript -->
   <script src="{{ asset('template/vendor/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('template/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   {{-- mdb --}}
   <!-- JQuery -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

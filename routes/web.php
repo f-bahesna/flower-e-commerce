@@ -40,6 +40,16 @@ Route::prefix('cart')->group(function () {
     Route::post('/cart-payment-section','Product\CartController@cartPayment')->name('cart.payment');
 });
 
+
+Route::prefix('payments')->group(function () {
+    Route::get('/index','Payment\PaymentController@index')->name('payment.index');
+    Route::post('/checkout','Payment\PaymentController@checkout')->name('payment.checkout');
+    Route::get('/province','Payment\PaymentController@getProvince')->name('get.province');
+    Route::post('/city-by-id','Payment\PaymentController@getCityByID')->name('get.province.id');
+    Route::post('/postal-code','Payment\PaymentController@zipCode')->name('get.postal.code');
+    Route::post('/cost','Payment\PaymentController@cost')->name('get.cost');
+});
+
 Route::prefix('jenis')->group(function () {
     Route::get('/','Jenis\JenisController@index')->name('jenis');
 });
