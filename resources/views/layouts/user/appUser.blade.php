@@ -67,7 +67,7 @@
             <a class="nav-link navbar-text" href="#">Contact</a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link navbar-text" href="{{ route('payment.index') }}">Konfirmasi Pembayaran</a>
+            <a class="nav-link navbar-text" href="{{ route('payment.index') }}">Konfirmasi & Check Pesanan</a>
           </li>
           
           @if(Auth::check())

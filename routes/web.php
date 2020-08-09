@@ -50,6 +50,12 @@ Route::prefix('payments')->group(function () {
     Route::post('/cost','Payment\PaymentController@cost')->name('get.cost');
 });
 
+Route::prefix('order_manual')->group(function () {
+    Route::get('/index','Order\OrderController@index')->name('show.manual.order');
+    Route::post('/store','Order\OrderController@storeOrder')->name('store.manual.order');
+
+});
+
 Route::prefix('jenis')->group(function () {
     Route::get('/','Jenis\JenisController@index')->name('jenis');
 });

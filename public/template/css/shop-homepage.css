@@ -221,3 +221,8 @@ ul.card-cart{
   position: sticky;
   top: -30;
 }
+
+#manual-payment:hover{
+  background-color: chartreuse;
+  border-radius: 10px;
+}

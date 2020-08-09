@@ -1,6 +1,6 @@
 @extends('layouts.user.appUser')
 
-@section('title', 'Konfirmasi Pembayaran')
+@section('title', 'Daftar Order')
   <!-- Page Content -->
 
 @section('content')
@@ -8,7 +8,7 @@
     <div class="col-md-6">
         <div class="card" style="min-height: 200px">
             <div class="card-header">
-                <h4>Upload Bukti Pembayaran Disini</h4>
+                <h4>Daftar Order Kamu</h4>
             </div>
             <div class="card-body">
                 <input type="file" name="imageUpload" id="imageUpload">

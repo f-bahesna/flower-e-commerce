@@ -90,37 +90,33 @@
                               <ul class="list-group mb-3 card-cart">
                                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                                   <div>
-                                    <h6 class="my-0">Product name</h6>
-                                    <small class="text-muted">Brief description</small>
+                                    <h6 class="my-0">{{ $result["nama_product"] }}</h6>
+                                    <small class="text-muted">{{ ucfirst($result["jenis_product"]) }}</small>
+                                    <input class="quantity form-control ml-5 qty-cart-manual text-center" min="0" name="quantity" value="1" type="number">
+                                    <input type="hidden" class="first_price" value="{{ $result["harga_product"] }}">
                                   </div>
-                                  <span class="text-muted">$12</span>
+                                  <span class="text-muted">{{ number_format($result["harga_product"],0,',','.') }}</span>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between bg-light">
+                                {{-- <li class="list-group-item promo-code-cart d-flex justify-content-between bg-light">
                                   <div class="text-success">
                                     <h6 class="my-0">Promo code</h6>
                                     <small>EXAMPLECODE</small>
                                   </div>
-                                  <span class="text-success">-$5</span>
-                                </li>
+                                  <span class="text-success">0</span>
+                                </li> --}}
                                 <li class="list-group-item d-flex justify-content-between">
-                                  <span>Total (USD)</span>
-                                  <strong>$20</strong>
+                                  <span>Total</span>
+                                  <strong class="manual-total">{{ number_format($result["harga_product"],0,',','.') }}</strong>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between">
-                                    <div class="input-group">
-                                      <div class="input-group-append">
-                                        <input type="text" class="form-control" placeholder="Promo code">
-                                        <button type="submit" class="btn btn-sm btn-light">Redeem</button>
-                                      </div>
+                                    <div class="row mt-2 pl-3 pr-3">
+                                      <input type="text" class="form-control" placeholder="Promo code">
                                     </div>
-                                </li>
-                                <li id="manual-payment" class="list-group-item d-flex justify-content-between">
-                                    <h3>PEMBAYARAN</h3>
-                                </li>
+                                    <div class="row pl-3">
+                                      <button type="submit" class="btn btn-sm btn-light">Redeem</button>
+                                    </div>
+                                    <button id="manual-payment" class="btn btn-warning border rounded manual-payment"><h3 class="text-dark font-weight-bold">BAYAR</h3></button>
                               </ul>
-
                             </div>
-
                             <div class="col-md-8 order-md-1">
                               <h4 class="mb-3">Isi Datamu</h4>
                               <form class="needs-validation" novalidate>
@@ -131,14 +127,14 @@
                                   </div>
                                 </div>
                                 <div class="mb-3">
-                                  <label for="address">Nomor Telepon Aktif<span class="text-muted text-danger"> (Wajib)</span></label>
-                                  <input type="tel" class="form-control" id="address" placeholder="08xxxxxx" required>
+                                  <label for="notelp">Nomor Telepon Aktif<span class="text-muted text-danger"> (Wajib)</span></label>
+                                  <input type="tel" class="form-control" id="notelp" placeholder="08xxxxxx" required>
                                 </div>
                                 <div class="mb-3">
                                   <label for="email">Email <span class="text-muted">(Opsional)</span></label>
                                   <input type="email" class="form-control" id="email" placeholder="you@example.com">
                                 </div>
-
+                                <hr class="mb-4">
                                 <h4 class="mb-3">Alamat Pengiriman</h4>
                                 <div class="mb-3">
                                   <label for="address">Address</label>
@@ -191,6 +187,12 @@
 
                                   <div class="col-md-8 mb-3 courier_service">
                                          <!-- Courier Service Append in HERE -->
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <h4 for="notes">Notes</h4><p class="text-muted">*Ada tambahan keterangan untuk admin?</p>
+                                    <textarea class="form-control" name="notes" id="notes" cols="50" rows="3" placeholder="..."></textarea>
                                   </div>
                                 </div>
                                   <hr class="mb-4">

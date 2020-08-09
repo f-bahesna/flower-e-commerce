@@ -230,6 +230,23 @@
             });
         }
 
+        $(".qty-cart-manual").on("change",function(){
+            first_val = $(this).val();
+            price_val = $(this).next().val();
+            total_val = $(this).parent().next();
+            
+            func = Number(price_val) * Number(first_val);
+        
+            var bilangan = func;
+                    
+            var	reverse = bilangan.toString().split('').reverse().join(''),
+                ribuan 	= reverse.match(/\d{1,3}/g);
+                ribuan	= ribuan.join('.').split('').reverse().join('');
+            // Cetak hasil	
+            $(".manual-total").html(ribuan);
+            // document.write(ribuan); 
+        });
+
         //DELETE SELECTED PRODUCT
         $(".trash-cart-details").on("click",function(e){
             e.preventDefault();
@@ -440,6 +457,52 @@
         $("#exampleModal").scroll(function(){
             $('.card-cart').css('top',$(this).scrollTop());
         });
+
+        $('.manual-payment').on("click",function(){
+            btn = $(this);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                url: "{{ route('store.manual.order') }}",
+                data: { 
+                    name : $('#firstName').val() , 
+                    nomor_telephone: $('#notelp').val(),
+                    email : $('#email').val(),
+                    address : $('#address').val() , 
+                    province : $(".province").find(":selected").text() ,
+                    city : $(".city").find(":selected").text() ,
+                    zip_code : $(".zip").find(":selected").val() ,
+                    courier : $('input[name="radio"]:checked').val(),
+                    courier_service : $('input[name="radio2"]:checked').val(),
+                    product_id :  $('#product').val() , 
+                    harga :  $('.first_price').val(),
+                    qty : $('.qty-cart-manual').val(),
+                    notes: $('textarea[name="notes"]').val()
+                },
+                beforeSend: function() {
+                    $(btn).html(`<div class="d-flex justify-content-center">
+                                                        <div class="spinner-border" role="status">
+                                                            <span class="sr-only">Loading...</span>
+                                                        </div>
+                                                    </div>`);
+                },
+                success: function(res){
+                    window.location = "http://localhost:8000/payments/index";
+                },
+                error: function(res) {
+                    console.log(res.responseJSON.message[2]);
+                    // $("#row-product").html(
+                    //     '<div><h5 class="text-danger"> '+ res.responseJSON.result +'</h5></div>');
+                    $(btn).html('<h3 class="text-dark font-weight-bold">BAYAR</h3>');
+                    swal(res.responseJSON.message[2] , "Mohon Isi Data Anda Dengan BENAR", {
+                        icon: "warning",
+                    });
+                }
+            });
+        });
+
     });
 
 </script>

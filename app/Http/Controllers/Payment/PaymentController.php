@@ -153,7 +153,7 @@ class PaymentController extends Controller
         $resultGet = $a["\x00*\x00result"][0]['costs'];
         $resultServiceAndCost = ['<p class="bg-warning rounded border">Pilih Service Kurirmu :</p>']; 
         foreach($resultGet as $key => $value){
-            $resultServiceAndCost[] = '<div class="form-check border rounded mt-1">
+            $resultServiceAndCost[] = '<div class="form-check border courier_service_child rounded mt-1">
                                         <input type="radio" class="form-check-input" name="radio2" value="'.$value['service'].'">
                                         <label class="form-check-label" for="courier">'.$value['service'].'</label>
                                         <p>Biaya: '.$value['cost'][0]['value'].'</p>
