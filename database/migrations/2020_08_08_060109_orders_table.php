@@ -16,11 +16,13 @@ class OrdersTable extends Migration
         Schema::create('orders_manual', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nomor_telepon',20)->unique();
+            $table->string('order_code');
             $table->string('address',100);
             $table->string('province');
             $table->string('city');
             $table->string('courier');
             $table->string('courier_service');
+            $table->string('courier_price');
             $table->integer('product_id');
             $table->integer('qty');
             $table->integer('total_price');

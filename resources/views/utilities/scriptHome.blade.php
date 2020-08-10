@@ -460,6 +460,7 @@
 
         $('.manual-payment').on("click",function(){
             btn = $(this);
+
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -476,7 +477,8 @@
                     zip_code : $(".zip").find(":selected").val() ,
                     courier : $('input[name="radio"]:checked').val(),
                     courier_service : $('input[name="radio2"]:checked').val(),
-                    product_id :  $('#product').val() , 
+                    courier_price : $('input[name="radio2"]:checked').attr('biaya'),
+                    product_id :  $('#product').val(), 
                     harga :  $('.first_price').val(),
                     qty : $('.qty-cart-manual').val(),
                     notes: $('textarea[name="notes"]').val()
@@ -489,14 +491,49 @@
                                                     </div>`);
                 },
                 success: function(res){
-                    window.location = "http://localhost:8000/payments/index";
+                    window.location = res.url;
                 },
                 error: function(res) {
                     console.log(res.responseJSON.message[2]);
                     // $("#row-product").html(
                     //     '<div><h5 class="text-danger"> '+ res.responseJSON.result +'</h5></div>');
                     $(btn).html('<h3 class="text-dark font-weight-bold">BAYAR</h3>');
-                    swal(res.responseJSON.message[2] , "Mohon Isi Data Anda Dengan BENAR", {
+                    swal("Tidak Dapat Diproses" , "Mohon Isi Data Anda Dengan BENAR", {
+                        icon: "warning",
+                    });
+                }
+            });
+        });
+
+        $(".btn-check-pesanan").on("click",function(){
+            btn = $(this);
+            nomor_telephone = $(".nomor_telephone").val();
+         
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                url: "{{ route('check.manual.order') }}",
+                data: { nomor_telephone : nomor_telephone },
+                beforeSend: function() {
+                    $(btn).html(`<div class="d-flex justify-content-center">
+                                                        <div class="spinner-border" role="status">
+                                                            <span class="sr-only">Loading...</span>
+                                                        </div>
+                                                    </div>`);
+                    $(btn).prop('disabled', true);
+                },
+                success: function(res){
+                    swal(res.message , {
+                        icon: "success",
+                    });
+                    $(".col-cari-order-manual").html(res.data);
+                },
+                error: function(res) {
+                    $(btn).html(`Cari`);
+                    $(btn).prop('disabled', false);
+                    swal("Data Order Tidak Ada" , "Periksa Nomor Anda Kembali" , {
                         icon: "warning",
                     });
                 }

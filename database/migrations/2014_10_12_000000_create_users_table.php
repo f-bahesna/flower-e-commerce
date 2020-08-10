@@ -13,9 +13,9 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('users');
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('user_role_id');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('nomor_telepon')->unique();

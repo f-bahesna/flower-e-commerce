@@ -53,6 +53,7 @@ Route::prefix('payments')->group(function () {
 Route::prefix('order_manual')->group(function () {
     Route::get('/index','Order\OrderController@index')->name('show.manual.order');
     Route::post('/store','Order\OrderController@storeOrder')->name('store.manual.order');
+    Route::post('/check','Order\OrderController@checkOrderManual')->name('check.manual.order');
 
 });
 

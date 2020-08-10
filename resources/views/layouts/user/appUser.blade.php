@@ -66,7 +66,7 @@
           <li class="nav-item ">
             <a class="nav-link navbar-text" href="#">Contact</a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item">
             <a class="nav-link navbar-text" href="{{ route('payment.index') }}">Konfirmasi & Check Pesanan</a>
           </li>
           
@@ -77,8 +77,8 @@
              <!-- Button trigger modal-->
             @if($countCart)
               <button type="button" class="btn btn-info btn-sm shopping-cart"> 
-                  <i class="fas fa-2x fa-shopping-cart"></i> 
-                  <span style="font-size: 10px;" class="badge badge-danger ml-2 countCart">{{ $countCart }}</span>
+                  <i class="fas fa-2x fa-shopping-cart"></i>
+                  <span style="font-size: 10px;" class="badge badge-danger ml-2 countCart">{{ $countCart }}</span> 
               </button>
               @else
               <button type="button" class="btn btn-info btn-sm shopping-cart">
@@ -95,18 +95,6 @@
                 <div class="modal-content target-modal-content">
                   <!--Header-->
                   <div class="modal-header header-cart">
-                  
-                
-                      <p class="heading">Product Di Keranjang </p>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" class="white-text">&times;</span>
-                      </button>
-                 
-                      <h4 class="text-danger" id="alert-kosong-cart">Keranjang Mu Kosong, Pilih Product Dulu Ya!</h4>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" class="white-text">&times;</span>
-                      </button>
-              
                
                   </div>
 
@@ -155,6 +143,7 @@
           @endif
         </ul>
       </div>
+      
     </div>
   </nav>
 
