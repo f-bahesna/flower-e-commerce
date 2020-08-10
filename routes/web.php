@@ -62,3 +62,12 @@ Route::prefix('order_manual')->group(function () {
 Route::prefix('jenis')->group(function () {
     Route::get('/','Jenis\JenisController@index')->name('jenis');
 });
+
+
+/////////////////////////////////////----- ADMIN -----///////////////////////////////////////
+
+Route::group(['middleware' => 'check'], function () {
+    Route::prefix('admin')->group(function () {
+        Route::get('/','Admin\AdminController@index')->name('admin');
+    });
+});
