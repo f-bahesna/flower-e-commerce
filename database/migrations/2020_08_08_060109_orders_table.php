@@ -15,7 +15,7 @@ class OrdersTable extends Migration
     {
         Schema::create('orders_manual', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nomor_telepon',20)->unique();
+            $table->string('nomor_telephone',20)->unique();
             $table->string('order_code');
             $table->string('address',100);
             $table->string('province');

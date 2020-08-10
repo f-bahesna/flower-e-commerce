@@ -56,7 +56,7 @@ class RegisterController extends Controller
     //         'name' => ['required', 'string', 'max:255'],
     //         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
     //         'password' => ['required', 'string', 'min:8', 'confirmed'],
-    //         'nomor_telepon' => ['required', 'integer', 'min:15', 'confirmed'],
+    //         'nomor_telephone' => ['required', 'integer', 'min:15', 'confirmed'],
     //     ]);
     // }
 
@@ -73,7 +73,7 @@ class RegisterController extends Controller
     //             'name' => $data['name'],
     //             'email' => $data['email'],
     //             'password' => Hash::make($data['password']),
-    //             'nomor_telepon' => $data['nomor_telepon'],
+    //             'nomor_telephone' => $data['nomor_telephone'],
     //         ]);
     //     } catch (\Exception $th) {
     //         dd($th);
@@ -90,7 +90,7 @@ class RegisterController extends Controller
                 'email' => 'required', 'string', 'email', 'max:255', 'unique:users',
                 'password' => 'required', 'string', 'min:8', 'confirmed',
                 'password_confirmation' => 'required', 'string', 'min:8', 'confirmed',
-                'nomor_telepon' => 'required', 'integer', 'min:15', 'confirmed',
+                'nomor_telephone' => 'required', 'integer', 'min:15', 'confirmed',
             ]);
             
         if($request["password"] != $request["password_confirmation"]){
@@ -100,7 +100,7 @@ class RegisterController extends Controller
                 'name' => $request['name'],
                 'email' => $request['email'],
                 'password' => Hash::make($request['password']),
-                'nomor_telepon' => $request['nomor_telepon'],
+                'nomor_telephone' => $request['nomor_telephone'],
             ]);
 
             Auth::loginUsingId($id);

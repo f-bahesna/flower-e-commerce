@@ -195,7 +195,8 @@ class CartController extends Controller
             $getSubtotal = DB::table('carts as c')->where('c.id_user', $request->user_id)
                                     ->Join('products as p','c.id_product','=','p.id')
                                     ->select('c.total as total_product','p.harga_product')->get();
-
+                                    
+            //COUNT QTY & Product PRICE
             $subTotal = [];
             foreach($getSubtotal as $value){
                 $subTotal[] = $value->total_product * $value->harga_product;

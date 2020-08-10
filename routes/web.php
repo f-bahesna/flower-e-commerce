@@ -54,6 +54,8 @@ Route::prefix('order_manual')->group(function () {
     Route::get('/index','Order\OrderController@index')->name('show.manual.order');
     Route::post('/store','Order\OrderController@storeOrder')->name('store.manual.order');
     Route::post('/check','Order\OrderController@checkOrderManual')->name('check.manual.order');
+    Route::post('/check-number','Order\OrderController@checkNumber')->name('check.number');
+    Route::post('/upload-payment-confirmation','Order\OrderController@uploadPaymentConfirmation')->name('upload.payment.confirmation');
 
 });
 

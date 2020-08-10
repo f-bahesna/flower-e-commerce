@@ -29,10 +29,10 @@
                             <div class="col">
                                 <!-- Nomor HP -->
                                 <div class="md-form">
-                                    <input placeholder="Nomor HP" id="nomor_telepon" type="number" class="form-control @error('nomor_telepon') is-invalid @enderror" name="nomor_telepon" value="{{ old('nomor_telepon') }}" required autofocus>
+                                    <input placeholder="Nomor HP" id="nomor_telephone" type="number" class="form-control @error('nomor_telephone') is-invalid @enderror" name="nomor_telephone" value="{{ old('nomor_telephone') }}" required autofocus>
                                 </div>
 
-                                @error('nomor_telepon')
+                                @error('nomor_telephone')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

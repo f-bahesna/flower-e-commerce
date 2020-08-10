@@ -540,6 +540,84 @@
             });
         });
 
+        $("#nomor_telephone").on("change",function(){
+            btn = $(this);
+            nomor_telephone = $(this).val();
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                url: "{{ route('check.number') }}",
+                data: { nomor_telephone : nomor_telephone },
+                beforeSend: function() {
+                    $(btn).html(`<div class="d-flex justify-content-center">
+                                                        <div class="spinner-border" role="status">
+                                                            <span class="sr-only">Loading...</span>
+                                                        </div>
+                                                    </div>`);
+                },
+                success: function(res){
+                    $(btn).next().html(`<span class="text-success mt-3">Order Ditemukan & Nomor Telephone Valid</span>`);
+                    $(".btn-payment-confirmation").prop("disabled", false);
+                },
+                error: function(res) {
+                    $(btn).html(`Upload`);
+                    $(btn).next().html(`<span class="text-danger mt-3"><h4 class="mt-2">ORDER TIDAK DITEMUKAN</h4></span> <hr/> <span class="text-danger mt-3">*Cek Nomor Telephonmu atau Hubungi Admin Untuk Dibantu</span>`);
+                }
+            });
+        });
+
+
+        $(".btn-payment-confirmation").on("click",function(){
+            btn = $(this);
+            nomor_telephone = $("#nomor_telephone").val();
+            image = $("input#imageUpload");
+
+            data = new FormData();
+            data.append("image", image[0].files[0]);
+            data.append("nomor", nomor_telephone);
+
+
+            var reader = new FileReader();
+            reader.readAsDataURL(image[0].files[0]);
+            reader.onload = function (e) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                url: "{{ route('upload.payment.confirmation') }}",
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    $(btn).html(`<div class="d-flex justify-content-center">
+                                                        <div class="spinner-border" role="status">
+                                                            <span class="sr-only">Loading...</span>
+                                                        </div>
+                                                    </div>`);
+                    $(btn).prop('disabled', true);
+                },
+                success: function(res){
+                    swal("Sukses!", "Gambar Berhasil Di Upload!", "success", {
+                        button: "Selesai!",
+                    });
+                    $(btn).html(`Upload`);
+                    $("#nomor_telephone").val('');
+                    $("input#imageUpload").val('');
+                },
+                error: function(res) {
+                    console.log(res);
+                    swal("Gagal!", "Gambar Gagal Di Upload!", "warning", {
+                        button: "Selesai!",
+                    });
+                    $(btn).html(`Upload`)
+                }
+            });
+        }
     });
+});
 
 </script>
