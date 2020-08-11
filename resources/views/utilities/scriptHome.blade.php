@@ -457,7 +457,8 @@
         $("#exampleModal").scroll(function(){
             $('.card-cart').css('top',$(this).scrollTop());
         });
-
+        
+        //Tombol Bayar setelah pilih product,ongkir,kurir
         $('.manual-payment').on("click",function(){
             btn = $(this);
 
@@ -495,8 +496,6 @@
                 },
                 error: function(res) {
                     console.log(res.responseJSON.message[2]);
-                    // $("#row-product").html(
-                    //     '<div><h5 class="text-danger"> '+ res.responseJSON.result +'</h5></div>');
                     $(btn).html('<h3 class="text-dark font-weight-bold">BAYAR</h3>');
                     swal("Tidak Dapat Diproses" , "Mohon Isi Data Anda Dengan BENAR", {
                         icon: "warning",
@@ -504,6 +503,11 @@
                 }
             });
         });
+
+        $(".input-courier-service").change(function(){
+            a = $('.input-courier-service:checked').attr('biaya');
+            alert(a);
+        })
 
         $(".btn-check-pesanan").on("click",function(){
             btn = $(this);
@@ -529,6 +533,7 @@
                         icon: "success",
                     });
                     $(".col-cari-order-manual").html(res.data);
+                    $(".col-cari-order-manual").prepend('<input type="hidden" id="nomor" value="'+ nomor_telephone +'">');
                 },
                 error: function(res) {
                     $(btn).html(`Cari`);
@@ -540,6 +545,46 @@
             });
         });
 
+        //Batalkan Pesanan
+        $(".btn-batalkan-pesanan").on("click",function(){
+            btn = $(this);
+            nomor_telephone = $("#nomor").val();
+            alasan = $(".alasan-batal-pesanan").val();
+            
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                url: "{{ route('cancel.order') }}",
+                data: { nomor_telephone : nomor_telephone , alasan : alasan },
+                beforeSend: function() {
+                    $(btn).html(`<div class="d-flex justify-content-center">
+                                                        <div class="spinner-border" role="status">
+                                                            <span class="sr-only">Loading...</span>
+                                                        </div>
+                                                    </div>`);
+                    $(btn).prop('disabled', true);
+                },
+                success: function(res){
+                    swal(res.message , {
+                        icon: "success",
+                    }).then((value) => {
+                        location.reload();
+                    });
+                   
+                },
+                error: function(res) {
+                    swal(res.responseJSON.message , {
+                        icon: "warning",
+                    }).then((value) => {
+                        location.reload();
+                    });
+                }
+            });
+        });
+
+        //Check Automaticaly Number Telephone if Exist
         $("#nomor_telephone").on("change",function(){
             btn = $(this);
             nomor_telephone = $(this).val();
@@ -568,7 +613,7 @@
             });
         });
 
-
+        //Upload Bukti Pembayaran
         $(".btn-payment-confirmation").on("click",function(){
             btn = $(this);
             nomor_telephone = $("#nomor_telephone").val();
@@ -601,16 +646,18 @@
                     $(btn).prop('disabled', true);
                 },
                 success: function(res){
-                    swal("Sukses!", "Gambar Berhasil Di Upload!", "success", {
+                    swal("Sukses!", res.message, "success", {
                         button: "Selesai!",
                     });
                     $(btn).html(`Upload`);
                     $("#nomor_telephone").val('');
                     $("input#imageUpload").val('');
+                    $(btn).prop('disabled', false);
                 },
                 error: function(res) {
                     console.log(res);
-                    swal("Gagal!", "Gambar Gagal Di Upload!", "warning", {
+                    $(btn).prop('disabled', false);
+                    swal("Gagal!", res.responseJSON.message, "warning", {
                         button: "Selesai!",
                     });
                     $(btn).html(`Upload`)

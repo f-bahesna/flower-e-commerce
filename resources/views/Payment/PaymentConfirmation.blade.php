@@ -39,6 +39,28 @@
             <button class="btn btn-lg btn-warning btn-check-pesanan">Cari</button>
         </div>
     </div>
+
+            <!-- Small modal -->
+    <div class="modal fade bd-example-modal-sm" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Alasan:</span>
+                        </div>
+                        <textarea class="form-control alasan-batal-pesanan" aria-label="With textarea"></textarea>
+                    </div>
+                    <button class="btn btn-sm btn-warning btn-batalkan-pesanan">Batalkan</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @endsection

@@ -73,7 +73,7 @@
                     <button type="button" class="btn btn-success btn-rounded float-right" data-toggle="modal" data-target="#exampleModal">Beli Langsung</button>
                   @endif
 
-                  <!-- Modal -->
+                  <!-- MODAL CHECKOUT -->
                   <div class="modal fade" data-backdrop="static" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                       <div class="modal-content">
@@ -229,7 +229,7 @@
                       </div>
                     </div>
                   </div>
-
+                   <!-- END MODAL CHECKOUT -->
 
 
               </div>

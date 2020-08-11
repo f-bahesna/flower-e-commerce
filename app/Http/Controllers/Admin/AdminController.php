@@ -9,6 +9,6 @@ class AdminController extends Controller
 {
     public function index()
     {
-       dd('masuk controller koe admin');
+       return view('ADMIN.Dashboard.dashboard');
     }
 }

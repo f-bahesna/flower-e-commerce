@@ -26,7 +26,7 @@ class OrdersTable extends Migration
             $table->integer('product_id');
             $table->integer('qty');
             $table->integer('total_price');
-            $table->enum('status',['verification','packing','shipping','done'])->nullable();
+            $table->enum('status',['cancel_process','canceled','verification','packing','shipping','done'])->nullable();
             $table->string('notes',100)->nullable();
         });
     }

@@ -95,47 +95,88 @@ class OrderController extends Controller
     public function checkOrderManual(Request $request)
     {
         if($request->ajax()){
+            //Not Pay Yet
             $searchOrder = DB::table('orders_manual as om')
-            ->Join('products as p','om.product_id','=','p.id')
-            ->Join('payment_confirmation as pc','om.nomor_telephone','=','pc.nomor_telephone')
-            ->where('om.nomor_telephone', $request->nomor_telephone)
-            ->select('om.*','p.nama_product as nama_product','pc.image as image')
-            ->first();
-            
-            $layout = ' 
-                    <div class="card" style="min-height: 200px">
-                        <div class="card-header">
-                            <p class="text-muted">Kode Pesanan :'.$searchOrder->order_code.'</p>
-                            <h4 class="font-weight-bold">Status : <badge class="bg-success rounded p-1 mb-2">'.ucfirst($searchOrder->status).'</badge></h4>
-                        </div>
-                        <div class="row ml-2">
-                        <div class="col-md-6">
-                            <ul class="list-group list-group-flush">
-                                <img class="border mt-2" src="'. asset('storage/paymentConfirmation/'.$searchOrder->image).'" height="300" width="300" alt="">
-                                <li class="list-group-item">Product Yang Dipesan: <p class="font-weight-bold">'. $searchOrder->nama_product .'</p></li>
-                                <li class="list-group-item">Nomor Telephone :<p class="font-weight-bold">'.$searchOrder->nomor_telephone.'</p></li>
-                                <li class="list-group-item">Quantity: <p class="font-weight-bold">'.$searchOrder->qty.'</p></li>
-                                <li class="list-group-item">Kurir : '.strtoupper($searchOrder->courier) .' <p class="text-info">'.$searchOrder->courier_service.'</p></li>
-                                <li class="list-group-item">Total : <p class="font-weight-bold">Rp.'.number_format($searchOrder->total_price,0,',','.').'</p></li>
-                            </ul>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Alamat : <p class="font-weight-bold">'. $searchOrder->address.'</p></li>
-                                <li class="list-group-item">Provinsi : <p class="font-weight-bold">'.$searchOrder->province.'</p></li>
-                                <li class="list-group-item">Kota : <p class="font-weight-bold">'.$searchOrder->city.'</p></li>
-                            </ul>
-                        </div>
-                        </div>
-                            <button class="btn btn-lg btn-warning btn-check-pesanan">Cari</button>
-                        </div>
-                    ';
+                ->Join('products as p','om.product_id','=','p.id')
+                ->where('om.nomor_telephone', $request->nomor_telephone)
+                ->select('om.*','p.nama_product as nama_product','om.nomor_telephone as nomor_telephone','om.status as status','om.courier_price as ongkir')
+                ->first(); 
+            //Jika nomor telephone tidak ada
+            if($searchOrder === null || $searchOrder->status === 'canceled'){
+                return response()->json([
+                    "status" => 400 , "message" => "Data Order Tidak Ditemukan" , "data" => ""
+                ],500);
+            }
 
-            if($searchOrder){
+            //Check If user has been pay
+            $addPaymentConfirmation = DB::table('orders_manual as om')
+                ->Join('products as p','om.product_id','=','p.id')
+                ->Join('payment_confirmation as pc','om.nomor_telephone','=','pc.nomor_telephone')
+                ->where('om.nomor_telephone', $request->nomor_telephone)
+                ->select('om.*','p.nama_product as nama_product','pc.image as image','om.nomor_telephone as nomor_telephone','om.courier_price as ongkir')
+                ->first();
+
+            if($addPaymentConfirmation === null){
+                $layout =' 
+                <div class="card" style="min-height: 200px">
+                    <div class="card-header">
+                        <p class="text-muted">Kode Pesanan :'.$searchOrder->order_code.'</p>
+                        <h4 class="font-weight-bold">Status : <badge class="bg-success rounded p-1 mb-2">'.ucfirst($searchOrder->status).'</badge></h4>
+                        <span class="text-warning">Anda Belum Mengupload Bukti Pembayaran ...</span>
+                    </div>
+                    <div class="row ml-2">
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <img class="border mt-2" src="" height="300" width="300" alt="">
+                            <li class="list-group-item">Product Yang Dipesan: <p class="font-weight-bold">'. $searchOrder->nama_product .'</p></li>
+                            <li class="list-group-item">Nomor Telephone :<p class="font-weight-bold">'.$searchOrder->nomor_telephone.'</p></li>
+                            <li class="list-group-item">Quantity: <p class="font-weight-bold">'.$searchOrder->qty.'</p></li>
+                            <li class="list-group-item">Kurir : '.strtoupper($searchOrder->courier) .' <p class="text-info">'.$searchOrder->courier_service.'</p></li>
+                            <li class="list-group-item">Ongkir :Rp.'.number_format($searchOrder->ongkir,0,',','.').' </li>
+                            <li class="list-group-item">Total : <p class="font-weight-bold">Rp.'.number_format($searchOrder->total_price,0,',','.').'</p></li>
+                            <li class="list-group-item">Alamat : <p class="">'. $searchOrder->address.'</p></li>
+                            <li class="list-group-item">Provinsi : <p class="">'.$searchOrder->province.'</p></li>
+                            <li class="list-group-item">Kota : <p class="">'.$searchOrder->city.'</p></li>
+                        </ul>
+                    </div>
+                    </div>
+                        <h6 class="text-danger ml2">*Anda Dapat Membatalkan Pesanan Jika Status Pesanan Dalam Proses <u class="text-success text-center">Verification</u> </h6>
+                        <button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".bd-example-modal-sm">Batalkan Pesanan</button>
+                    </div>
+                ';
+
                 return response()->json([
                     "status" => 200 , "message" => "Data Order Ditemukan" , "data" => $layout
                 ]);
             }else{
+                $layout = ' 
+                <div class="card" style="min-height: 200px">
+                    <div class="card-header">
+                        <p class="text-muted">Kode Pesanan :'.$addPaymentConfirmation->order_code.'</p>
+                        <h4 class="font-weight-bold">Status : <badge class="bg-success rounded p-1 mb-2">'.ucfirst($addPaymentConfirmation->status).'</badge></h4>
+                    </div>
+                    <div class="row ml-2">
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <img class="border mt-2" src="'. asset('storage/paymentConfirmation/'.$addPaymentConfirmation->image).'" height="300" width="300" alt="">
+                            <li class="list-group-item">Product Yang Dipesan: <p class="font-weight-bold">'. $addPaymentConfirmation->nama_product .'</p></li>
+                            <li class="list-group-item">Nomor Telephone :<p class="font-weight-bold">'.$addPaymentConfirmation->nomor_telephone.'</p></li>
+                            <li class="list-group-item">Quantity: <p class="font-weight-bold">'.$addPaymentConfirmation->qty.'</p></li>
+                            <li class="list-group-item">Kurir : '.strtoupper($addPaymentConfirmation->courier) .' <p class="text-info">'.$addPaymentConfirmation->courier_service.'</p></li>
+                            <li class="list-group-item">Ongkir :Rp.'.number_format($searchOrder->ongkir,0,',','.').' </li>
+                            <li class="list-group-item">Total : <p class="font-weight-bold">Rp.'.number_format($addPaymentConfirmation->total_price,0,',','.').'</p></li>
+                            <li class="list-group-item">Alamat : <p class="">'. $addPaymentConfirmation->address.'</p></li>
+                            <li class="list-group-item">Provinsi : <p class="">'.$addPaymentConfirmation->province.'</p></li>
+                            <li class="list-group-item">Kota : <p class="">'.$addPaymentConfirmation->city.'</p></li>
+                        </ul>
+                    </div>
+                    </div>
+                        <h6 class="text-danger ml-2">*Anda Dapat Membatalkan Pesanan Jika Status Pesanan Dalam Proses <u class="text-success text-center">Verification</u> </h6>
+                        <button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".bd-example-modal-sm">Batalkan Pesanan</button>
+                    </div>
+                ';
                 return response()->json([
-                    "status" => 400 , "message" => "Data Order Tidak Ditemukan" , "data" => ""
+                    "status" => 200 , "message" => "Data Order Ditemukan" , "data" => $layout
                 ]);
             }
         }
@@ -156,10 +197,26 @@ class OrderController extends Controller
     }
     public function uploadPaymentConfirmation(Request $request)
     {
+        $checkNumber = DB::table('payment_confirmation')->where('nomor_telephone', $request->nomor)->first();
+        $checkOrderStatus = DB::table('orders_manual')->where('nomor_telephone', $request->nomor)->first();
+
+        //Check If Orders manual have status CANCEL_PROCESS
+        if($checkOrderStatus->status === 'cancel_process'){
+            return response()->json([
+                "message" => "Pesananmu Dalam Persetujuan Cancel Oleh Admin"
+            ],500);
+        }
+
+        //If User Already upload the Payment Configuration
+        if($checkNumber){
+            return response()->json([
+                "message" => "Pesananmu Sedang Dalam Antrian, Mohon Cek Status Pesanan Secara Berkala"
+            ]);
+        }
 
         $validation = Validator::make($request->all(),[
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'nomor' => 'required'
+            'nomor' => 'required|max:17'
         ]);
 
         if($validation->passes()){
@@ -174,7 +231,7 @@ class OrderController extends Controller
                     ]);
                 DB::commit();
             return response()->json([
-                'message'   => 'Image Upload Successfully',
+                'message'   => 'Upload Image Sukses',
             ]);
         }else{
             DB::rollback();
@@ -182,5 +239,37 @@ class OrderController extends Controller
                 'message'   => $validation->errors()->all(),
             ],500);
         }  
+    }
+
+    public function cancelOrder(Request $request)
+    {
+        $checkStatus =  DB::table('orders_manual')->where('nomor_telephone',$request->nomor_telephone)->first();
+        if($checkStatus->status !== 'verification'){
+            return response()->json([
+                "message" => "Pesanan Tidak Dapat Dibatalkan Atau Dalam Proses Pembatalan"
+            ],500); 
+        }    
+
+        $validation = Validator::make($request->all(),[
+            "alasan" => 'required|max:30',
+            "nomor_telephone" => 'required'
+        ]);
+
+        if($validation->passes()){
+            DB::table('orders_manual')->where('nomor_telephone', $request->nomor_telephone)->update([
+                "notes" => $request->alasan,
+                "status" => "cancel_process"
+            ]);
+
+            return response()->json([
+                "message" => "Pesanan Berhasil Dibatalkan"
+            ]);  
+        }else{
+            if($validation->errors()->all()[0] == 'The alasan field is required.'){
+                return response()->json([
+                    'message'   => "Alasan Anda Membatalkan Pesanan?",
+                ],500);
+            }
+        }
     }
 }

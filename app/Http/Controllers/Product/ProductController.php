@@ -30,7 +30,7 @@ class ProductController extends Controller
             $products = product::paginate(10)->toArray();
             $jenis = DB::table('products')->select('jenis_product')->distinct()->get();
     
-            return view('product.product',compact('products','user_id','Cart','countCart','jenis'));
+            return view('Product.product',compact('products','user_id','Cart','countCart','jenis'));
         }else{
             $products = products::all();
             $user_id = 0;
@@ -40,7 +40,7 @@ class ProductController extends Controller
             $products = product::paginate(10)->toArray();
             $jenis = DB::table('products')->select('jenis_product')->distinct()->get();
             
-            return view('product.product',compact('products','user_id','Cart','countCart','jenis'));
+            return view('Product.product',compact('products','user_id','Cart','countCart','jenis'));
         }
     }
 

@@ -56,6 +56,7 @@ Route::prefix('order_manual')->group(function () {
     Route::post('/check','Order\OrderController@checkOrderManual')->name('check.manual.order');
     Route::post('/check-number','Order\OrderController@checkNumber')->name('check.number');
     Route::post('/upload-payment-confirmation','Order\OrderController@uploadPaymentConfirmation')->name('upload.payment.confirmation');
+    Route::post('/batalkan-pesanan','Order\OrderController@cancelOrder')->name('cancel.order');
 
 });
 

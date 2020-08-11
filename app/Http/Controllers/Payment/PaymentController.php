@@ -144,7 +144,8 @@ class PaymentController extends Controller
     public static function cost(Request $request)
     {
         $daftarProvinsi = RajaOngkir::ongkir([
-            'origin'        => 11,     // ID kota/kabupaten asal TULUNGAGUNG
+            'origin'        => 492,     // ID kota/kabupaten asal TULUNGAGUNG
+            // 'origin'        => 247,     // ID kota/kabupaten asal MADIUN
             'destination'   => $request->city_id,      // ID kota/kabupaten tujuan
             'weight'        => $request->weight,    // berat barang dalam gram
             'courier'       => $request->courier    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
@@ -154,7 +155,7 @@ class PaymentController extends Controller
         $resultServiceAndCost = ['<p class="bg-warning rounded border">Pilih Service Kurirmu :</p>']; 
         foreach($resultGet as $key => $value){
             $resultServiceAndCost[] = '<div class="form-check border courier_service_child rounded mt-1">
-                                        <input type="radio" biaya=" ' .$value['cost'][0]['value']. '" class="form-check-input" name="radio2" value="'.$value['service'].'">
+                                        <input type="radio" biaya="'.$value['cost'][0]['value'].'" class="form-check-input input-courier-service" name="radio2" value="'.$value['service'].'">
                                         <label class="form-check-label" for="courier">'.$value['service'].'</label>
                                         <p>Biaya: <p class="biaya"> ' .$value['cost'][0]['value']. ' </p></p>
                                         <p>Perkiraan Tiba : '.$value['cost'][0]['etd'].' Hari</p>
