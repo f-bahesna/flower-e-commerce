@@ -117,4 +117,19 @@ class AdminController extends Controller
             ]);
         } 
     }
+   
+    public function delete(Request $request)
+    {
+        if($request->id){
+            DB::table('products')->where('id',$request->id)->delete();
+    
+            return response()->json([
+                "status" => 200 , "message" => "Berhasil Dihapus"
+            ]);
+        }else{
+            return response()->json([
+                "status" => 400 , "message" => "gagal"
+            ],500);
+        }
+    }
 }

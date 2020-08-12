@@ -30,7 +30,7 @@
               <img src="{{ url('storage/image/'.$item->gambar_product) }}" height="200" width="200" alt="">
             </td>
             <td>{{ $item->jenis_product }}</td>
-            <td>{{ $item->umur_product }}</td>
+            <td>{{ $item->umur_product }} Bln</td>
             <td>{{ $item->berat_product }}g</td>
             <td>{{ $item->stock_product }}</td>
             <td>{{ $item->keterangan_product }}</td>
@@ -55,7 +55,8 @@
             <td>{{ $item->created_by }}</td>
             <td> 
               <a href="{{ route('get.detail.product',["id"=> $item->id]) }}"><button class="btn btn-warning btn-sm"><i class="fas fa-2x fa-edit"></i></button></a>
-              <a href=""><button class="btn mt-2 btn-danger btn-sm"><i class="fas fa-2x fa-trash"></i></button></a>
+              <input type="hidden" value="{{ $item->id }}">
+              <a href="#"><button class="btn mt-2 btn-danger btn-delete-product btn-sm"><i class="fas fa-2x fa-trash"></i></button></a>
             </td>
           </tr>
         @endforeach
