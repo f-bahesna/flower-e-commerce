@@ -195,6 +195,7 @@ class OrderController extends Controller
             ],500);
         }
     }
+    
     public function uploadPaymentConfirmation(Request $request)
     {
         $checkNumber = DB::table('payment_confirmation')->where('nomor_telephone', $request->nomor)->first();

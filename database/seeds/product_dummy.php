@@ -43,6 +43,7 @@ class product_dummy extends Seeder
                 $arrayJenis = ['bunga','bunga','bunga','bunga','cemara','cemara','cemara','kaktus','kaktus','kaktus','kaktus','tanaman'];
                 $arrayBerat = [1000,600,300,700,800,600,3000,5000,1500,1700,200,400];
                 $arrayUmur = [1,2,3,5,8,7,6,5,6,7,6,10];
+                $arrayStock = [1,2,3,5,8,7,6,5,6,7,6,10];
                 $arrayHarga = [100000,250000,3000000,580000,80000,75000,65000,50000,67000,780000,60000,150000];
                 $arrayStatus = ['published','published','published','published','published','published','published','published','published','published','drafted','drafted'];
 
@@ -52,6 +53,7 @@ class product_dummy extends Seeder
                         'gambar_product' => $arrayImage[$i],
                         'jenis_product' =>  $arrayJenis[$i],
                         'harga_product' =>  $arrayHarga[$i],
+                        'stock_product' =>  $arrayStock[$i],
                         'umur_product' =>  $arrayUmur[$i],
                         'status_product' => $arrayStatus[$i],
                         'berat_product' =>  $arrayBerat[$i],

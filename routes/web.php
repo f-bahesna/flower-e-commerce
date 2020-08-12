@@ -70,5 +70,9 @@ Route::prefix('jenis')->group(function () {
 Route::group(['middleware' => 'check'], function () {
     Route::prefix('admin')->group(function () {
         Route::get('/','Admin\AdminController@index')->name('admin');
+        Route::get('/get-products','Admin\AdminController@product')->name('get.products');
+        Route::get('/get-detail-product/{id}','Admin\AdminController@getDetailProduct')->name('get.detail.product');
+        Route::post('/save-edit-product','Admin\AdminController@saveEditProduct')->name('save.edit.product');
+        Route::post('/save-another-image','Admin\AdminController@simpanGambarLainnya')->name('save.another.image');
     });
 });

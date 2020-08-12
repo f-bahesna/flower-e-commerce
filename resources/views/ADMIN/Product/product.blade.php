@@ -1,24 +1,69 @@
-@extends('appAdmin')
+@extends('layouts.admin.appAdmin')
 @section('title','Product')
 @section('content')
-<table class="table table-striped table-sm">
+<table id="table-product" class="table table-hover table-striped table-sm">
     <thead>
       <tr>
-        <th>#</th>
-        <th>Header</th>
-        <th>Header</th>
-        <th>Header</th>
-        <th>Header</th>
+        <th>No</th>
+        <th>Nama Product</th>
+        <th>Gambar</th>
+        <th>Jenis</th>
+        <th>Umur</th>
+        <th>Berat</th>
+        <th>Stock</th>
+        <th>Keterangan</th>
+        <th>Status</th>
+        <th>Created At</th>
+        <th>Created By</th>
+        <th>Setting</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1,001</td>
-        <td>Lorem</td>
-        <td>ipsum</td>
-        <td>dolor</td>
-        <td>sit</td>
-      </tr>
+      @if($dataProducts)
+      @php($i = 1)
+        @foreach ($dataProducts as $key =>  $item)
+          <tr>
+            <input type="hidden" class="product-id" value="{{ $item->id }}">
+            <td>{{ $i++ }}</td>
+            <td>{{ $item->nama_product }}</td>
+            <td>
+              <img src="{{ url('storage/image/'.$item->gambar_product) }}" height="200" width="200" alt="">
+            </td>
+            <td>{{ $item->jenis_product }}</td>
+            <td>{{ $item->umur_product }}</td>
+            <td>{{ $item->berat_product }}g</td>
+            <td>{{ $item->stock_product }}</td>
+            <td>{{ $item->keterangan_product }}</td>
+            <td> 
+            @if($item->status_product == 'published')
+              <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ $item->status_product }}
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item drafted" href="#">Drafted</a>
+              </div>
+            @else
+            <button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ $item->status_product }}
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item publish" href="#">Publish</a>
+            </div>
+            @endif
+            </td>
+            <td>{{ $item->created_at }}</td>
+            <td>{{ $item->created_by }}</td>
+            <td> 
+              <a href="{{ route('get.detail.product',["id"=> $item->id]) }}"><button class="btn btn-warning btn-sm"><i class="fas fa-2x fa-edit"></i></button></a>
+              <a href=""><button class="btn mt-2 btn-danger btn-sm"><i class="fas fa-2x fa-trash"></i></button></a>
+            </td>
+          </tr>
+        @endforeach
     </tbody>
+    @else
+    <tr>
+      <td>Data Kosong</td>
+    </tr>
+    @endif
   </table>
 @endsection

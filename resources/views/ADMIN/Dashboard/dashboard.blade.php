@@ -12,12 +12,14 @@
               </div>
         </div>
         <div class="col-md-4 mt-4">
-            <div class="card bg-success">
+          <a href="{{ route('get.products') }}">
+            <div class="card bg-success" id="btn-product">
                 <div class="card-body text-center">
-                <i class="fas fa-3x fa-align-justify"></i>
-                  <h4 class="card-text">Produk</h4>
+                <i class="fas fa-dark fa-3x fa-align-justify"></i>
+                  <h4 class="card-text text-dark">Produk</h4>
                 </div>
-              </div>
+            </div>
+          </a>
         </div>
         <div class="col-md-4 mt-4">
             <div class="card bg-success">

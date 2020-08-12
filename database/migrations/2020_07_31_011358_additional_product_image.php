@@ -16,6 +16,7 @@ class AdditionalProductImage extends Migration
         Schema::create('additional_product_image', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('id_product');
+            $table->string('number_pic');
             $table->string('additional_product_image');
         });
     }
