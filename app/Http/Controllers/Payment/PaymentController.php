@@ -113,7 +113,7 @@ class PaymentController extends Controller
         $request = $client->get($url , $data);
         $response = $request->getBody()->getContents();
         $result = json_decode($response);
-
+        
         return $result->rajaongkir->results;
     }
 

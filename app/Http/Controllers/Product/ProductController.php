@@ -27,7 +27,7 @@ class ProductController extends Controller
             $Cart = DB::table('carts')->where('id_user',$user_id)->sum('total');
             $countCart = preg_replace("/\.?0+$/", "", $Cart);
     
-            $products = product::paginate(10)->toArray();
+            $products = product::where('status_product','published')->paginate(10)->toArray();
             $jenis = DB::table('products')->select('jenis_product')->distinct()->get();
     
             return view('Product.product',compact('products','user_id','Cart','countCart','jenis'));
@@ -37,7 +37,7 @@ class ProductController extends Controller
             $Cart = DB::table('carts')->where('id_user',$user_id)->sum('total');
             $countCart = preg_replace("/\.?0+$/", "", $Cart);
     
-            $products = product::paginate(10)->toArray();
+            $products = product::where('status_product','published')->paginate(10)->toArray();
             $jenis = DB::table('products')->select('jenis_product')->distinct()->get();
             
             return view('Product.product',compact('products','user_id','Cart','countCart','jenis'));
@@ -137,7 +137,7 @@ class ProductController extends Controller
 
     public function searchProduct(Request $request)
     {
-        $result = DB::table('products')->where('nama_product','LIKE',"%$request->value%")->get();
+        $result = DB::table('products')->where('nama_product','LIKE',"%$request->value%")->where('status_product','published')->get();
         $resultData = [];
         if($result){
             foreach($result as $key => $value){

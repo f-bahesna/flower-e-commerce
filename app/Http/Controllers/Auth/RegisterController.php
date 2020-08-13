@@ -102,6 +102,11 @@ class RegisterController extends Controller
                 'password' => Hash::make($request['password']),
                 'nomor_telephone' => $request['nomor_telephone'],
             ]);
+                DB::table('user_role')->insert([
+                    "user_id" => $id,
+                    "type" => 'user',
+                    "created_at" => now()
+                ]);
 
             Auth::loginUsingId($id);
     

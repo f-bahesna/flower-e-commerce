@@ -4,12 +4,14 @@
 @section('content')
     <div class="row">
         <div class="col-md-4 mt-4">
+          <a href="{{ route('order') }}">
             <div class="card bg-success">
                 <div class="card-body text-center">
                 <i class="fas fa-3x fa-cart-arrow-down"></i>
-                  <h4 class="card-text">Pesanan Baru</h4>
+                  <h4 class="card-text text-dark">Pesanan Baru</h4>
                 </div>
-              </div>
+            </div>
+          </a>
         </div>
         <div class="col-md-4 mt-4">
           <a href="{{ route('get.products') }}">

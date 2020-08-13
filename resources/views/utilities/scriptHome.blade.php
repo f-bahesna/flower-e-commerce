@@ -221,7 +221,6 @@
                 success: function(res){
                     $(thiz).parent().parent().next().html(res.resultCalculate);
                     $(thiz).parent().parent().parent().parent().next().find('.subTotal').html(res.subTotal);
-                    console.log(res);
                 },
                 error: function(res) {
                     $("#row-product").html(
@@ -230,21 +229,30 @@
             });
         }
 
-        $(".qty-cart-manual").on("change",function(){
+        $(".qty-cart-manual").on("change",function(e){
+            e.preventDefault();
+            stock_product = $(".stock_id").val();
             first_val = $(this).val();
-            price_val = $(this).next().val();
-            total_val = $(this).parent().next();
+            //check if pesanan melebihi jumlah stock
+            if(parseInt(first_val) > parseInt(stock_product)){
+                swal("Perhatian!", "Pesanan Melebihi Stock", "warning");
+                $('.manual-payment').prop('disabled',true);
+            }else{
+                $('.manual-payment').prop('disabled',false);
+                price_val = $(this).next().val();
+                total_val = $(this).parent().next();
+                
+                func = Number(price_val) * Number(first_val);
             
-            func = Number(price_val) * Number(first_val);
-        
-            var bilangan = func;
-                    
-            var	reverse = bilangan.toString().split('').reverse().join(''),
-                ribuan 	= reverse.match(/\d{1,3}/g);
-                ribuan	= ribuan.join('.').split('').reverse().join('');
-            // Cetak hasil	
-            $(".manual-total").html(ribuan);
-            // document.write(ribuan); 
+                var bilangan = func;
+                        
+                var	reverse = bilangan.toString().split('').reverse().join(''),
+                    ribuan 	= reverse.match(/\d{1,3}/g);
+                    ribuan	= ribuan.join('.').split('').reverse().join('');
+                // Cetak hasil	
+                $(".manual-total").html(ribuan);
+                // document.write(ribuan); 
+            }
         });
 
         //DELETE SELECTED PRODUCT
@@ -459,7 +467,8 @@
         });
         
         //Tombol Bayar setelah pilih product,ongkir,kurir
-        $('.manual-payment').on("click",function(){
+        $('.manual-payment').on("click",function(e){
+            e.preventDefault();
             btn = $(this);
 
             $.ajax({
@@ -534,6 +543,9 @@
                     });
                     $(".col-cari-order-manual").html(res.data);
                     $(".col-cari-order-manual").prepend('<input type="hidden" id="nomor" value="'+ nomor_telephone +'">');
+                    if(res.status == 'waiting'){
+                       $('#notes-for-user-declined').hide();
+                   }
                 },
                 error: function(res) {
                     $(btn).html(`Cari`);

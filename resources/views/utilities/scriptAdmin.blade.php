@@ -104,7 +104,7 @@
                         location.reload();
                     });
                 },
-                error: function(res) {
+                error: function(res){
                     swal("Sukses!", res.message, "danger", {
                         button: "Selesai!",
                     }).then((value) => {
@@ -113,5 +113,101 @@
                 }
             });
         });
+
+        $('#zoom-image').ezPlus();
+
+        $("#table-product tbody tr").on("click",function(){
+            //order details
+            order_code = $(this).find('.apn-order-code').val();
+            address = $(this).find('.apn-address').val();
+            province = $(this).find('.apn-province').val();
+            qty = $(this).find('.apn-qty').text();
+            city = $(this).find('.apn-city').text();
+            
+            //kurir
+            courier = $(this).find('.apn-courier').val();
+            courier_service = $(this).find('.apn-courier-service').val();
+            courier_price = $(this).find('.apn-courier-price').val();
+            total_price = $(this).find('.apn-total-price').val();
+            notes = $(this).find('.apn-notes').val();
+
+            //product
+            nama_product = $(this).find('.apn-nama-product').val();
+            jenis = $(this).find('.apn-jenis-product').val();
+            harga_product = $(this).find('.apn-harga-product').val();
+            berat = $(this).find('.apn-berat-product').val();
+
+            //payment
+            payment = $(this).find('.apn-payment-confirmation-image').attr('src');
+            //APPEND
+            $('.modal-image-payment-confirmation').attr('src',payment)
+
+            $('.modal-notes').text(notes);
+            //PRODUCT DETAILS
+            $('.modal-order-code').text(order_code);
+            $('.for-order-code-tolak').val(order_code);
+            $('.modal-nama-product').text('Nama Product : '+nama_product);
+            $('.modal-jenis-product').text('Jenis : '+jenis);
+            $('.modal-dipesan').text('Dipesan : '+qty);
+            $('.modal-harga-product').text('Harga. '+(harga_product/1000).toFixed(3));
+            $('.modal-berat-product').text('Berat : '+berat);
+
+            //ADDRESS & COURIER
+            $('.modal-pengiriman').text('Alamat Pengiriman : '+address);
+            $('.modal-provinsi').text('Provinsi : '+province);
+            $('.modal-city').text('Kota : '+city);
+            $('.modal-kurir').text('Kurir : '+courier);
+            $('.modal-kurir-service').text('Servis Kurir : '+courier_service);
+            $('.modal-ongkir').text('Biaya Ongkir '+(courier_price/1000).toFixed(3));
+
+            $('.modal-total-price').text('RP. '+(total_price/1000).toFixed(3));
+
+            $('#exampleModalCenter').modal('show');
+        });
+        //TOLAK SECTION
+        $(".row-tolak").hide();
+        $(".btn-tolak").on("click",function(){
+            $(".row-tolak").fadeIn();
+        });
+
+        $(".btn-cancel-tolak").on("click",function(){
+            $(".row-tolak").fadeOut();
+        })
+
+        $(".btn-confirm-tolak").on("click",function(){
+            btn = $(this);
+            order_code =  $(this).prev().val();
+            textarea = $(this).prev().prev().prev().val();
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                url: "{{ route('tolak.order') }}",
+                data: {order_code : order_code , notes: textarea},
+                beforeSend: function() {  
+                    btn.html(`<div class="d-flex justify-content-center">
+                                                        <div class="spinner-border" role="status">
+                                                            <span class="sr-only">Loading...</span>
+                                                        </div>
+                                                    </div>`); 
+                },
+                success: function(res){
+                    swal("Sukses!", res.message, "danger", {
+                        button: "Selesai!",
+                    }).then((value) => {
+                        location.reload();
+                    });
+                },
+                error: function(res) {
+                    swal("Sukses!", res.message, "danger", {
+                        button: "Selesai!",
+                    }).then((value) => {
+                        location.reload();
+                    });
+                }
+            });
+        })
 })
 </script>

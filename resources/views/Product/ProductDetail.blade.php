@@ -61,6 +61,8 @@
               <h6>Jenis : {{ $result["jenis_product"] }}</h6>
               <input type="hidden" class="weight-product" value="{{ $result["berat_product"] }}">
               <h6>Berat : {{ $result["berat_product"] }} g</h6>
+              <h6>Stock : {{ $result["stock_product"] }} </h6>
+              <input type="hidden"  class="stock_id" value="{{ $result["stock_product"] }}">
             </div>
             <div class="row float-right">
               <div class="col-md">
@@ -86,8 +88,8 @@
                         <div class="modal-body">
                           <div class="row">
                             <div class="col-md-4 order-md-2 mb-4">
-
                               <ul class="list-group mb-3 card-cart">
+                                <p class="text-warning">Stock Tersedia : {{ $result["stock_product"] }}</p>
                                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                                   <div>
                                     <h6 class="my-0">{{ $result["nama_product"] }}</h6>

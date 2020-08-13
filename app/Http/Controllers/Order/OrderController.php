@@ -70,6 +70,7 @@ class OrderController extends Controller
                    "status" => "verification",
                    "notes" => $request->notes
                ]);
+               DB::table('products')->where('id', $request->product_id)->decrement('stock_product', $request->qty);
                DB::commit();
                
                createLog($request->product_id ,$request->nomor_telephone,"Memesan");
@@ -77,7 +78,6 @@ class OrderController extends Controller
                return response()->json([
                    "status" => 200 , "url" => $url
                ]);
-   
    
            } catch (\Exception $ex) {
                DB::rollback();
@@ -146,7 +146,7 @@ class OrderController extends Controller
                 ';
 
                 return response()->json([
-                    "status" => 200 , "message" => "Data Order Ditemukan" , "data" => $layout
+                    "status" => 200 , "message" => "Data Order Ditemukan" , "data" => $layout , "status" => $searchOrder->status
                 ]);
             }else{
                 $layout = ' 
@@ -154,6 +154,7 @@ class OrderController extends Controller
                     <div class="card-header">
                         <p class="text-muted">Kode Pesanan :'.$addPaymentConfirmation->order_code.'</p>
                         <h4 class="font-weight-bold">Status : <badge class="bg-success rounded p-1 mb-2">'.ucfirst($addPaymentConfirmation->status).'</badge></h4>
+                        <textarea disabled name="" id="notes-for-user-declined" cols="40" rows="3" class="border border-warning">'.$addPaymentConfirmation->notes.'</textarea>
                     </div>
                     <div class="row ml-2">
                     <div class="col-md-6">
@@ -175,8 +176,9 @@ class OrderController extends Controller
                         <button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".bd-example-modal-sm">Batalkan Pesanan</button>
                     </div>
                 ';
+
                 return response()->json([
-                    "status" => 200 , "message" => "Data Order Ditemukan" , "data" => $layout
+                    "status" => 200 , "message" => "Data Order Ditemukan" , "data" => $layout , "status" => $searchOrder->status
                 ]);
             }
         }
@@ -198,22 +200,40 @@ class OrderController extends Controller
     
     public function uploadPaymentConfirmation(Request $request)
     {
-        $checkNumber = DB::table('payment_confirmation')->where('nomor_telephone', $request->nomor)->first();
+        // $checkNumber = DB::table('payment_confirmation')->where('nomor_telephone', $request->nomor)->first();
         $checkOrderStatus = DB::table('orders_manual')->where('nomor_telephone', $request->nomor)->first();
 
         //Check If Orders manual have status CANCEL_PROCESS
-        if($checkOrderStatus->status === 'cancel_process'){
+        if($checkOrderStatus->status === 'waiting'){
             return response()->json([
                 "message" => "Pesananmu Dalam Persetujuan Cancel Oleh Admin"
             ],500);
         }
-
-        //If User Already upload the Payment Configuration
-        if($checkNumber){
+        if($checkOrderStatus->status === 'cancel_process'){
+            $image = $request->file('image');
+            $name = rand(). '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('storage/paymentConfirmation'), $name);
+                DB::beginTransaction();
+                    DB::table('payment_confirmation')->update([
+                        "nomor_telephone" => $request->nomor,
+                        "image" => $name,
+                        "created_at" => $this->date
+                    ]);
+                    DB::table('orders_manual')->where('nomor_telephone', $request->nomor)->update([
+                        "status" => "waiting"
+                    ]);
+                DB::commit();
             return response()->json([
-                "message" => "Pesananmu Sedang Dalam Antrian, Mohon Cek Status Pesanan Secara Berkala"
+                'message'   => 'Upload Image Sukses',
             ]);
         }
+
+        //If User Already upload the Payment Confirmation
+        // if($checkNumber){
+        //     return response()->json([
+        //         "message" => "Pesananmu Sedang Dalam Antrian, Mohon Cek Status Pesanan Secara Berkala"
+        //     ]);
+        // }
 
         $validation = Validator::make($request->all(),[
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -229,6 +249,9 @@ class OrderController extends Controller
                         "nomor_telephone" => $request->nomor,
                         "image" => $name,
                         "created_at" => $this->date
+                    ]);
+                    DB::table('orders_manual')->where('nomor_telephone', $request->nomor)->update([
+                        "status" => "waiting"
                     ]);
                 DB::commit();
             return response()->json([

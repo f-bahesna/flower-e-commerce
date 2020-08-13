@@ -121,8 +121,12 @@
                 {{ Auth::user()->name }}
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <button class="dropdown-item" type="button">Profile</button>
-                <button class="dropdown-item" type="button">Payment</button>
+                @if(Auth::user()->name != 'user')
+                <button class="dropdown-item mb-2" type="button"><a href="{{ route('admin') }}">Dashboard</a></button>
+                @else
+                <button class="dropdown-item mb-2" type="button"><a href="">Profile</a></button>
+                <button class="dropdown-item mb-2" type="button"><a href="">Order Status</a></button>
+                @endif
                   <a href="{{ route('user.logout') }}">
                     <button type="button" class="btn btn-danger btn-sm rounded" id="btn-logout">Logout</button>          
                   </a>
