@@ -37,7 +37,7 @@
 <body>
   {{-- @php(dd($CartAdded[0])) --}}
   <nav class="navbar navbar-light navbar-add">
-    <a class="navbar-brand float-left ml-5" href="{{ route('home-page') }}"><img class="img-logo-top" src="{{ url('storage/image/guswinsanse.png') }}" alt=""></a>
+    <a class="navbar-brand float-left ml-5" href="{{ route('home-page') }}"><img class="img-logo-top" src="{{ url('images/image/guswinsanse.png') }}" alt=""></a>
     <a class="navbar-brand float-right Telp" href="#">No Telf :0842333444555</a>
   </nav>
   <!-- Navigation -->
@@ -165,7 +165,7 @@
     <div class="row">
       <div class="col-md-6 mt-md-0 mt-3">
         <h5 class="text-uppercase">Guswin Sanse</h5>
-        <p>Toko yang menjual berbagai Tanaman Hias</p>
+        <p>Toko yang menjual Tanaman Hias & Tanaman Koleksi khususnya Sanseviera</p>
       </div>
       <hr class="clearfix w-100 d-md-none pb-3">
       <!-- Grid column -->
