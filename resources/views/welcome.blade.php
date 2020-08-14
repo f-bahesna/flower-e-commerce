@@ -30,13 +30,13 @@
             </ol>
             <div class="carousel-inner" role="listbox">
               <div class="carousel-item active">
-                <img class="d-block img-fluid" src="{{ url('storage/carousel/guswin1.jpg') }}" alt="First slide">
+                <img class="d-block img-fluid" src="{{ url('images/carousel/guswin1.jpg') }}" alt="First slide">
               </div>
               <div class="carousel-item">
-                <img class="d-block img-fluid" src="{{ url('storage/carousel/guswin2.jpg') }}" alt="Second slide">
+                <img class="d-block img-fluid" src="{{ url('images/carousel/guswin2.jpg') }}" alt="Second slide">
               </div>
               <div class="carousel-item">
-                <img class="d-block img-fluid" src="{{ url('storage/carousel/guswin3.jpg') }}" alt="Third slide">
+                <img class="d-block img-fluid" src="{{ url('images/carousel/guswin3.jpg') }}" alt="Third slide">
               </div>
             </div>
             <a class="carousel-control-prev custom-carousel-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -53,7 +53,7 @@
             @foreach($products["data"] as $product)
             <div class="col-lg-4 col-md-6 mb-4 .jenis">
               <div class="card h-100">
-                <a href="{{ route('product.detail',["id" => $product["id"]]) }}"><img class="card-img-top" src="{{ url('storage/image/'.$product["gambar_product"]) }}" style="height: 200px" alt=""></a>
+                <a href="{{ route('product.detail',["id" => $product["id"]]) }}"><img class="card-img-top" src="{{ url('images/image/'.$product["gambar_product"]) }}" style="height: 200px" alt=""></a>
                 <div class="card-body">
                   <h4 class="card-title">
                     <a href="{{ route('product.detail',["id" => $product["id"]]) }}">{{ $product["nama_product"] }}</a>

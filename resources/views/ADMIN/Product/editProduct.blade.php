@@ -51,7 +51,7 @@
                                 <div class="card p-2 shadow p-3 mb-5 bg-white rounded rounded">
                                     <h6 for="nama_product" class="text-weight-bold">Gambar Utama</h6>
                                     <div class="form-group">
-                                        <img class="bordered rounded img-gambar-utama" src="{{ asset('storage/image/'.$product->gambar_product) }}" height="150" width="150" alt="">
+                                        <img class="bordered rounded img-gambar-utama" src="{{ asset('images/image/'.$product->gambar_product) }}" height="150" width="150" alt="">
                                         <input type="file" name="gambar-utama" class=" btn-warning mt-3 mr-3 gambar-utama">
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
                                 @if($image_count > 3)
                                     @foreach($additional_image as $item)
                                         <div class="form-group">
-                                            <img class="bordered rounded" src="{{ asset('storage/additional_image/'.$item->gambar) }}" height="150" width="150" alt="">
+                                            <img class="bordered rounded" src="{{ asset('images/additional_image/'.$item->gambar) }}" height="150" width="150" alt="">
                                             <input type="file" name="gambar-lainnya[]" class="btn btn-sm btn-warning mt-3 gambar-lainnya">
                                             <input type="hidden" class="product_id" name="product_id" value="{{ $item->id_product }}">
                                             <input type="hidden" class="number_pic" name="number_pic" value="{{ $item->number_pic }}">
@@ -73,21 +73,21 @@
                                     @endforeach
                                 @else  
                                     <div class="form-group">
-                                        <img class="bordered rounded" src="{{ isset($additional_image[0]->gambar) ? asset('storage/additional_image/'.$additional_image[0]->gambar) : "#" }}" height="150" width="150" alt="" placeholder="Image">
+                                        <img class="bordered rounded" src="{{ isset($additional_image[0]->gambar) ? asset('images/additional_image/'.$additional_image[0]->gambar) : "#" }}" height="150" width="150" alt="" placeholder="Image">
                                         <input type="file" name="gambar-lainnya[]" class="btn btn-sm btn-warning mt-3 gambar-lainnya">
                                         <input type="hidden" class="product_id" name="product_id" value="{{ $id }}">
                                         <input type="hidden" class="number_pic" name="number_pic" value="1">
                                         {{-- 1 --}}
                                     </div>
                                     <div class="form-group">
-                                        <img class="bordered rounded" src="{{ isset($additional_image[1]->gambar) ? asset('storage/additional_image/'.$additional_image[1]->gambar) : "#" }}" height="150" width="150" alt="" placeholder="Image">
+                                        <img class="bordered rounded" src="{{ isset($additional_image[1]->gambar) ? asset('images/additional_image/'.$additional_image[1]->gambar) : "#" }}" height="150" width="150" alt="" placeholder="Image">
                                         <input type="file" name="gambar-lainnya[]" class="btn btn-sm btn-warning mt-3 gambar-lainnya">
                                         <input type="hidden" class="product_id" name="product_id" value="{{ $id }}">
                                         <input type="hidden" class="number_pic" name="number_pic" value="2">
                                         {{-- 1 --}}
                                     </div>
                                     <div class="form-group">
-                                        <img class="bordered rounded" src="{{ isset($additional_image[2]->gambar) ? asset('storage/additional_image/'.$additional_image[2]->gambar) : "#" }}" height="150" width="150" alt="" placeholder="Image">
+                                        <img class="bordered rounded" src="{{ isset($additional_image[2]->gambar) ? asset('images/additional_image/'.$additional_image[2]->gambar) : "#" }}" height="150" width="150" alt="" placeholder="Image">
                                         <input type="file" name="gambar-lainnya[]" class="btn btn-sm btn-warning mt-3 gambar-lainnya">
                                         <input type="hidden" class="product_id" name="product_id" value="{{ $id }}">
                                         <input type="hidden" class="number_pic" name="number_pic" value="3">

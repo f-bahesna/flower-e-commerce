@@ -39,7 +39,7 @@ class CartController extends Controller
                     $res[] ='    
                         <div class="row">
                             <div class="col-md-3">
-                                <img class="img-cart" src="'. asset('storage/image/'.$value->gambar_product).'" height="50" width="50" alt="">
+                                <img class="img-cart" src="'. asset('images/image/'.$value->gambar_product).'" height="50" width="50" alt="">
                             </div>
                                 <div class="col-md-4 nama-product-cart">'.$value->nama_product.'<h6 class="font-weight-bold jumlah-cart">X '. $value->total .' </h6></div>
                                 <div class="col-md-5 total-cart">Rp '. number_format($updateCart[$key],2,',','.') .'  </div>

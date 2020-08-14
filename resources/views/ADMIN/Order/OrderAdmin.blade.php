@@ -35,7 +35,7 @@
                     <input type="hidden" class="apn-jenis-product" value="{{ $item->jenis_product }}">
                     <input type="hidden" class="apn-harga-product" value="{{ $item->harga_product }}">
                     <input type="hidden" class="apn-berat-product" value="{{ $item->berat_product }}">
-                    <input type="hidden" class="apn-payment-confirmation-image" src="{{ asset('storage/paymentConfirmation/'. $item->image) }}">
+                    <input type="hidden" class="apn-payment-confirmation-image" src="{{ asset('images/paymentConfirmation/'. $item->image) }}">
 
                     <input type="hidden" class="order_id" value="{{ $item->id_order }}">
                     <td>{{ $i++ }}</td>
@@ -155,11 +155,11 @@
                               <button class="btn btn-danger btn-sm btn-tolak">Tolak</button>
                             </div>
                             <div class="col-md-1">
-                              <button class="btn btn-success btn-sm btn-terima">Terima</button>
+                              {{-- <button class="btn btn-success btn-sm btn-terima">Terima</button> --}}
                             </div>
                           </div>
                           <div class="row row-tolak">
-                            <textarea class="form-control mt-2" id="textarea-tolak" placeholder="Tulis Alasan Peno" name="" id="" cols="30" rows="4"></textarea>
+                            <textarea class="form-control mt-2" id="textarea-tolak" placeholder="Tulis Alasan Penolakan" name="" id="" cols="30" rows="4"></textarea>
                             <button class="btn btn-sm btn-warning btn-cancel-tolak float-right mt-2 mr-2">cancel</button>
                               <input type="hidden" class="for-order-code-tolak" value="">
                             <button class="btn btn-sm btn-danger btn-confirm-tolak float-right mt-2">Confirm Tolak</button>

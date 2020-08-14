@@ -65,12 +65,12 @@ return [
         ],
         'images' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/image'),
+            'root' => public_path('images/image'),
             'visibility' => 'public',
         ],
         'additional' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/additional_image'),
+            'root' => public_path('images/additional_image'),
             'visibility' => 'public',
         ],
     ],

@@ -27,7 +27,7 @@
             <td>{{ $i++ }}</td>
             <td>{{ $item->nama_product }}</td>
             <td>
-              <img src="{{ url('storage/image/'.$item->gambar_product) }}" height="200" width="200" alt="">
+              <img src="{{ url('images/image/'.$item->gambar_product) }}" height="200" width="200" alt="">
             </td>
             <td>{{ $item->jenis_product }}</td>
             <td>{{ $item->umur_product }} Bln</td>
