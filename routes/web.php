@@ -75,10 +75,13 @@ Route::group(['middleware' => 'check'], function () {
         Route::get('/get-detail-product/{id}','Admin\AdminController@getDetailProduct')->name('get.detail.product');
         Route::post('/save-edit-product','Admin\AdminController@saveEditProduct')->name('save.edit.product');
         Route::post('/save-another-image','Admin\AdminController@simpanGambarLainnya')->name('save.another.image');
+        Route::post('/change-publish','Admin\AdminController@changePublish')->name('change.publish');
+
         
         Route::get('/order','Admin\AdminOrderController@index')->name('order');
         Route::post('/tolak-order','Admin\AdminOrderController@tolakOrder')->name('tolak.order');
         Route::post('/packing-order','Admin\AdminOrderController@packingOrder')->name('packing.order');
+
 
     });
 });

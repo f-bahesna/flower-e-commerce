@@ -133,4 +133,26 @@ class AdminController extends Controller
         }
     }
 
+    public function changePublish(Request $request)
+    {
+        switch($request->status){
+            case 'draft':
+                DB::table('products')->where('id',$request->product_id)->update([
+                    "status_product" => 'drafted'
+                ]);
+                return response()->json([
+                    "status" => 200 ,"message" => 'Product Drafted', "btn" => 'Drafted'
+                ]);
+            break;
+            case 'publish':
+                DB::table('products')->where('id',$request->product_id)->update([
+                    "status_product" => 'published'
+                ]);
+                return response()->json([
+                    "status" => 200 ,"message" => 'Product Published', "btn" => 'Published'
+                ]);
+            break;
+        }
+    }
+
 }

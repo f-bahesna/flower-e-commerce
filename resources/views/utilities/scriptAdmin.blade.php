@@ -1,5 +1,6 @@
 <script>
     $(function(){
+        //PRODUCT
       function readURL(input ,dom) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -115,6 +116,47 @@
         });
 
         $('#zoom-image').ezPlus();
+
+        $('.change-publish').on("click",function(){
+            btn = $(this);
+            status = $(this).attr('status');
+            product_id = $(this).parent().parent().parent().find('.product-id').val();
+            
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                url: "{{ route('change.publish') }}",
+                data: {status : status , product_id: product_id},
+                beforeSend: function() {  
+                //
+                },
+                success: function(res){
+                    swal("Sukses!");
+                    if(res.btn == 'Drafted'){
+                        $(btn).parent().prev().removeClass('btn-success');
+                        $(btn).parent().prev().addClass('btn-warning');
+                    }else{
+                        $(btn).parent().prev().removeClass('btn-warning');
+                        $(btn).parent().prev().addClass('btn-success');
+                    }
+
+                    $('.btn-change').html(res.btn);
+                },
+                error: function(res) {
+                    swal("Sukses!", res.message, {
+                        button: "Selesai!",
+                    }).then((value) => {
+                        location.reload();
+                    });
+                }
+            });
+        })
+
+        //END PRODUCT
+
+
 
         $("#table-product tbody.manual tr").on("click",function(){
             //order details
@@ -272,5 +314,6 @@
                 }
             })
         });
+
 })
 </script>

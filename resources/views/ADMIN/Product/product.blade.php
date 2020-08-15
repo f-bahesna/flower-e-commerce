@@ -36,18 +36,20 @@
             <td>{{ $item->keterangan_product }}</td>
             <td> 
             @if($item->status_product == 'published')
-              <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ $item->status_product }}
+              <button type="button" class="btn btn-success btn-change btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ ucfirst($item->status_product) }}
               </button>
               <div class="dropdown-menu">
-                <a class="dropdown-item drafted" href="#">Drafted</a>
+                <a class="dropdown-item change-publish" status="draft" href="#">Drafted</a>
+                <a class="dropdown-item change-publish" status="publish" href="#">Publish</a>
               </div>
             @else
-            <button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ $item->status_product }}
+            <button type="button" class="btn btn-warning btn-change btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ ucfirst($item->status_product) }}
             </button>
             <div class="dropdown-menu">
-              <a class="dropdown-item publish" href="#">Publish</a>
+              <a class="dropdown-item change-publish" status="publish" href="#">Publish</a>
+              <a class="dropdown-item change-publish" status="draft" href="#">Drafted</a>
             </div>
             @endif
             </td>
