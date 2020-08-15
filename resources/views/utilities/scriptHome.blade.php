@@ -501,7 +501,11 @@
                                                     </div>`);
                 },
                 success: function(res){
-                    window.location = res.url;
+                    swal("Pesanan Di Proses", res.message , {
+                        icon: "success",
+                    }).then((value) => {
+                        window.location = res.url;
+                    });
                 },
                 error: function(res) {
                     console.log(res.responseJSON.message[2]);

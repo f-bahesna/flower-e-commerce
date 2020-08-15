@@ -35,7 +35,7 @@
                     <input type="hidden" class="apn-jenis-product" value="{{ $item->jenis_product }}">
                     <input type="hidden" class="apn-harga-product" value="{{ $item->harga_product }}">
                     <input type="hidden" class="apn-berat-product" value="{{ $item->berat_product }}">
-                    <input type="hidden" class="apn-payment-confirmation-image" src="{{ asset('images/paymentConfirmation/'. $item->image) }}">
+                    <input type="hidden" class="apn-payment-confirmation-image" src="{{ asset('storage/paymentConfirmation/'. $item->image) }}">
 
                     <input type="hidden" class="order_id" value="{{ $item->id_order }}">
                     <td>{{ $i++ }}</td>
@@ -199,7 +199,8 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-success">Packing</button>
+                  <input type="hidden" class="modal-order-code" value="">
+                  <button type="button" class="btn btn-success btn-packing">Packing</button>
                 </div>
               </div>
             </div>

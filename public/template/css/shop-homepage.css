@@ -1,4 +1,7 @@
-
+html {
+  scroll-behavior: smooth;
+}
+ 
  .categories-title{
   font-family: 'Montserrat', sans-serif;
 }

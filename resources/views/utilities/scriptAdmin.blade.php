@@ -145,7 +145,6 @@
             $('.modal-notes').text(notes);
             //PRODUCT DETAILS
             $('.modal-order-code').text(order_code);
-            $('.for-order-code-tolak').val(order_code);
             $('.modal-nama-product').text('Nama Product : '+nama_product);
             $('.modal-jenis-product').text('Jenis : '+jenis);
             $('.modal-dipesan').text('Dipesan : '+qty);
@@ -209,5 +208,35 @@
                 }
             });
         })
+
+        $(".btn-packing").on("click",function(){
+            btn = $(this);
+            order_code = $(this).parent().prev().find('.modal-order-code').text();
+
+            alert(order_code);
+            // $.ajax({
+            //     headers: {
+            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //     },
+            //     type: "POST",
+            //     url: "{{ route('packing.order') }}",
+            //     data: {},
+            //     beforeSend: function() {
+            //         btn.html(`<div class="d-flex justify-content-center">
+            //                                             <div class="spinner-border" role="status">
+            //                                                 <span class="sr-only">Loading...</span>
+            //                                             </div>
+            //                                         </div>`); 
+            //     },
+            //     success: function(res){
+            //         alert("oke");
+            //         btn.html('Packing');
+            //     },
+            //     error: function(res){
+            //         alert("error");
+            //         btn.html('Packing');
+            //     }
+            // })
+        });
 })
 </script>

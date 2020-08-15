@@ -78,6 +78,7 @@ Route::group(['middleware' => 'check'], function () {
         
         Route::get('/order','Admin\AdminOrderController@index')->name('order');
         Route::post('/tolak-order','Admin\AdminOrderController@tolakOrder')->name('tolak.order');
+        Route::post('/packing-order','Admin\AdminOrderController@packingOrder')->name('packing.order');
 
     });
 });

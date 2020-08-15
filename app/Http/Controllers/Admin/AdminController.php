@@ -52,7 +52,7 @@ class AdminController extends Controller
         if($image){
             //DELETE
             $imagePrev = DB::table('products')->Where('id', $request->product_id)->select('gambar_product')->first();
-            $usersImage = public_path("images/image/{$imagePrev->gambar_product}"); //get previous image from folder
+            $usersImage = public_path("storage/image/{$imagePrev->gambar_product}"); //get previous image from folder
             if(Storage::disk('images')->exists($imagePrev->gambar_product)) { //unlink or remove previous image from folder
                 File::delete($usersImage);   
             }
@@ -88,7 +88,7 @@ class AdminController extends Controller
     {
         $imagePrev = DB::table('additional_product_image')->Where('id_product', $request->product_id)->where('number_pic', $request->number_pic)->select('additional_product_image')->first();
         if($imagePrev){
-            $usersImage = public_path("images/additional_image/{$imagePrev->additional_product_image}"); //get previous image from folder
+            $usersImage = public_path("storage/additional_image/{$imagePrev->additional_product_image}"); //get previous image from folder
             if(Storage::disk('additional')->exists($imagePrev->additional_product_image)) { //unlink or remove previous image from folder
                 File::delete($usersImage);   
             }
@@ -131,5 +131,10 @@ class AdminController extends Controller
                 "status" => 400 , "message" => "gagal"
             ],500);
         }
+    }
+
+    public function packingOrder()
+    {
+        
     }
 }

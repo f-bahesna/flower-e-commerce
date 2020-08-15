@@ -27,12 +27,12 @@
           <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active img-product-animation" data-interval="10000">
-                <img src="{{ url('images/image/'.$result["gambar_product"]) }}" class="d-block w-100" height="400px" alt="...">
+                <img src="{{ url('storage/image/'.$result["gambar_product"]) }}" class="d-block w-100" height="400px" alt="...">
               </div>
               @if($additional_image != null)
                 @foreach($additional_image as $key => $value)
                   <div class="carousel-item img-product-animation" data-interval="2000">
-                    <img src="{{ url('images/image/'. $value->additional_product_image ) }}" class="d-block w-100" height="400px" alt="...">
+                    <img src="{{ url('storage/image/'. $value->additional_product_image ) }}" class="d-block w-100" height="400px" alt="...">
                   </div>
                 @endforeach
               @endif

@@ -76,7 +76,7 @@ class OrderController extends Controller
                createLog($request->product_id ,$request->nomor_telephone,"Memesan");
          
                return response()->json([
-                   "status" => 200 , "url" => $url
+                   "status" => 200 , "url" => $url ,"message" => "Silahkan Upload Pembayaran di Halaman selanjutnya"
                ]);
    
            } catch (\Exception $ex) {
@@ -159,7 +159,7 @@ class OrderController extends Controller
                     <div class="row ml-2">
                     <div class="col-md-6">
                         <ul class="list-group list-group-flush">
-                            <img class="border mt-2" src="'. asset('images/paymentConfirmation/'.$addPaymentConfirmation->image).'" height="300" width="300" alt="">
+                            <img class="border mt-2" src="'. asset('storage/paymentConfirmation/'.$addPaymentConfirmation->image).'" height="300" width="300" alt="">
                             <li class="list-group-item">Product Yang Dipesan: <p class="font-weight-bold">'. $addPaymentConfirmation->nama_product .'</p></li>
                             <li class="list-group-item">Nomor Telephone :<p class="font-weight-bold">'.$addPaymentConfirmation->nomor_telephone.'</p></li>
                             <li class="list-group-item">Quantity: <p class="font-weight-bold">'.$addPaymentConfirmation->qty.'</p></li>
@@ -212,7 +212,7 @@ class OrderController extends Controller
         if($checkOrderStatus->status === 'cancel_process'){
             $image = $request->file('image');
             $name = rand(). '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images/paymentConfirmation'), $name);
+            $image->move(public_path('storage/paymentConfirmation'), $name);
                 DB::beginTransaction();
                     DB::table('payment_confirmation')->update([
                         "nomor_telephone" => $request->nomor,
@@ -243,7 +243,7 @@ class OrderController extends Controller
         if($validation->passes()){
             $image = $request->file('image');
             $name = rand(). '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images/paymentConfirmation'), $name);
+            $image->move(public_path('storage/paymentConfirmation'), $name);
                 DB::beginTransaction();
                     DB::table('payment_confirmation')->insert([
                         "nomor_telephone" => $request->nomor,

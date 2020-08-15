@@ -37,7 +37,7 @@
 <body>
   {{-- @php(dd($CartAdded[0])) --}}
   <nav class="navbar navbar-light navbar-add">
-    <a class="navbar-brand float-left ml-5" href="{{ route('home-page') }}"><img class="img-logo-top" src="{{ url('images/image/guswinsanse.png') }}" alt=""></a>
+    <a class="navbar-brand float-left ml-5" href="{{ route('home-page') }}"><img class="img-logo-top" src="{{ url('storage/image/guswinsanse.png') }}" alt=""></a>
     <a class="navbar-brand float-right Telp" href="#">No Telf :0842333444555</a>
   </nav>
   <!-- Navigation -->

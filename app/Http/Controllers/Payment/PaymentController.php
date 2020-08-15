@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use DB;
+use Curl;
 use App\Http\Model\Product\products as product;
 use GuzzleHttp\Client;
 use Kavist\RajaOngkir\Facades\RajaOngkir;
@@ -113,7 +114,6 @@ class PaymentController extends Controller
         $request = $client->get($url , $data);
         $response = $request->getBody()->getContents();
         $result = json_decode($response);
-        
         return $result->rajaongkir->results;
     }
 
@@ -139,6 +139,7 @@ class PaymentController extends Controller
         return response()->json([
             "status" => 200 , "city" => $endResultCity
         ]);
+
     }
 
     public static function cost(Request $request)

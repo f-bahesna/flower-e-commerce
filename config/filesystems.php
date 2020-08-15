@@ -65,7 +65,7 @@ return [
         ],
         'images' => [
             'driver' => 'local',
-            'root' => public_path('images/image'),
+            'root' => public_path('storage/image'),
             'visibility' => 'public',
         ],
         'additional' => [
