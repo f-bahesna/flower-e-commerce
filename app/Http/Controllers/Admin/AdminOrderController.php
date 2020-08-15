@@ -39,4 +39,44 @@ class AdminOrderController extends Controller
             ],500);
         }
     }
+    
+    public function packingOrder(Request $request)
+    {
+        if($request->order_code){
+            switch($request->status){
+               
+                case 'waiting': 
+                    DB::table('orders_manual')->where('order_code',$request->order_code)->update([
+                        "status" => 'packing'
+                    ]);
+                return response()->json([
+                        "status" => 200 , "message" => 'Status Berhasil diubah,Mohon untuk segera MEM-PACKING PESANAN'
+                    ]);
+                break;
+
+                case 'packing': 
+                    DB::table('orders_manual')->where('order_code',$request->order_code)->update([
+                        "status" => 'shipping'
+                    ]);
+                return response()->json([
+                        "status" => 200 , "message" => 'Status Berhasil diubah,Pesanan Dalam Proses Pengiriman atau Shipping'
+                    ]); 
+                break;
+
+                case 'shipping': 
+                    DB::table('orders_manual')->where('order_code',$request->order_code)->update([
+                        "status" => 'done'
+                    ]);
+                return response()->json([
+                        "status" => 200 , "message" => 'Status Berhasil diubah,Pesanan Selesai'
+                    ]); 
+                break;
+
+            }
+        }else{
+            return response()->json([
+                "status" => 400 , "message" => 'Kode Order Tidak Ditemukan'
+            ],500);
+        }
+    }
 }

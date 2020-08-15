@@ -17,7 +17,7 @@
                 <th>Jumlah</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="manual">
               @if($orders_manual)
               @php($i = 1)
                 @foreach ($orders_manual as $key =>  $item)
@@ -30,6 +30,7 @@
                     <input type="hidden" class="apn-courier-price" value="{{ $item->courier_price }}">
                     <input type="hidden" class="apn-total-price" value="{{ $item->total_price }}">
                     <input type="hidden" class="apn-notes" value="{{ $item->notes }}">
+                    <input type="hidden" class="apn-status" value="{{ $item->status }}">
                     
                     <input type="hidden" class="apn-nama-product" value="{{ $item->nama_product }}">
                     <input type="hidden" class="apn-jenis-product" value="{{ $item->jenis_product }}">
@@ -73,8 +74,6 @@
           </table>
         </div>
       </div>
-
-
 
           <!-- Modal -->
           <div class="modal fade" id="exampleModalCenter" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -199,15 +198,73 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <input type="hidden" class="modal-order-code" value="">
+                    <input type="hidden" class="modal-order-code" value="">
                   <button type="button" class="btn btn-success btn-packing">Packing</button>
+                    <input type="hidden" class="for-order-status" value="">
                 </div>
               </div>
             </div>
           </div>
 
     </div>
-    <div class="col-md-6"></div>
+    <div class="col-md-6">
+      <h2>Order Otomatis</h2>
+      <div class="card border-warning">
+        <div class="card-body">
+          <table id="table-product" class="table table-hover table-striped table-sm">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Nomor Telephone</th>
+                <th>Status</th>
+                <th>City</th>
+                <th>Product</th>
+                <th>Jumlah</th>
+              </tr>
+            </thead>
+            <tbody class="otomatis">
+              {{-- @if($orders_manual) --}}
+              {{-- @php($i = 1) --}}
+                {{-- @foreach ($orders_manual as $key =>  $item) --}}
+                  <tr>
+                    <input type="hidden" class="order_id" value="">
+                    <td>1</td>
+                    <td class="apn-nomor-telephone">0837466476</td>
+                    {{-- @switch($item->status)
+                      @case('waiting')
+                    <td><h6><span class="badge badge-warning">{{ $item->status }}</span></h6></td>
+                      @break
+                      @case('cancel_process')
+                    <td><h6><span class="badge badge-danger">{{ $item->status }}</span></h6></td>
+                      @break
+                      @case('packing')
+                    <td><h6><span class="badge badge-info">{{ $item->status }}</span></h6></td>
+                      @break
+                      @case('shipping')
+                    <td><h6><span class="badge badge-info">{{ $item->status }}</span></h6></td>
+                      @break
+                      @case('done')--}}
+                    <td><h6><span class="badge badge-success">Packing</span></h6></td>
+                      {{-- @break
+                      @default
+                     <td><h6><span class="badge">{{ $item->status }}</span></h6></td> 
+                      @endswitch --}}
+                    <td class="apn-city">Tangerang</td>
+                    <td class="apn-nama-product">Sanseviera</td>
+                    <td class="apn-qty">4</td>
+                  </tr>
+                {{-- @endforeach --}}
+            </tbody>
+            {{-- @else --}}
+            {{-- <tr>
+              <td>Data Kosong</td>
+            </tr>
+            @endif --}}
+          </table>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 

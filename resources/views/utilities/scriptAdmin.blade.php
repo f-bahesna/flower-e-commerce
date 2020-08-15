@@ -116,9 +116,36 @@
 
         $('#zoom-image').ezPlus();
 
-        $("#table-product tbody tr").on("click",function(){
+        $("#table-product tbody.manual tr").on("click",function(){
             //order details
+            $('.btn-tolak').show();
+            status = $(this).find('.apn-status').val();
+            $('.btn-packing').attr('disabled',false);
+            switch(status){
+                case 'waiting':
+                $('.btn-packing').text('Packing');
+                break;
+                case 'packing':
+                $('.btn-packing').text('Shipping');
+                break;
+                case 'shipping':
+                $('.btn-packing').text('Done');
+                break;
+                case 'cancel_process':
+                $('.btn-packing').attr('disabled',true);
+                break;
+                case 'verification':
+                $('.btn-packing').attr('disabled',true);
+                break;
+                case 'canceled':
+                $('.btn-packing').attr('disabled',true);
+                break;
+            }
+            if(status != 'waiting'){
+                $('.btn-tolak').hide();
+            }
             order_code = $(this).find('.apn-order-code').val();
+            $('.for-order-code-tolak').val(order_code);
             address = $(this).find('.apn-address').val();
             province = $(this).find('.apn-province').val();
             qty = $(this).find('.apn-qty').text();
@@ -144,6 +171,7 @@
 
             $('.modal-notes').text(notes);
             //PRODUCT DETAILS
+            $('.for-order-status').val(status);
             $('.modal-order-code').text(order_code);
             $('.modal-nama-product').text('Nama Product : '+nama_product);
             $('.modal-jenis-product').text('Jenis : '+jenis);
@@ -212,31 +240,37 @@
         $(".btn-packing").on("click",function(){
             btn = $(this);
             order_code = $(this).parent().prev().find('.modal-order-code').text();
+            status = $(this).next().val();
 
-            alert(order_code);
-            // $.ajax({
-            //     headers: {
-            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            //     },
-            //     type: "POST",
-            //     url: "{{ route('packing.order') }}",
-            //     data: {},
-            //     beforeSend: function() {
-            //         btn.html(`<div class="d-flex justify-content-center">
-            //                                             <div class="spinner-border" role="status">
-            //                                                 <span class="sr-only">Loading...</span>
-            //                                             </div>
-            //                                         </div>`); 
-            //     },
-            //     success: function(res){
-            //         alert("oke");
-            //         btn.html('Packing');
-            //     },
-            //     error: function(res){
-            //         alert("error");
-            //         btn.html('Packing');
-            //     }
-            // })
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                url: "{{ route('packing.order') }}",
+                data: {order_code: order_code , status:status},
+                beforeSend: function() {
+                    btn.html(`<div class="d-flex justify-content-center">
+                                                        <div class="spinner-border" role="status">
+                                                            <span class="sr-only">Loading...</span>
+                                                        </div>
+                                                    </div>`); 
+                },
+                success: function(res){
+                    swal("Sukses!", res.message, "success", {
+                        button: "Selesai!",
+                    }).then((value) => {
+                        location.reload();
+                    });
+                },
+                error: function(res){
+                    swal("Gagal!", res.message, "danger", {
+                        button: "Selesai!",
+                    }).then((value) => {
+                        location.reload();
+                    });
+                }
+            })
         });
 })
 </script>
