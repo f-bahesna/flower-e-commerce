@@ -17,6 +17,7 @@
     }
 
     $('.loader').fadeOut();
+    
 
 // END LOADER
 

@@ -4,6 +4,7 @@
   scroll-snap-type: y mandatory;
 }
 
+
 .btn-lainnya{
   border-radius: 10px;
 }
@@ -278,3 +279,5 @@ ul.card-cart{
       visibility: hidden;
   }
 }
+/* TESTIMONIALS */
+
