@@ -3,6 +3,7 @@
 @section('title', 'Product Detail')
   <!-- Page Content -->
 @section('content')
+<div class="container" style="margin-top: 15px;">
 <div class="row">
   <div class="col-md">
     <nav aria-label="breadcrumb">
@@ -32,12 +33,11 @@
               @if($additional_image != null)
                 @foreach($additional_image as $key => $value)
                   <div class="carousel-item img-product-animation" data-interval="2000">
-                    <img src="{{ url('storage/image/'. $value->additional_product_image ) }}" class="d-block w-100" height="400px" alt="...">
+                    <img src="{{ url('storage/additional_image/'. $value->additional_product_image ) }}" class="d-block w-100" height="400px" alt="...">
                   </div>
                 @endforeach
               @endif
             </div>
-            
             <a class="carousel-control-prev carousel-part" href="#carouselExampleInterval" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="sr-only">Previous</span>
@@ -46,7 +46,6 @@
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="sr-only">Next</span>
             </a>
-            
           </div>
         </div>
         <div class="col-md-6">
@@ -251,5 +250,6 @@
       </div>
     </div>
   </div>
+</div>
 @endsection
 

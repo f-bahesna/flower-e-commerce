@@ -70,7 +70,7 @@ return [
         ],
         'additional' => [
             'driver' => 'local',
-            'root' => public_path('images/additional_image'),
+            'root' => public_path('storage/additional_image'),
             'visibility' => 'public',
         ],
     ],

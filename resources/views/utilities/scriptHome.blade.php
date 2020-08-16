@@ -1,6 +1,5 @@
 <script>
    $(function(){
-
 // LOADER
     function loader(){
             $("body").fadeTo('slow',0.6);
@@ -16,6 +15,9 @@
             $("body").fadeTo('slow',1.0);
             $('.loader').remove();
     }
+
+    $('.loader').fadeOut();
+
 // END LOADER
 
 

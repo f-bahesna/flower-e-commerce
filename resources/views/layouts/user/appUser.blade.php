@@ -12,6 +12,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <!-- Bootstrap core CSS -->
   <link href="{{ asset('template/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
   <!-- Custom styles for this template -->
   <link href="{{ asset('template/css/shop-homepage.css') }}" rel="stylesheet">
@@ -27,8 +28,6 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
 {{-- google font --}}
 <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
-
-
 
 
 
@@ -151,9 +150,12 @@
     </div>
   </nav>
 
-  <div class="container" id="main-container" style="margin-top: 15px;">
+  <div class="div" id="main-container"> 
+    <div class="loader">
+      <img src="{{ asset('loader/loader.gif') }}" alt="Loading...">
+    </div>
     @yield('content')
-</div>
+  </div>
   <!-- /.container -->
 
   <!-- Footer -->
@@ -219,7 +221,10 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @include('utilities.scriptHome')
-
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
 </body>
 
 </html>

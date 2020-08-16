@@ -3,7 +3,7 @@
 @section('title', 'Bunga Homepage')
   <!-- Page Content -->
 @section('content')
-
+<div class="container" style="margin-top: 15px;">
     <div class="row">
 
         <div class="col-lg-3">
@@ -42,6 +42,7 @@
             @endforeach
           </div>
         </div>
+    </div>
     </div>
     @endsection
 

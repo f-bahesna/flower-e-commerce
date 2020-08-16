@@ -84,4 +84,9 @@ Route::group(['middleware' => 'check'], function () {
 
 
     });
+
+    Route::prefix('settings')->group(function () {
+        Route::get('/','Admin\SettingController@index')->name('settings');
+
+    });
 });

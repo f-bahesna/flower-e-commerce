@@ -4,6 +4,7 @@
   <!-- Page Content -->
 
 @section('content')
+<div class="container" style="margin-top: 15px;">
 <div class="row">
     <div class="col-md-6">
         <div class="card" style="min-height: 200px">
@@ -62,5 +63,5 @@
         </div>
     </div>
 </div>
-
+</div>
 @endsection

@@ -52,14 +52,14 @@ class HomeController extends Controller
                 $CartProductPriceTotal[] = $value->harga_product * $value->total;
             }
             
-            $products = product::paginate(10)->toArray();
+            $products = product::paginate(6)->toArray();
             $jenis = DB::table('products')->select('jenis_product')->distinct()->get();
             return view('welcome',compact('products','countCart','CartAdded','CartProductPriceTotal','user_id','jenis'));
         }else{
             $countCart = 0;
             $user_id = 0;
             $CartAdded = 0;
-            $products = product::paginate(10)->toArray();
+            $products = product::paginate(6)->toArray();
             $jenis = DB::table('products')->select('jenis_product')->distinct()->get();
             return view('welcome',compact('products','user_id','countCart','CartAdded','CartProductPriceTotal','jenis'));
         }
