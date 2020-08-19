@@ -1,15 +1,21 @@
-#main-container {
+/* #main-container {
   overflow-y: scroll;
   scroll-behavior: smooth;
   scroll-snap-type: y mandatory;
+} */
+html {
+  scroll-behavior: smooth;
 }
 
+.card-intro-image{
+  background-image: url('../storage/image_intro/img.jpg');
+}
 
 .btn-lainnya{
   border-radius: 10px;
 }
  
- .categories-title{
+.categories-title{
   font-family: 'Montserrat', sans-serif;
 }
 .categories-list{
@@ -21,7 +27,7 @@
   font-size: 20px;
 }
 
-/* HOME carousel */
+/* CAROUSEL */
 img.d-block.img-fluid {
   height: 400px;
   width: 100%;
@@ -46,6 +52,14 @@ img.d-block.img-fluid {
   margin-top: 190px;
 }
 
+/* carousel testimoni */
+.testi-prev{
+  color:black;
+}
+
+.testi-next{
+  color:black;
+}
 
 .modal {
   overflow-y:auto;
@@ -99,9 +113,6 @@ background: black;
 .card-register .card-login{
   width: 25rem;
 }
-
-
-
 
 
 /* Mobile */
@@ -268,7 +279,7 @@ ul.card-cart{
   align-items: center;
 }
 
-.loader.hidden {
+.loader .hidden {
   animation: fadeOut 1s;
   animation-fill-mode: forwards;
 }

@@ -142,7 +142,7 @@
                         $(btn).parent().prev().addClass('btn-success');
                     }
 
-                    $('.btn-change').html(res.btn);
+                    $(btn).parent().prev().html(res.btn);
                 },
                 error: function(res) {
                     swal("Sukses!", res.message, {

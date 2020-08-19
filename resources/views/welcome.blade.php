@@ -21,8 +21,7 @@
         <div class="col-lg-9">
             <input class="form-control mt-4" data-aos="fade-down" id="tableSearch" type="text"
                 placeholder="Cari Kebutuhanmu Disini ...">
-
-          <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+          <div data-aos="fade-left" id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
             <ol class="carousel-indicators">
               <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
               <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -80,14 +79,16 @@
       <div class="row">
           <!--Grid column-->
           <div class="col-md-5 mb-4">
-            <div class="card mt-4 ml-4 card-image" data-aos="fade-right" style="background-image: url(https://mdbootstrap.com/img/Photos/Horizontal/City/6-col/img%20%2847%29.jpg);">
+            <div class="card mt-4 ml-4 card-image card-intro-image" data-aos="fade-right">
+            {{-- <div class="card mt-4 ml-4 card-image" data-aos="fade-right" style="background-image: {{ public_path('/storage/image_intro/img.jpg') }}"> --}}
                 <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
                     <div>
                         <h6 class="green-text"><i class="far fa-eye"></i><strong> Tanaman Hias</strong></h6>
                         <h3 class="card-title py-3 font-weight-bold"><strong>Sanseviera</strong></h3>
-                        <p class="pb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat fugiat, laboriosam, voluptatem,
-                            optio vero odio nam sit officia accusamus minus error nisi architecto nulla ipsum dignissimos.
-                            Odit sed qui, dolorum!</p>
+                        <p class="pb-3">Sanseviera tak hanya sebagai tanaman hias, tapi juga memiliki manfaat untuk menyuburkan rambut, mengobati diabetes, wasir, hingga kanker ganas. 
+                          Sementara seratnya digunakan sebagai bahan pakaian. <br/>
+                          Di Jepang, Sanseviera digunakan untuk menghilangkan bau perabotan rumah di ruangan</p>
+                            <a href="https://id.wikipedia.org/wiki/Sansevieria">https://id.wikipedia.org/wiki/Sansevieria</a>
                         <a href="{{ route('product.all') }}" class="btn btn-success btn-rounded"><i class="far fa-clone left"></i> Lihat Semua Product</a>
                     </div>
                 </div>
@@ -96,16 +97,16 @@
         <!--Grid column-->
         <div class="col-md-7 mt-5 mb-5">
             <div class="row mt-5 text-center">
-              <div class="col-md-4">
+              <div class="col-md-4 mt-5">
                 <i class="fas fa-4x fa-money-bill-wave-alt" data-aos="fade-down-right"></i>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 mt-5">
                 <i class="fas fa-4x fa-percent" data-aos="fade-down"></i>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 mt-5">
                 <i class="fas fa-4x fa-shipping-fast" data-aos="fade-down-left"></i>
               </div>
-          </div>
+            </div>
             <div class="row mt-2 text-center">
               <div class="col-md-4">
                 <h4 class="font-weight-bold" data-aos="zoom-in-up">Gratis Ongkir</h4>
@@ -129,7 +130,7 @@
 
   <div class="container-fluid bg-white">
     <div class="row">
-      <div class="col-md-8 offset-2">
+      <div class="col-md-8 offset-2 offset-1">
         <div class="row mt-3" id="row-product">
           @foreach($products["data"] as $product)
           <div class="col-lg-4 col-md-6 mb-4 jenis" data-aos="zoom-out-right">
@@ -158,7 +159,7 @@
   </div>
 
   <div class="container-fluid bg-light">
-      <div id="carouselExampleControls" class="carousel slide p-3 mt-3" data-ride="carousel">
+      <div id="carouselExampleControls" class="carousel slide p-3 mt-3 shadow p-3 mb-5 bg-white rounded" data-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active">
             <div class="carousel-image">
@@ -167,9 +168,7 @@
             <div class="carousel-caption d-none d-md-block text-dark">
               <h3 data-aos="flip-right">Pak Julkipli</h3>
               <h4 data-aos="flip-right">Petani</h4>
-              <p data-aos="flip-right">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                Minus accusantium nihil corrupti deleniti quis ipsum, unde quaerat fuga ea 
-                ipsa perspiciatis cupiditate ut dolores nemo commodi impedit sit voluptate veniam!</p>
+              <p data-aos="flip-right">Banyak promonya jadi belanja disini irit terus!</p>
             </div>
           </div>
           <div class="carousel-item">
@@ -177,9 +176,7 @@
             <div class="carousel-caption d-none d-md-block text-dark">
               <h3 data-aos="flip-right">Pak Diwid</h3>
               <h4 data-aos="flip-right">Peternak Lele</h4>
-              <p data-aos="flip-right">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                Minus accusantium nihil corrupti deleniti quis ipsum, unde quaerat fuga ea 
-                ipsa perspiciatis cupiditate ut dolores nemo commodi impedit sit voluptate veniam!</p>
+              <p data-aos="flip-right">Penjual ramah , admin 24 jam online.</p>
             </div>
           </div>
           <div class="carousel-item">
@@ -187,18 +184,16 @@
             <div class="carousel-caption d-none d-md-block text-dark">
               <h3 data-aos="flip-right">Pak diudik</h3>
               <h4 data-aos="flip-right">Rentenir</h4>
-              <p data-aos="flip-right">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                Minus accusantium nihil corrupti deleniti quis ipsum, unde quaerat fuga ea 
-                ipsa perspiciatis cupiditate ut dolores nemo commodi impedit sit voluptate veniam!</p>
+              <p data-aos="flip-right">Harga murah-murah banyak pilihan dan keren keren</p>
             </div>
           </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span  aria-hidden="true"><i class="fas fa-3x fa-chevron-left testi-prev"></i></span>
           <span class="sr-only">Previous</span>
         </a>
         <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span  aria-hidden="true"><i class="fas fa-3x fa-chevron-right testi-next"></i></span>
           <span class="sr-only">Next</span>
         </a>
       </div>
