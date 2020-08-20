@@ -312,7 +312,45 @@
                         location.reload();
                     });
                 }
-            })
+            });
+        });
+
+        $(".btn-direct-manual").on("click",function(e){
+            e.preventDefault();
+            btn = $(this);
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                url: "{{ route('send.whatsapp.message') }}",
+                data:  data = $("#form-send-message-manual").serializeArray(),
+                beforeSend: function() {
+                    btn.html(`<div class="d-flex justify-content-center">
+                                                        <div class="spinner-border" role="status">
+                                                            <span class="sr-only">Loading...</span>
+                                                        </div>
+                                                    </div>`); 
+                },
+                success: function(res){
+                    swal("Sukses!", res.message, "success", {
+                        button: "Selesai!",
+                    }).then((value) => {
+                        btn.html(`Kirim`); 
+                        $(".direct-nomor").val('');
+                        $(".direct-message").val('');
+                    });
+                },
+                error: function(res){
+                    swal("Gagal!",res.responseJSON.message.message, {
+                        button: "Selesai!",
+                        className: "red-bg",
+                    }).then((value) => {
+                        btn.html(`Kirim`); 
+                    });
+                }
+            });
         });
 
 })

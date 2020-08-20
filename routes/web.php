@@ -89,4 +89,10 @@ Route::group(['middleware' => 'check'], function () {
         Route::get('/','Admin\SettingController@index')->name('settings');
 
     });
+
+    Route::prefix('message')->group(function () {
+        Route::get('/','Admin\SendWhatsapp@index')->name('show');
+        Route::post('/send','Admin\SendWhatsapp@send')->name('send.whatsapp.message');
+
+    });
 });
