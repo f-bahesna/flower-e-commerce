@@ -353,5 +353,9 @@
             });
         });
 
+        $("#settings-carousel").on("click",function(e){
+            e.preventDefault();
+            alert("ok");
+        });
 })
 </script>

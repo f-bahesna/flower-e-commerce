@@ -45,10 +45,10 @@ class AdminController extends Controller
         return view('ADMIN.Product.editProduct',compact('product','additional_image','id','image_count'));
     }
 
+
     public function saveEditProduct(Request $request)
     {
         $image = $request->file('gambar-utama');
-
         if($image){
             //DELETE
             $imagePrev = DB::table('products')->Where('id', $request->product_id)->select('gambar_product')->first();
@@ -88,7 +88,7 @@ class AdminController extends Controller
     {
         $imagePrev = DB::table('additional_product_image')->Where('id_product', $request->product_id)->where('number_pic', $request->number_pic)->select('additional_product_image')->first();
         if($imagePrev){
-            $usersImage = public_path("storage/additional_image/{$imagePrev->additional_product_image}"); //get previous image from folder
+            $usersImage = public_path("storage".DIRECTORY_SEPARATOR."additional_image".DIRECTORY_SEPARATOR."{$imagePrev->additional_product_image}"); //get previous image from folder
             if(Storage::disk('additional')->exists($imagePrev->additional_product_image)) { //unlink or remove previous image from folder
                 File::delete($usersImage);   
             }

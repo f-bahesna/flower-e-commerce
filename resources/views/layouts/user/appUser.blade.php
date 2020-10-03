@@ -29,8 +29,6 @@
 {{-- google font --}}
 <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
 
-
-
 </head>
 
 <body>
@@ -120,10 +118,10 @@
                 {{ Auth::user()->name }}
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                @if(Auth::user()->name != 'user')
+                @if(Auth::user()->user_role != 'user')
                 <button class="dropdown-item mb-2" type="button"><a href="{{ route('admin') }}">Dashboard</a></button>
                 @else
-                <button class="dropdown-item mb-2" type="button"><a href="">Profile</a></button>
+                <button class="dropdown-item mb-2" type="button"><a href="{{ route('index.profile') }}">Profile</a></button>
                 <button class="dropdown-item mb-2" type="button"><a href="">Order Status</a></button>
                 @endif
                   <a href="{{ route('user.logout') }}">
@@ -221,6 +219,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @include('utilities.scriptHome')
+@include('utilities.scriptCard')
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
   AOS.init();

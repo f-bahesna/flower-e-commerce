@@ -22,7 +22,32 @@
 // END LOADER
 
 
-//CATEGORIES
+//CATEGORIES HOME
+    $('search-welcome-categories').on("click",function(){
+        value = $(this).prev().val();
+
+        $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                url: "{{ route('search-welcome-categories') }}",
+                data: {value : value},
+                beforeSend: function() {    
+                  
+                },
+                success: function(res){
+                    
+                },
+                error: function(res) {
+                    $("#row-product").html(
+                        '<div><h5 class="text-danger"> '+ res.responseJSON.result +'</h5></div>');
+                }
+            });
+    });
+
+
+//CATEGORIES PRODUCT
     $('.categories-list-a').on("click",function(){
      
         btn = $(this);
@@ -69,7 +94,7 @@
         $(this).hide();
     });
 
-        $("#tableSearch").on("keyup",function(){
+    $("#tableSearch").on("keyup",function(){
             $("#carouselExampleIndicators").fadeOut();
             var value = $(this).val().toLowerCase();
 
@@ -91,7 +116,7 @@
                         '<div><h5 class="text-danger"> '+ res.responseJSON.result +'</h5></div>');
                 }
             });
-        })
+    });
 
         $("#btn-register").on("click",function(){
             btn = $(this);

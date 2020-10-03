@@ -12,6 +12,8 @@
 */
 
 Route::get('/','HomeController@index')->name('home-page');
+Route::get('/search-by-categorie/bunga','HomeController@searchByCategorie')->name('search-welcome-categories');
+// Route::post('/search-by-categorie','HomeController@searchByCategorie')->name('search-welcome-categories');
 
 Auth::routes();
 
@@ -40,7 +42,6 @@ Route::prefix('cart')->group(function () {
     Route::post('/cart-payment-section','Product\CartController@cartPayment')->name('cart.payment');
 });
 
-
 Route::prefix('payments')->group(function () {
     Route::get('/index','Payment\PaymentController@index')->name('payment.index');
     Route::post('/checkout','Payment\PaymentController@checkout')->name('payment.checkout');
@@ -64,6 +65,11 @@ Route::prefix('jenis')->group(function () {
     Route::get('/','Jenis\JenisController@index')->name('jenis');
 });
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('profile')->group(function () {
+        Route::get('/','User\ProfileController@index')->name('index.profile');
+    });
+});
 
 /////////////////////////////////////----- ADMIN -----///////////////////////////////////////
 
@@ -77,22 +83,18 @@ Route::group(['middleware' => 'check'], function () {
         Route::post('/save-another-image','Admin\AdminController@simpanGambarLainnya')->name('save.another.image');
         Route::post('/change-publish','Admin\AdminController@changePublish')->name('change.publish');
 
-        
         Route::get('/order','Admin\AdminOrderController@index')->name('order');
         Route::post('/tolak-order','Admin\AdminOrderController@tolakOrder')->name('tolak.order');
         Route::post('/packing-order','Admin\AdminOrderController@packingOrder')->name('packing.order');
-
-
     });
 
     Route::prefix('settings')->group(function () {
         Route::get('/','Admin\SettingController@index')->name('settings');
-
+        Route::post('/carousel','Admin\SettingController@settingCarousel')->name('settings.carousel');
     });
 
     Route::prefix('message')->group(function () {
         Route::get('/','Admin\SendWhatsapp@index')->name('show');
         Route::post('/send','Admin\SendWhatsapp@send')->name('send.whatsapp.message');
-
     });
 });

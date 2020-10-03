@@ -1,0 +1,3 @@
+Too few arguments to function Illuminate\Support\Collection::get(), 0 passed in
+
+SOLVE:You desn't need a get() if you are using paginate(). ga perlu pake get kalo mau paginate

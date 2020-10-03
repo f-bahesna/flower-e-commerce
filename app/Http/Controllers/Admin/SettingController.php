@@ -11,4 +11,9 @@ class SettingController extends Controller
     {
        return view('ADMIN.Settings.Settings'); 
     }
+
+    public function settingCarousel()
+    {
+        return view('ADMIN.Settings.carousel');
+    }
 }

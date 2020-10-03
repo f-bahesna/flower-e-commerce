@@ -9,18 +9,20 @@
         <div class="col-lg-3" data-aos="fade-right">
   
           <h4 class="my-4 text-center categories-title">Kategori</h4>
+       
           <div class="list-group my-4 categories-list">
             @foreach($jenis as $key => $value)
+
               <input type="hidden" class="jenis_product" value="{{ $value->jenis_product }}">
-              <a href="#" class="list-group-item categories-list-a">{{ ucfirst($value->jenis_product) }}</a>
+              <a href="{{ route('search-welcome-categories',['jenis' => $value->jenis_product]) }}" class="list-group-item search-welcome-categories">{{ ucfirst($value->jenis_product) }}</a>
             @endforeach
           </div>
   
         </div>
-        <!-- /.col-lg-3 -->
+        {{-- CAROUSEL --}}
         <div class="col-lg-9">
-            <input class="form-control mt-4" data-aos="fade-down" id="tableSearch" type="text"
-                placeholder="Cari Kebutuhanmu Disini ...">
+            {{-- <input class="form-control mt-4" data-aos="fade-down" id="tableSearchWelcome" type="text"
+                placeholder="Cari Kebutuhanmu Disini ..."> --}}
           <div data-aos="fade-left" id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
             <ol class="carousel-indicators">
               <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -47,38 +49,16 @@
               <span class="sr-only">Next</span>
             </a>
           </div>
-  
-          {{-- <div class="row mt-3" id="row-product">
-            @foreach($products["data"] as $product)
-            <div class="col-lg-4 col-md-6 mb-4 jenis" data-aos="zoom-out-right">
-              <div class="card h-100">
-                <a href="{{ route('product.detail',["id" => $product["id"]]) }}"><img class="card-img-top" src="{{ url('storage/image/'.$product["gambar_product"]) }}" style="height: 200px" alt=""></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="{{ route('product.detail',["id" => $product["id"]]) }}">{{ $product["nama_product"] }}</a>
-                  </h4>
-                  <h6>{{ "Rp " . number_format($product["harga_product"],2,',','.') }}</h6>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
-            @endforeach
-          </div> --}}
-          {{-- <div class="row">
-            <div class="col-md text-right">
-              <a class="btn btn-md btn-outline-default btn-rounded btn-lainnya waves-effect rounded" data-aos="fade-left" href="{{ route('product.all') }}">Lainnya</a>
-            </div>
-          </div> --}}
         </div>
+        {{-- END CAROUSEL --}}
     </div>
   </div>
 
   <div class="container-fluid mt-3 bg-light">
+
+  {{-- KEUNGGULAN --}}
       <div class="row">
-          <!--Grid column-->
-          <div class="col-md-5 mb-4">
+          <div class="col-md-5 mb-4" data-aos="fade-right">
             <div class="card mt-4 ml-4 card-image card-intro-image" data-aos="fade-right">
             {{-- <div class="card mt-4 ml-4 card-image" data-aos="fade-right" style="background-image: {{ public_path('/storage/image_intro/img.jpg') }}"> --}}
                 <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
@@ -94,40 +74,35 @@
                 </div>
             </div>
         </div>
-        <!--Grid column-->
+
         <div class="col-md-7 mt-5 mb-5">
             <div class="row mt-5 text-center">
               <div class="col-md-4 mt-5">
                 <i class="fas fa-4x fa-money-bill-wave-alt" data-aos="fade-down-right"></i>
+                  <h4 class="font-weight-bold mt-2" data-aos="zoom-in-up">Gratis Ongkir</h4>
+                  <p data-aos="fade-up"
+                  data-aos-anchor-placement="top-bottom">Nikmati Beragam Gratis Ongkir</p>
               </div>
               <div class="col-md-4 mt-5">
                 <i class="fas fa-4x fa-percent" data-aos="fade-down"></i>
+                  <h4 class="font-weight-bold mt-2" data-aos="zoom-in-up">Banyak Promo</h4>
+                  <p data-aos="fade-up"
+                  data-aos-anchor-placement="top-bottom">Daftar dan Klaim Banyak Kupon</p>
               </div>
               <div class="col-md-4 mt-5">
                 <i class="fas fa-4x fa-shipping-fast" data-aos="fade-down-left"></i>
-              </div>
-            </div>
-            <div class="row mt-2 text-center">
-              <div class="col-md-4">
-                <h4 class="font-weight-bold" data-aos="zoom-in-up">Gratis Ongkir</h4>
-                <p data-aos="fade-up"
-                data-aos-anchor-placement="top-bottom">Nikmati Beragam Gratis Ongkir</p>
-              </div>
-              <div class="col-md-4">
-                <h4 class="font-weight-bold" data-aos="zoom-in-up">Banyak Promo</h4>
-                <p data-aos="fade-up"
-                data-aos-anchor-placement="top-bottom">Daftar dan Klaim Banyak Kupon</p>
-              </div>
-              <div class="col-md-4">
-                <h4 class="font-weight-bold" data-aos="zoom-in-up">Pemesanan Mudah & Cepat</h4>
+                  <h4 class="font-weight-bold mt-2" data-aos="zoom-in-up">Pemesanan Mudah & Cepat</h4>
                 <p data-aos="fade-up"
                 data-aos-anchor-placement="top-bottom">Nikmati Pemesanan Mudah dan Cepat di Toko Kami</p>
               </div>
-          </div>
+            </div>
         </div>
       </div>
   </div>
+{{-- END KEUNGGULAN --}}
 
+
+{{-- PRODUCTS --}}
   <div class="container-fluid bg-white">
     <div class="row">
       <div class="col-md-8 offset-2 offset-1">
@@ -157,13 +132,15 @@
       </div>
     </div>
   </div>
+{{-- END PRODUCTS --}}
 
-  <div class="container-fluid bg-light">
+{{-- TESTIMONIALS --}}
+  <div class="container-fluid bg-light" data-aos="fade-up">
       <div id="carouselExampleControls" class="carousel slide p-3 mt-3 shadow p-3 mb-5 bg-white rounded" data-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active">
             <div class="carousel-image">
-              <img data-aos="fade-right" class="d-block rounded img-rounded" height="200" width="200"  src="{{ asset('storage/testimoni/testi1.jpg') }}" alt="First slide">
+              <img data-aos="fade-right" data-aos="fade-right" class="d-block rounded img-rounded" height="200" width="200"  src="{{ asset('storage/testimoni/testi1.jpg') }}" alt="First slide">
             </div>
             <div class="carousel-caption d-none d-md-block text-dark">
               <h3 data-aos="flip-right">Pak Julkipli</h3>
@@ -198,5 +175,8 @@
         </a>
       </div>
   </div>
+  {{-- END TESTIMONIALS --}}
+</div>
+
 @endsection
 

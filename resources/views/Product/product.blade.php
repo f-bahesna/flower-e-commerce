@@ -21,7 +21,7 @@
   
         <div class="col-lg-9">
             <input class="form-control mt-4" id="tableSearch" type="text"
-                placeholder="Cari Kebutuhanmu Disini ...">
+                placeholder="Cari Tanaman Sanseviera ...">
   
           <div class="row mt-3" id="row-product">
             @foreach($products["data"] as $product)
