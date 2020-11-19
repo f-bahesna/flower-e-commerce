@@ -83,7 +83,6 @@ class ProductController extends Controller
             "province" => $province,
             "city" => $city
         ];
-        // dd($shipment);
         if(Auth::check()){
             $user_id = Auth::user()->id;
             $Cart = DB::table('carts')->where('id_user',$user_id)->sum('total');

@@ -10,9 +10,27 @@ use Curl;
 use App\Http\Model\Product\products as product;
 use GuzzleHttp\Client;
 use Kavist\RajaOngkir\Facades\RajaOngkir;
+use App\Http\Model\Payment\ModelPayment;
+use App\Http\Model\Payment\ModelCheckout;
 
 class PaymentController extends Controller
 {
+    /**
+     * @var ModelPayment
+     */
+    protected $modelPayment;
+
+    /**
+     * @var ModelCheckout
+     */
+    protected $modelCheckout;
+
+    public function __construct(ModelPayment $modelPayment, ModelCheckout $modelCheckout)
+    {
+        $this->modelPayment = $modelPayment;
+        $this->modelCheckout = $modelCheckout;
+    }
+
     public function index()
     {
         if(Auth::check()){
@@ -20,26 +38,15 @@ class PaymentController extends Controller
             $Cart = DB::table('carts')->where('id_user',$user_id)->sum('total');
             $countCart = preg_replace("/\.?0+$/", "", $Cart);
 
-            $CartAdded = DB::table('carts as c')
-                        ->Join('users as u','c.id_user','=','u.id')
-                        ->Join('products as p','c.id_product','=','p.id')
-                        ->select(
-                            'p.gambar_product as gambar_product',
-                            'p.nama_product as nama_product',
-                            'p.harga_product as harga_product',
-                            'c.total as total',
-                            'c.id_user as user_id'
-                        )
-            ->where('id_user',$user_id)->paginate(4);
+            $CartAdded = $this->modelPayment->getProductAddedInCartByUser($user_id);
             //Count langsung total harga di keranjang
             $CartProductPriceTotal = [];
-            $Get = DB::table('carts as c')->where('id_user',$user_id)
-                        ->Join('products as p','c.id_product','=','p.id')
-                        ->select('p.harga_product as harga_product','c.total as total')->get();
+
+            $Get = $this->modelPayment->getTotalValueByUserId($user_id);
             foreach($Get as $value){
                 $CartProductPriceTotal[] = $value->harga_product * $value->total;
             }
-            
+
             $products = product::paginate(10)->toArray();
             $jenis = DB::table('products')->select('jenis_product')->distinct()->get();
             return view('Payment.PaymentConfirmation',compact('products','countCart','CartAdded','CartProductPriceTotal','user_id','jenis'));
@@ -60,22 +67,11 @@ class PaymentController extends Controller
             $Cart = DB::table('carts')->where('id_user',$user_id)->sum('total');
             $countCart = preg_replace("/\.?0+$/", "", $Cart);
 
-            $CartAdded = DB::table('carts as c')
-                        ->Join('users as u','c.id_user','=','u.id')
-                        ->Join('products as p','c.id_product','=','p.id')
-                        ->select(
-                            'p.gambar_product as gambar_product',
-                            'p.nama_product as nama_product',
-                            'p.harga_product as harga_product',
-                            'c.total as total',
-                            'c.id_user as user_id'
-                        )
-            ->where('id_user',$user_id)->paginate(4);
+            $CartAdded = $this->modelPayment->getProductAddedInCartByUser($user_id);
             //Count langsung total harga di keranjang
             $CartProductPriceTotal = [];
-            $Get = DB::table('carts as c')->where('id_user',$user_id)
-                        ->Join('products as p','c.id_product','=','p.id')
-                        ->select('p.harga_product as harga_product','c.total as total')->get();
+
+            $Get = $this->modelPayment->getTotalValueByUserId($user_id);
             foreach($Get as $value){
                 $CartProductPriceTotal[] = $value->harga_product * $value->total;
             }
@@ -144,10 +140,13 @@ class PaymentController extends Controller
 
     public static function cost(Request $request)
     {
+        $city = intval($request->city_id);
+        dd($city);
+        // dd($request->all());
         $daftarProvinsi = RajaOngkir::ongkir([
             'origin'        => 492,     // ID kota/kabupaten asal TULUNGAGUNG
             // 'origin'        => 247,     // ID kota/kabupaten asal MADIUN
-            'destination'   => $request->city_id,      // ID kota/kabupaten tujuan
+            'destination'   => $city,      // ID kota/kabupaten tujuan
             'weight'        => $request->weight,    // berat barang dalam gram
             'courier'       => $request->courier    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
         ]);
@@ -162,7 +161,7 @@ class PaymentController extends Controller
                                         <p>Perkiraan Tiba : '.$value['cost'][0]['etd'].' Hari</p>
                                     </div>';
         }
-
+        dd($resultServiceAndCost);
         return response()->json([
             "status" => 200 , "courier_service" => $resultServiceAndCost
         ]);

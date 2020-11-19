@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use DB;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 
 class CartController extends Controller
 {
@@ -247,5 +249,28 @@ class CartController extends Controller
         return response()->json([
             "status" => 200 , "subTotal" => "<h3>RP.".number_format(array_sum($subTotal),0,',','.')."</h3>"
         ]);
+    }
+
+    public function cartPayment(Request $req)
+    {
+        dd(1);
+       // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = env('MIDTRANS_URL');
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
+        
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => rand(),
+                'gross_amount' => 10000,
+            )
+        );
+        
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+        dd($snapToken);
     }
 }

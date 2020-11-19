@@ -458,6 +458,7 @@
             });
         });
 
+        //Choose Courier
         $(".courier").on("change",function(){
             $(this).empty();
             city_id = $(".city").find(":selected").val();
@@ -480,7 +481,6 @@
                                                     </div>`);
                 },
                 success: function(res){
-                    console.log(res.courier_service);
                     $(".courier_service").html(res.courier_service);
                 },
                 error: function(res) {
@@ -489,6 +489,13 @@
                 }
             });
         });
+
+        //Courier Service
+        $(".courier_service_child").on("change",function(){
+            btn = $(this);
+        });
+
+
 
         $("#exampleModal").scroll(function(){
             $('.card-cart').css('top',$(this).scrollTop());
@@ -709,6 +716,8 @@
             });
         }
     });
+
+
 });
 
 </script><?php /**PATH E:\Coding\Portfolio\bunga\resources\views/utilities/scriptHome.blade.php ENDPATH**/ ?>

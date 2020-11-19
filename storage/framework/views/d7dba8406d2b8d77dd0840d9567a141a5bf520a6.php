@@ -31,7 +31,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "{{ route('search-welcome-categories') }}",
+                url: "<?php echo e(route('search-welcome-categories')); ?>",
                 data: {value : value},
                 beforeSend: function() {    
                   
@@ -61,7 +61,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "{{ route('product.search.by.categorie') }}",
+                url: "<?php echo e(route('product.search.by.categorie')); ?>",
                 data: {value : val},
                 beforeSend: function() {    
                    loader();
@@ -103,7 +103,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "{{ route('product.search') }}",
+                url: "<?php echo e(route('product.search')); ?>",
                 data: {value : value},
                 beforeSend: function() {    
                     isProcessing = true;
@@ -143,7 +143,7 @@
                 })
                 .then((willLogout) => {
                 if (willLogout) {
-                    window.location.href = "{{ route('user.logout') }}";
+                    window.location.href = "<?php echo e(route('user.logout')); ?>";
                 } else {
                     // swal("Your imaginary file is safe!");
                 }
@@ -164,7 +164,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "{{ route('product.add.cart') }}",
+                url: "<?php echo e(route('product.add.cart')); ?>",
                 data: {id : id},
                 beforeSend: function() {    
                    btn.text('Proccessing...')
@@ -194,7 +194,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "{{ route('show.cart.details') }}",
+                url: "<?php echo e(route('show.cart.details')); ?>",
                 data: { id_user : id_user },
                 beforeSend: function() {    
                    btn.html(`<div class="spinner-border" role="status">
@@ -241,7 +241,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "{{ route('calculate.cart') }}",
+                url: "<?php echo e(route('calculate.cart')); ?>",
                 data: {user_id : user_id , id_product: id_product , type: type, value: value},
                 beforeSend: function() {
                     //
@@ -305,7 +305,7 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         type: "POST",
-                        url: "{{ route('delete.cart') }}",
+                        url: "<?php echo e(route('delete.cart')); ?>",
                         data: {user_id : user_id , id_product: id_product},
                         beforeSend: function() {
                         
@@ -346,7 +346,7 @@
         //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         //         },
         //         type: "POST",
-        //         url: "{{ route('cart.payment') }}",
+        //         url: "<?php echo e(route('cart.payment')); ?>",
         //         // data: {user_id : user_id , id_product: id_product , type: type, value: value},
         //         beforeSend: function() {
         //             loader();
@@ -354,7 +354,7 @@
         //         },
         //         success: function(res){
         //             console.log(res);
-        //             window.location.href = "{{ route('user.logout') }}";
+        //             window.location.href = "<?php echo e(route('user.logout')); ?>";
         //         },
         //         error: function(res) {
         //             $("#row-product").html(
@@ -371,7 +371,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "{{ route('cart.payment') }}",
+                url: "<?php echo e(route('cart.payment')); ?>",
                 // data: {user_id : user_id , id_product: id_product , type: type, value: value},
                 beforeSend: function() {
                   
@@ -394,7 +394,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "{{ route('payment.checkout') }}",
+                url: "<?php echo e(route('payment.checkout')); ?>",
                 // data: {user_id : user_id , id_product: id_product , type: type, value: value},
                 beforeSend: function() {
                     loader();
@@ -437,7 +437,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "{{ route('get.province.id') }}",
+                url: "<?php echo e(route('get.province.id')); ?>",
                 data: { id : province_id },
                 beforeSend: function() {
                     $(".city").html(`<option value="">Loading ...</option>`);
@@ -463,7 +463,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "{{ route('get.postal.code') }}",
+                url: "<?php echo e(route('get.postal.code')); ?>",
                 data: { province_id : province_id , city_id : city_id },
                 beforeSend: function() {
                     $(".zip").attr('placeholder', 'Loading...');
@@ -492,7 +492,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "{{ route('get.cost') }}",
+                url: "<?php echo e(route('get.cost')); ?>",
                 data: { province_id : province_id , city_id : city_id , courier : courier , weight : weight },
                 beforeSend: function() {
                     $(".courier_service").html(`<div class="d-flex justify-content-center">
@@ -525,7 +525,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "{{ route('store.manual.order') }}",
+                url: "<?php echo e(route('store.manual.order')); ?>",
                 data: { 
                     name : $('#firstName').val() , 
                     nomor_telephone: $('#notelp').val(),
@@ -580,7 +580,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "{{ route('check.manual.order') }}",
+                url: "<?php echo e(route('check.manual.order')); ?>",
                 data: { nomor_telephone : nomor_telephone },
                 beforeSend: function() {
                     $(btn).html(`<div class="d-flex justify-content-center">
@@ -621,7 +621,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "{{ route('cancel.order') }}",
+                url: "<?php echo e(route('cancel.order')); ?>",
                 data: { nomor_telephone : nomor_telephone , alasan : alasan },
                 beforeSend: function() {
                     $(btn).html(`<div class="d-flex justify-content-center">
@@ -658,7 +658,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "{{ route('check.number') }}",
+                url: "<?php echo e(route('check.number')); ?>",
                 data: { nomor_telephone : nomor_telephone },
                 beforeSend: function() {
                     $(btn).html(`<div class="d-flex justify-content-center">
@@ -697,7 +697,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "{{ route('upload.payment.confirmation') }}",
+                url: "<?php echo e(route('upload.payment.confirmation')); ?>",
                 data: data,
                 cache: false,
                 contentType: false,
@@ -732,4 +732,4 @@
     });
 });
 
-</script>
+</script><?php /**PATH E:\Coding\PORTFOLIO\bunga\resources\views/utilities/scriptHome.blade.php ENDPATH**/ ?>
