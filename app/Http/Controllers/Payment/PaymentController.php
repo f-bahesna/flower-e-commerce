@@ -51,6 +51,7 @@ class PaymentController extends Controller
             $jenis = DB::table('products')->select('jenis_product')->distinct()->get();
             return view('Payment.PaymentConfirmation',compact('products','countCart','CartAdded','CartProductPriceTotal','user_id','jenis'));
         }else{
+            $CartProductPriceTotal = 0;
             $countCart = 0;
             $user_id = 0;
             $CartAdded = 0;

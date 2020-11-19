@@ -73,7 +73,6 @@ class ProductController extends Controller
     }
 
 
-
     public function getProductDetail($id)
     { 
         //get raja ongkir
