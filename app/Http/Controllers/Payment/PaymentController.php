@@ -142,8 +142,6 @@ class PaymentController extends Controller
     public static function cost(Request $request)
     {
         $city = intval($request->city_id);
-        dd($city);
-        // dd($request->all());
         $daftarProvinsi = RajaOngkir::ongkir([
             'origin'        => 492,     // ID kota/kabupaten asal TULUNGAGUNG
             // 'origin'        => 247,     // ID kota/kabupaten asal MADIUN
@@ -162,7 +160,6 @@ class PaymentController extends Controller
                                         <p>Perkiraan Tiba : '.$value['cost'][0]['etd'].' Hari</p>
                                     </div>';
         }
-        dd($resultServiceAndCost);
         return response()->json([
             "status" => 200 , "courier_service" => $resultServiceAndCost
         ]);
@@ -173,9 +170,7 @@ class PaymentController extends Controller
         $data =
         ['query' => [
                 "key" => env('RAJAONGKIR_APIKEY'),
-                // id province
                 "province" => $request->province_id,
-                //id city
                 "id" => $request->city_id
         ]];
         $client = new \GuzzleHttp\Client();

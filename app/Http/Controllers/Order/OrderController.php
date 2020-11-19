@@ -125,20 +125,20 @@ class OrderController extends Controller
                         <span class="text-warning">Anda Belum Mengupload Bukti Pembayaran ...</span>
                     </div>
                     <div class="row ml-2">
-                    <div class="col-md-6">
-                        <ul class="list-group list-group-flush">
-                            <img class="border mt-2" src="" height="300" width="300" alt="">
-                            <li class="list-group-item">Product Yang Dipesan: <p class="font-weight-bold">'. $searchOrder->nama_product .'</p></li>
-                            <li class="list-group-item">Nomor Telephone :<p class="font-weight-bold">'.$searchOrder->nomor_telephone.'</p></li>
-                            <li class="list-group-item">Quantity: <p class="font-weight-bold">'.$searchOrder->qty.'</p></li>
-                            <li class="list-group-item">Kurir : '.strtoupper($searchOrder->courier) .' <p class="text-info">'.$searchOrder->courier_service.'</p></li>
-                            <li class="list-group-item">Ongkir :Rp.'.number_format($searchOrder->ongkir,0,',','.').' </li>
-                            <li class="list-group-item">Total : <p class="font-weight-bold">Rp.'.number_format($searchOrder->total_price,0,',','.').'</p></li>
-                            <li class="list-group-item">Alamat : <p class="">'. $searchOrder->address.'</p></li>
-                            <li class="list-group-item">Provinsi : <p class="">'.$searchOrder->province.'</p></li>
-                            <li class="list-group-item">Kota : <p class="">'.$searchOrder->city.'</p></li>
-                        </ul>
-                    </div>
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
+                                <img class="border mt-2" src="" height="300" width="300" alt="">
+                                <li class="list-group-item">Product Yang Dipesan: <p class="font-weight-bold">'. $searchOrder->nama_product .'</p></li>
+                                <li class="list-group-item">Nomor Telephone :<p class="font-weight-bold">'.$searchOrder->nomor_telephone.'</p></li>
+                                <li class="list-group-item">Quantity: <p class="font-weight-bold">'.$searchOrder->qty.'</p></li>
+                                <li class="list-group-item">Alamat : <p class="">'. $searchOrder->address.'</p></li>
+                                <li class="list-group-item">Kota : <p class="">'.$searchOrder->city.'</p></li>
+                                <li class="list-group-item">Provinsi : <p class="">'.$searchOrder->province.'</p></li>
+                                <li class="list-group-item">Kurir : '.strtoupper($searchOrder->courier) .' <p class="text-info">'.$searchOrder->courier_service.'</p></li>
+                                <li class="list-group-item">Ongkir : Rp.'.number_format($searchOrder->ongkir,0,',','.').' </li>
+                                <li class="list-group-item"><h2>TOTAL :</h2> <h3><p class="font-weight-bold">Rp.'.number_format($searchOrder->total_price,0,',','.').'</p></h3></li>
+                            </ul>
+                        </div>
                     </div>
                         <h6 class="text-danger ml2">*Anda Dapat Membatalkan Pesanan Jika Status Pesanan Dalam Proses <u class="text-success text-center">Verification</u> </h6>
                         <button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".bd-example-modal-sm">Batalkan Pesanan</button>
@@ -159,16 +159,16 @@ class OrderController extends Controller
                     <div class="row ml-2">
                     <div class="col-md-6">
                         <ul class="list-group list-group-flush">
-                            <img class="border mt-2" src="'. asset('storage/paymentConfirmation/'.$addPaymentConfirmation->image).'" height="300" width="300" alt="">
-                            <li class="list-group-item">Product Yang Dipesan: <p class="font-weight-bold">'. $addPaymentConfirmation->nama_product .'</p></li>
-                            <li class="list-group-item">Nomor Telephone :<p class="font-weight-bold">'.$addPaymentConfirmation->nomor_telephone.'</p></li>
-                            <li class="list-group-item">Quantity: <p class="font-weight-bold">'.$addPaymentConfirmation->qty.'</p></li>
-                            <li class="list-group-item">Kurir : '.strtoupper($addPaymentConfirmation->courier) .' <p class="text-info">'.$addPaymentConfirmation->courier_service.'</p></li>
-                            <li class="list-group-item">Ongkir :Rp.'.number_format($searchOrder->ongkir,0,',','.').' </li>
-                            <li class="list-group-item">Total : <p class="font-weight-bold">Rp.'.number_format($addPaymentConfirmation->total_price,0,',','.').'</p></li>
-                            <li class="list-group-item">Alamat : <p class="">'. $addPaymentConfirmation->address.'</p></li>
-                            <li class="list-group-item">Provinsi : <p class="">'.$addPaymentConfirmation->province.'</p></li>
-                            <li class="list-group-item">Kota : <p class="">'.$addPaymentConfirmation->city.'</p></li>
+                            <img class="border mt-2" src="" height="300" width="300" alt="">
+                            <li class="list-group-item">Product Yang Dipesan: <p class="font-weight-bold">'. $searchOrder->nama_product .'</p></li>
+                            <li class="list-group-item">Nomor Telephone :<p class="font-weight-bold">'.$searchOrder->nomor_telephone.'</p></li>
+                            <li class="list-group-item">Quantity: <p class="font-weight-bold">'.$searchOrder->qty.'</p></li>
+                            <li class="list-group-item">Alamat : <p class="">'. $searchOrder->address.'</p></li>
+                            <li class="list-group-item">Kota : <p class="">'.$searchOrder->city.'</p></li>
+                            <li class="list-group-item">Provinsi : <p class="">'.$searchOrder->province.'</p></li>
+                            <li class="list-group-item">Kurir : '.strtoupper($searchOrder->courier) .' <p class="text-info">'.$searchOrder->courier_service.'</p></li>
+                            <li class="list-group-item">Ongkir : Rp.'.number_format($searchOrder->ongkir,0,',','.').' </li>
+                            <li class="list-group-item"><h2>TOTAL :</h2> <h3><p class="font-weight-bold">Rp.'.number_format($searchOrder->total_price,0,',','.').'</p></h3></li>
                         </ul>
                     </div>
                     </div>

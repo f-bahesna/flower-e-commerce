@@ -566,11 +566,6 @@
             });
         });
 
-        $(".input-courier-service").change(function(){
-            a = $('.input-courier-service:checked').attr('biaya');
-            alert(a);
-        })
-
         $(".btn-check-pesanan").on("click",function(){
             btn = $(this);
             nomor_telephone = $(".nomor_telephone").val();

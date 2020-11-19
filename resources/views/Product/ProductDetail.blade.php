@@ -87,6 +87,7 @@
                         <div class="modal-body">
                           <div class="row">
                             <div class="col-md-4 order-md-2 mb-4">
+
                               <ul class="list-group mb-3 card-cart">
                                 <p class="text-warning">Stock Tersedia : {{ $result["stock_product"] }}</p>
                                 <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -99,7 +100,7 @@
                                   <span class="text-muted">{{ number_format($result["harga_product"],0,',','.') }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between">
-                                  <span>Total</span>
+                                  <span>Harga</span>
                                   <strong class="manual-total">{{ number_format($result["harga_product"],0,',','.') }}</strong>
                                 </li>
                                     <div class="row mt-2 pl-3 pr-3">
@@ -108,8 +109,9 @@
                                     <div class="row pl-3">
                                       <button type="submit" class="btn btn-sm btn-light">Redeem</button>
                                     </div>
-                                    <button id="manual-payment" class="btn btn-warning border rounded manual-payment"><h3 class="text-dark font-weight-bold">BAYAR</h3></button>
+                                    <button id="manual-payment" class="btn btn-warning border rounded manual-payment"><h4 class="text-dark font-weight-bold mt-1">KONFIRMASI</h4></button>
                               </ul>
+
                             </div>
                             <div class="col-md-8 order-md-1">
                               <h4 class="mb-3">Isi Datamu</h4>

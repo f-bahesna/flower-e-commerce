@@ -76,7 +76,6 @@ class HomeController extends Controller
     
             // $products = product::where('status_product','published')->paginate(10)->toArray();
             $jenis = DB::table('products')->select('jenis_product')->where('jenis_product', $jenis)->get();
-            dd($jenis);
             return view('Product.product',compact('products','user_id','Cart','countCart','jenis'));
         }else{
             $products = products::all();
