@@ -173,7 +173,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'E:\\Coding\\PORTFOLIO\\bunga\\storage\\framework/cache/data',
+        'path' => '/mnt/e/CODING/PORTFOLIO/bunga/storage/framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -216,14 +216,14 @@
   ),
   'database' => 
   array (
-    'default' => 'mysql',
+    'default' => 'pgsql',
     'connections' => 
     array (
       'sqlite' => 
       array (
         'driver' => 'sqlite',
         'url' => NULL,
-        'database' => 'bungaDB',
+        'database' => 'bunga_db',
         'prefix' => '',
         'foreign_key_constraints' => true,
       ),
@@ -232,10 +232,10 @@
         'driver' => 'mysql',
         'url' => NULL,
         'host' => '127.0.0.1',
-        'port' => '3306',
-        'database' => 'bungaDB',
-        'username' => 'root',
-        'password' => '',
+        'port' => '5432',
+        'database' => 'bunga_db',
+        'username' => 'postgres',
+        'password' => 'root',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -252,10 +252,10 @@
         'driver' => 'pgsql',
         'url' => NULL,
         'host' => '127.0.0.1',
-        'port' => '3306',
-        'database' => 'bungaDB',
-        'username' => 'root',
-        'password' => '',
+        'port' => '5432',
+        'database' => 'bunga_db',
+        'username' => 'postgres',
+        'password' => 'root',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -267,10 +267,10 @@
         'driver' => 'sqlsrv',
         'url' => NULL,
         'host' => '127.0.0.1',
-        'port' => '3306',
-        'database' => 'bungaDB',
-        'username' => 'root',
-        'password' => '',
+        'port' => '5432',
+        'database' => 'bunga_db',
+        'username' => 'postgres',
+        'password' => 'root',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -366,12 +366,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'E:\\Coding\\PORTFOLIO\\bunga\\storage\\app',
+        'root' => '/mnt/e/CODING/PORTFOLIO/bunga/storage/app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'E:\\Coding\\PORTFOLIO\\bunga\\storage\\app/public',
+        'root' => '/mnt/e/CODING/PORTFOLIO/bunga/storage/app/public',
         'url' => 'http://localhost:8000/storage',
         'visibility' => 'public',
       ),
@@ -387,13 +387,13 @@
       'images' => 
       array (
         'driver' => 'local',
-        'root' => 'E:\\Coding\\PORTFOLIO\\bunga\\public\\storage/image',
+        'root' => '/mnt/e/CODING/PORTFOLIO/bunga/public/storage/image',
         'visibility' => 'public',
       ),
       'additional' => 
       array (
         'driver' => 'local',
-        'root' => 'E:\\Coding\\PORTFOLIO\\bunga\\public\\storage/additional_image',
+        'root' => '/mnt/e/CODING/PORTFOLIO/bunga/public/storage/additional_image',
         'visibility' => 'public',
       ),
     ),
@@ -429,13 +429,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'E:\\Coding\\PORTFOLIO\\bunga\\storage\\logs/laravel.log',
+        'path' => '/mnt/e/CODING/PORTFOLIO/bunga/storage/logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'E:\\Coding\\PORTFOLIO\\bunga\\storage\\logs/laravel.log',
+        'path' => '/mnt/e/CODING/PORTFOLIO/bunga/storage/logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -499,7 +499,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'E:\\Coding\\PORTFOLIO\\bunga\\resources\\views/vendor/mail',
+        0 => '/mnt/e/CODING/PORTFOLIO/bunga/resources/views/vendor/mail',
       ),
     ),
     'log_channel' => NULL,
@@ -548,7 +548,7 @@
     ),
     'failed' => 
     array (
-      'database' => 'mysql',
+      'database' => 'pgsql',
       'table' => 'failed_jobs',
     ),
   ),
@@ -586,7 +586,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'E:\\Coding\\PORTFOLIO\\bunga\\storage\\framework/sessions',
+    'files' => '/mnt/e/CODING/PORTFOLIO/bunga/storage/framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -606,9 +606,9 @@
   array (
     'paths' => 
     array (
-      0 => 'E:\\Coding\\PORTFOLIO\\bunga\\resources\\views',
+      0 => '/mnt/e/CODING/PORTFOLIO/bunga/resources/views',
     ),
-    'compiled' => 'E:\\Coding\\PORTFOLIO\\bunga\\storage\\framework\\views',
+    'compiled' => '/mnt/e/CODING/PORTFOLIO/bunga/storage/framework/views',
   ),
   'trustedproxy' => 
   array (
